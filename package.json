@@ -2,12 +2,7 @@
     "name": "my-nextjs-app",
     "version": "1.0.0",
     "description": "A Next.js app that shows the user their top 5 songs on Spotify",
-    "main": "index.js",
-    "scripts": {
-        "dev": "npx next dev",
-        "build": "npx next build",
-        "start": "npx next start"
-    },
+    "main": "index.js", 
     "dependencies": {
         "axios": "^0.26.1",
         "isomorphic-unfetch": "^4.0.2",
