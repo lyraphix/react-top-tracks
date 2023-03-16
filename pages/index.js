@@ -7,20 +7,19 @@ const Index = () => {
   const [topTracks, setTopTracks] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const token = sessionStorage.getItem('spotify_access_token');
-    setAccessToken(token);
+  const fetchTopTracks = async () => {
+    if (accessToken) {
+      console.log("Sending token:", accessToken);
 
-    const fetchTopTracks = async () => {
       try {
-        const response = await fetch('http://localhost:5000', { // THIS WILL NEED TO BE UPDATED FOR VERCEL DEPLOYMENT
+        const response = await fetch('/api/spotify', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ token: accessToken }),
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           setTopTracks(data.tracks);
@@ -30,14 +29,18 @@ const Index = () => {
       } catch (error) {
         console.error('Error fetching top tracks:', error);
       }
-    };
-    
-    
+    }
+  };
 
+  useEffect(() => {
+    const token = sessionStorage.getItem('spotify_access_token');
+    setAccessToken(token);
+  
     if (token) {
       fetchTopTracks();
     }
-  }, [router.query]);
+  }, [router.query, accessToken]);
+  
 
   const handleLogout = () => {
     sessionStorage.removeItem('spotify_access_token');
