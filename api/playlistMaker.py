@@ -6,12 +6,12 @@ To do: separate by genre (with possibly more songs), if bitch lasagna is in the 
 Updated: 2023/02/22 — HAHA COMBINING THINGS ACTUALLY WORKED
 """
 
+import logging
 import json
 import requests
-import random
 
-from track import Track
-from playlist import Playlist
+from api.track import Track
+from api.playlist import Playlist
 
 
 class playlistmaker:
@@ -26,31 +26,32 @@ class playlistmaker:
 
     # function for getting multiple users and merging into a playlist
     def multiple_get_tracks(self, limit):
-        """Get the top and recent n tracks played by a user
-        :param limit (int): Number of tracks to get. Should be <= 50
-        :return tracks (list of Track): List of last played tracks
-        """
+        print("multiple_get_tracks called")  # Add this line
         tracks = list()
         for user in self.tokenslist:
+            token = "".join(user)  # Add this line to join the characters into a single string
             # get top tracks first
             url = f"https://api.spotify.com/v1/me/top/tracks?limit={limit}"
-            response = self._place_get_api_request(url, user)
+            response = self._place_get_api_request(url, token)  # Update this line to use the joined token
             response_json = response.json()
             json_object = json.dumps(response_json)
-            with open("test.json", "w") as outfile:
+            with open("/tmp/test.json", "w") as outfile:  # AWS Lambda writing must be done in /tmp/
                 outfile.write(json_object)
             for track in response_json["items"]:
                 tracks.append(Track(track["name"], track["id"], track["artists"][0]["name"]))
 
             # reset the url to get recently played tracks
             url = f"https://api.spotify.com/v1/me/player/recently-played?limit={limit}"
-            response = self._place_get_api_request(url, user)
+            response = self._place_get_api_request(url, token)  # Update this line to use the joined token
             response_json = response.json()
             for track in response_json["items"]:
                 tracks.append(Track(track["track"]["name"], track["track"]["id"], track["track"]["artists"][0]["name"]))
         # remove duplicates
         tracks = set(tracks)
+
         return tracks
+
+
 
     def get_tracks_genre_filter(self, limit, requested_genres):
         """Get the top and recent n tracks played by a user
@@ -216,6 +217,7 @@ class playlistmaker:
     # API requests for Spotify
 
     def _place_get_api_request(self, url, auth):
+        print(f"Access token before request: {auth}")
         response = requests.get(
             url,
             headers={
@@ -223,7 +225,9 @@ class playlistmaker:
                 "Authorization": f"Bearer {auth}"
             }
         )
+        print(f"Response status code: {response.status_code}")
         return response
+
 
     def _place_post_api_request(self, url, data, auth):
         response = requests.post(

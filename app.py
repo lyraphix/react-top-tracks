@@ -1,5 +1,5 @@
 # flask_app.py
-from api.spotify import app
+from api.spotify.get_dummy_data import app
 from flask_cors import CORS
 
 api_v1_cors_config = {
