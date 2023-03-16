@@ -13,15 +13,17 @@ const Index = () => {
 
     const fetchTopTracks = async () => {
       try {
-        const response = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=5', {
+        const response = await fetch('http://localhost:5000', { // THIS WILL NEED TO BE UPDATED FOR VERCEL DEPLOYMENT
+          method: 'POST',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ token: accessToken }),
         });
-
+    
         if (response.ok) {
           const data = await response.json();
-          setTopTracks(data.items);
+          setTopTracks(data.tracks);
         } else {
           console.error('Failed to fetch top tracks:', response.statusText);
         }
@@ -29,6 +31,8 @@ const Index = () => {
         console.error('Error fetching top tracks:', error);
       }
     };
+    
+    
 
     if (token) {
       fetchTopTracks();
@@ -36,7 +40,7 @@ const Index = () => {
   }, [router.query]);
 
   const handleLogout = () => {
-    localStorage.removeItem('spotify_access_token');
+    sessionStorage.removeItem('spotify_access_token');
     setAccessToken(null);
     setTopTracks(null);
   };
@@ -49,7 +53,7 @@ const Index = () => {
           {topTracks ? (
             <ol>
               {topTracks.map((track) => (
-                <li key={track.id}>{track.name} by {track.artists[0].name}</li>
+                <li key={track.id}>{track.name} by {track.artist[0]}</li>
               ))}
             </ol>
           ) : (
