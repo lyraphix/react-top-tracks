@@ -7,36 +7,43 @@ const Index = () => {
   const [topTracks, setTopTracks] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const token = sessionStorage.getItem('spotify_access_token');
-    setAccessToken(token);
+  const fetchTopTracks = async () => {
+    if (accessToken) {
+      console.log("Sending token:", accessToken);
 
-    const fetchTopTracks = async () => {
       try {
-        const response = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=5', {
+        const response = await fetch('/api/spotify', {
+          method: 'POST',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
+          body: JSON.stringify({ token: accessToken }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          setTopTracks(data.items);
+          setTopTracks(data.tracks);
         } else {
           console.error('Failed to fetch top tracks:', response.statusText);
         }
       } catch (error) {
         console.error('Error fetching top tracks:', error);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
+    const token = sessionStorage.getItem('spotify_access_token');
+    setAccessToken(token);
+  
     if (token) {
       fetchTopTracks();
     }
-  }, [router.query]);
+  }, [router.query, accessToken]);
+  
 
   const handleLogout = () => {
-    localStorage.removeItem('spotify_access_token');
+    sessionStorage.removeItem('spotify_access_token');
     setAccessToken(null);
     setTopTracks(null);
   };
@@ -49,7 +56,7 @@ const Index = () => {
           {topTracks ? (
             <ol>
               {topTracks.map((track) => (
-                <li key={track.id}>{track.name} by {track.artists[0].name}</li>
+                <li key={track.id}>{track.name} by {track.artist[0]}</li>
               ))}
             </ol>
           ) : (
