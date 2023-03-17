@@ -6,14 +6,22 @@
       "use": "@vercel/next"
     },
     {
-      "src": "api/spotify/get_dummy_data.py",
+      "src": "api/spotify.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/create_playlist.py",
       "use": "@vercel/python"
     }
   ],
   "rewrites": [
     {
-      "source": "/api/spotify",
-      "destination": "/api/spotify/get_dummy_data.py"
+      "source": "/api/top_tracks",
+      "destination": "/api/spotify.py"
+    },
+    {
+      "source": "/api/create_playlist",
+      "destination": "/api/create_playlist.py"
     }
   ]
 }

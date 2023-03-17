@@ -7,13 +7,14 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start"
-      },      
+    },
     "dependencies": {
         "axios": "^0.26.1",
         "concurrently": "^7.6.0",
         "isomorphic-unfetch": "^4.0.2",
         "next": "^12.1.0",
         "query-string": "^7.1.1",
+        "rc-slider": "^10.1.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
     }
