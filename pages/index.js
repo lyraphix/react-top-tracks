@@ -11,7 +11,7 @@ const Index = () => {
   const [playlistName, setPlaylistName] = useState('');
   const playlistNameInput = useRef(null);
   const [userDisplayName, setUserDisplayName] = useState(null);
-  const [numSongs, setNumSongs] = useState(0);
+  const [numSongs, setNumSongs] = useState(10);
 
   const handleNumSongsChange = (value) => {
     setNumSongs(value);
@@ -43,6 +43,22 @@ const Index = () => {
         console.error('Error fetching top tracks:', error);
       }
     }
+  };
+  
+  const shuffleArray = (array) => {
+    let currentIndex = array.length;
+    let temporaryValue, randomIndex;
+  
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
   };
   
   
@@ -116,6 +132,14 @@ const Index = () => {
     }
   }, [router.query, accessToken, userDisplayName]);
 
+  const handleShuffle = () => {
+    if (topTracks) {
+      const shuffledTracks = shuffleArray([...topTracks]);
+      setTopTracks(shuffledTracks);
+    }
+  };
+  
+
   const handleLogout = () => {
     sessionStorage.removeItem('spotify_access_token');
     setAccessToken(null);
@@ -129,11 +153,6 @@ const Index = () => {
         <div>
           {topTracks ? (
             <div>
-            <ol>
-              {topTracks.slice(0, numSongs).map((track) => (
-                <li key={track.id}>{track.name} by {track.artist[0]}</li>
-              ))}
-            </ol>
               <input
                 type="text"
                 ref={playlistNameInput}
@@ -143,7 +162,9 @@ const Index = () => {
               />
 
               <button onClick={handleCreatePlaylist}>Create Playlist</button>
-
+              {topTracks && (
+                <button onClick={handleShuffle}>Shuffle</button>
+              )}
               <div class='CHANGE STYLE LATER' style={{ width: '20ch' }}>
                 <Slider
                   min={5}
@@ -153,7 +174,14 @@ const Index = () => {
                   onChange={handleNumSongsChange}
                 />
               <div>{numSongs} in playlist (min 5)</div>
-              </div>
+            </div>
+
+            <ol>
+              {topTracks.slice(0, numSongs).map((track) => (
+                <li key={track.id}>{track.name} by {track.artist[0]}</li>
+              ))}
+            </ol>
+
             </div>          
           ) : (
             <p>Loading your top tracks...</p>
