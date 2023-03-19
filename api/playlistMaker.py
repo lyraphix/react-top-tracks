@@ -63,22 +63,6 @@ class playlistmaker:
         url = f"https://api.spotify.com/v1/me/top/tracks?limit={limit}"
         response = self._place_get_api_request(url)
         response_json = response.json()
-        # json testing for debugging purposes
-        # json_object = json.dumps(response_json)
-        # with open("test.json", "w") as outfile:
-        #     outfile.write(json_object)
-        # f = open('test.json')
-
-        # returns JSON object as
-        # a dictionary
-        # data = json.load(f)
-        #
-        # # Iterating through the json
-        # # list
-        # for i in data['items']:
-        #     print(i)
-        # # Closing file
-        # f.close()
         tracks = list()
         # separate by genre
         for track in response_json["items"]:
@@ -136,6 +120,87 @@ class playlistmaker:
                 return True
         return False
 
+    # functions for creating a playlist
+    def create_playlist(self, name):
+        """
+        :param name (str): New playlist name
+        :return playlist (Playlist): Newly created playlist
+        """
+        userid = self.get_user_id()
+        data = json.dumps({
+            "name": name,
+            "description": "Recommended songs by Spotify Matched c:",
+            "collaborative": True,
+            "public": False
+        })
+        url = f"https://api.spotify.com/v1/users/{userid}/playlists"
+        response = self._place_post_api_request(url, data, self.authorizationToken)
+        response_json = response.json()
+        # get playlist ID for getting links
+        playlist_id = response_json["id"]
+        self.playlistid = playlist_id
+
+        playlist = Playlist(name, playlist_id)
+        return playlist
+
+    def populate_playlist(self, playlist, track_dict):
+        """Add tracks to a playlist.
+        :param playlist (Playlist): Playlist to which to add tracks
+        :param tracks (list of Track): Tracks to be added to playlist
+        :return response: API response
+        """
+        # Store tracks
+        Playlist.set_tracks(playlist, track_dict)
+
+        # Create the playlist on Spotify's end
+        track_uris = [track.create_spotify_uri() for track in track_dict]
+        data = json.dumps(track_uris)
+        url = f"https://api.spotify.com/v1/playlists/{playlist.id}/tracks"
+        response = self._place_post_api_request(url, data, self.authorizationToken)
+        response_json = response.json()
+
+
+        return response_json
+
+    def get_playlist_link(self, playlist):
+        """Gets playlist link.
+        :param playlist (Playlist): Playlist to which to get URL of
+        :return: link of playlist (string)
+        """
+        url = f"https://api.spotify.com/v1/playlists/{self.playlistid}"
+
+        response = self._place_get_api_request(url, self.authorizationToken)
+        response_json = response.json()
+        link = response_json['external_urls']['spotify']
+        Playlist.set_url(playlist, link)
+        return link
+
+    # API requests for Spotify
+
+    def _place_get_api_request(self, url, auth):
+        print(f"Access token before request: {auth}")
+        response = requests.get(
+            url,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {auth}"
+            }
+        )
+        print(f"Response status code: {response.status_code}")
+        return response
+
+
+    def _place_post_api_request(self, url, data, auth):
+        response = requests.post(
+            url,
+            data=data,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {auth}"
+            }
+        )
+        return response
+    
 
     # WIP
     # def get_track_recommendations(self, seed_tracks, requested_genres, limit=15):
@@ -167,75 +232,3 @@ class playlistmaker:
     #     tracks = [Track(track["name"], track["id"], track["artists"][0]["name"]) for
     #               track in response_json["tracks"]]
     #     return tracks
-
-    # functions for creating a playlist
-    def create_playlist(self, name):
-        """
-        :param name (str): New playlist name
-        :return playlist (Playlist): Newly created playlist
-        """
-        userid = self.get_user_id()
-        data = json.dumps({
-            "name": name,
-            "description": "Recommended songs by Spotify Matched c:",
-            "collaborative": True,
-            "public": False
-        })
-        url = f"https://api.spotify.com/v1/users/{userid}/playlists"
-        response = self._place_post_api_request(url, data, self.authorizationToken)
-        response_json = response.json()
-        # get playlist ID for getting links
-        playlist_id = response_json["id"]
-        self.playlistid = playlist_id
-
-        playlist = Playlist(name, playlist_id)
-        return playlist
-
-    def populate_playlist(self, playlist, tracks):
-        """Add tracks to a playlist.
-        :param playlist (Playlist): Playlist to which to add tracks
-        :param tracks (list of Track): Tracks to be added to playlist
-        :return response: API response
-        """
-        track_uris = [track.create_spotify_uri() for track in tracks]
-        data = json.dumps(track_uris)
-        url = f"https://api.spotify.com/v1/playlists/{playlist.id}/tracks"
-        response = self._place_post_api_request(url, data, self.authorizationToken)
-        response_json = response.json()
-        return response_json
-
-    def get_playlist_link(self):
-        """Gets playlist link.
-        :return: link of playlist (string)
-        """
-        url = f"https://api.spotify.com/v1/playlists/{self.playlistid}"
-        response = self._place_get_api_request(url, self.authorizationToken)
-        response_json = response.json()
-        link = response_json['external_urls']['spotify']
-        return link
-
-    # API requests for Spotify
-
-    def _place_get_api_request(self, url, auth):
-        print(f"Access token before request: {auth}")
-        response = requests.get(
-            url,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {auth}"
-            }
-        )
-        print(f"Response status code: {response.status_code}")
-        return response
-
-
-    def _place_post_api_request(self, url, data, auth):
-        response = requests.post(
-            url,
-            data=data,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {auth}"
-            }
-        )
-        return response

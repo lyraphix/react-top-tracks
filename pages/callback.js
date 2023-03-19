@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { getAccessToken } from '../utils/auth';
-import axios from 'axios';
 
 const Callback = () => {
   const router = useRouter();
@@ -33,7 +32,9 @@ const Callback = () => {
       }
     };
   
-    fetchUserDataAndAccessToken();
+    if (router.query.code) {
+      fetchUserDataAndAccessToken();
+    }
   }, [router]);
 
   return (

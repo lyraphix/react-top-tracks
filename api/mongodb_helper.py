@@ -1,5 +1,4 @@
 import os
-import pymongo
 from pymongo import MongoClient
 
 from api.user import User
@@ -29,15 +28,14 @@ def get_user(user_id):
 
 def create_user(user_data):
     # Create a user in the 'users' collection
+    print("User created")
     users_collection = client['musaic']['users']
     users_collection.insert_one(user_data)
-
 
 def update_user(user_id, updates):
     # Update a user's information
     users_collection = client['musaic']['users']
     users_collection.update_one({"user_id": user_id}, updates)
-
 
 
 def delete_user(user_id):

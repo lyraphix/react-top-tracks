@@ -33,9 +33,18 @@ class handler(BaseHTTPRequestHandler):
         pm.populate_playlist(playlist, tracks[:num_songs])
 
         # Get the link to the playlist
-        link = pm.get_playlist_link()
-        update_user(user_id, {"$push": {"playlists": playlist.__dict__}})
-        response_data = {"external_url": link}
+        link = pm.get_playlist_link(playlist)
+        
+        # MongoDB needs us to format tracks in a serializable format
+        serialized_tracks = [track.to_dict() for track in playlist.tracks]
+        playlist_dict = playlist.__dict__
+        playlist_dict['tracks'] = serialized_tracks
+
+        update_user(user_id, {"$push": {"playlists": playlist_dict}})
+
+
+        response_data = {"external_url": link, "playlist": playlist_dict}
+
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')

@@ -30,3 +30,10 @@ class Track:
 
     def __hash__(self):
         return hash(self.id)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "artist": self.artist
+        }

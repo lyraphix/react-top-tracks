@@ -9,8 +9,10 @@ from json import JSONEncoder
 from bson import ObjectId
 
 from api.mongodb_helper import create_user, format_user_data, user_exists, get_user
+
 from api.playlistMaker import playlistmaker
 from api.user import User
+from api.playlist import Playlist
 
 sys.path.append("..")
 
