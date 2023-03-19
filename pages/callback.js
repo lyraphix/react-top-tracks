@@ -1,31 +1,40 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { getAccessToken } from '../utils/auth';
+import axios from 'axios';
 
 const Callback = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const handleAuth = async () => {
-      const { code } = router.query;
-      console.log('Router query:', router.query);
-
-      if (code) {
-        try {
-          console.log('Exchanging code for access token...');
-          const tokenData = await getAccessToken(code);
-          console.log('Access token received:', tokenData.access_token);
-          sessionStorage.setItem('spotify_access_token', tokenData.access_token); // Changed to sessionStorage
+    const fetchUserDataAndAccessToken = async () => {
+      try {
+        const tokenResponse = await getAccessToken(router.query.code);
+        sessionStorage.setItem('spotify_access_token', tokenResponse.access_token);
+  
+        const response = await fetch('/api/handle_login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: tokenResponse.access_token }),
+        });
+  
+        if (response.ok) {
+          const user_data = await response.json();
+          sessionStorage.setItem('user_data', JSON.stringify(user_data));
           router.push('/');
-        } catch (error) {
-          console.error('Error during authentication:', error);
-          router.push('/');
+        } else {
+          console.error('Error handling user:', response.statusText);
         }
+  
+      } catch (error) {
+        console.error('Error fetching access token:', error);
       }
     };
-
-    handleAuth();
-  }, [router.query]);
+  
+    fetchUserDataAndAccessToken();
+  }, [router]);
 
   return (
     <div>

@@ -3,6 +3,8 @@ from json import dumps, loads
 
 from api.playlistMaker import playlistmaker
 from api.track import Track
+from api.playlist import Playlist
+from api.mongodb_helper import update_user
 
 class handler(BaseHTTPRequestHandler):
 
@@ -15,6 +17,9 @@ class handler(BaseHTTPRequestHandler):
         playlist_name = request_body.get('name')
         tracks_data = request_body.get('tracks')
         num_songs = request_body.get('numSongs')
+        user_id = request_body.get('user_id')
+
+        
 
         # Convert track data to Track objects
         tracks = [Track(data["name"], data["id"], data["artist"][0]) for data in tracks_data]
@@ -29,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
 
         # Get the link to the playlist
         link = pm.get_playlist_link()
-
+        update_user(user_id, {"$push": {"playlists": playlist.__dict__}})
         response_data = {"external_url": link}
 
         self.send_response(200)

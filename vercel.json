@@ -12,7 +12,16 @@
     {
       "src": "api/create_playlist.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "api/handle_login.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/mongodb_helper.py",
+      "use": "@vercel/python"
     }
+
   ],
   "rewrites": [
     {
@@ -22,6 +31,10 @@
     {
       "source": "/api/create_playlist",
       "destination": "/api/create_playlist.py"
+    },
+    {
+      "source": "/api/handle_login",
+      "destination": "/api/handle_login.py"
     }
   ]
 }

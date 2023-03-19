@@ -3,21 +3,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getAuthorizeUrl, getAccessToken } from '../utils/auth';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Sidebar from '../components/Sidebar';
 
 
 const Index = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [topTracks, setTopTracks] = useState(null);
   const [playlistName, setPlaylistName] = useState('');
-  const playlistNameInput = useRef(null);
   const [userDisplayName, setUserDisplayName] = useState(null);
   const [numSongs, setNumSongs] = useState(10);
+  const [userData, setUserData] = useState(null);
+
+  const playlistNameInput = useRef(null);
+  const router = useRouter();
+
 
   const handleNumSongsChange = (value) => {
     setNumSongs(value);
   };
-
-  const router = useRouter();
 
   const fetchTopTracks = async () => {
     if (accessToken) {
@@ -61,19 +64,19 @@ const Index = () => {
     return array;
   };
   
-  
   const handleCreatePlaylist = async () => {
     if (topTracks.length > 0) {
       const selectedTracks = topTracks.slice(0, numSongs);
       const playlistName = playlistNameInput.current.value || `${userDisplayName}'s Musaic Playlist`;
-  
+      const userId = userData.user_id;
+        
       try {
         const response = await fetch('/api/create_playlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ token: accessToken, name: playlistName, tracks: selectedTracks }),
+          body: JSON.stringify({ token: accessToken, name: playlistName, tracks: selectedTracks, user_id: userId }),
         });
   
         if (response.ok) {
@@ -91,6 +94,18 @@ const Index = () => {
     }
   };
   
+  const handleShuffle = () => {
+    if (topTracks) {
+      const shuffledTracks = shuffleArray([...topTracks]);
+      setTopTracks(shuffledTracks);
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('spotify_access_token');
+    setAccessToken(null);
+    setTopTracks(null);
+  };
   
 
   useEffect(() => {
@@ -130,27 +145,23 @@ const Index = () => {
         }
       }
     }
+    const storedUserData = sessionStorage.getItem('user_data');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
   }, [router.query, accessToken, userDisplayName]);
 
-  const handleShuffle = () => {
-    if (topTracks) {
-      const shuffledTracks = shuffleArray([...topTracks]);
-      setTopTracks(shuffledTracks);
-    }
-  };
-  
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('spotify_access_token');
-    setAccessToken(null);
-    setTopTracks(null);
-  };
 
   return (
     <div>
       <h1>Your top 5 tracks on Spotify</h1>
+      {userData && <h2>Welcome, {userData.username}!</h2>}
       {accessToken ? (
         <div>
+          {userData && (
+            <Sidebar friends={userData.friends} playlists={userData.playlists} />
+          )}
+  
           {topTracks ? (
             <div>
               <input
@@ -194,5 +205,6 @@ const Index = () => {
     </div>
   );
 };
+
 
 export default Index;
