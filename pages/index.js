@@ -30,10 +30,26 @@ const Index = ({ user, setUser }) => {
     setNumSongs(value);
   };
 
+  const generateUniquePlaylistName = (defaultName) => {
+    let newName = defaultName;
+    let counter = 1;
+  
+    const existingNames = user.playlists.map((playlist) => playlist.name);
+  
+    while (existingNames.includes(newName)) {
+      counter += 1;
+      newName = `${defaultName} ${counter}`;
+    }
+  
+    return newName;
+  };
+  
+
   const handleCreatePlaylist = async () => {
     if (topTracks.length > 0) {
       const selectedTracks = topTracks.slice(0, numSongs);
-      const playlistName = playlistNameInput.current.value || `${user.username}'s Musaic Playlist`;
+      const defaultPlaylistName = `${user.username}'s Musaic Playlist`;
+      const playlistName = playlistNameInput.current.value || generateUniquePlaylistName(defaultPlaylistName);
       const userId = user.user_id;
 
       try {
@@ -72,10 +88,11 @@ const Index = ({ user, setUser }) => {
 
   const handleShuffle = () => {
     if (topTracks) {
-      const shuffledTracks = shuffleArray(topTracks);
+      const shuffledTracks = shuffleArray([...topTracks]);
       setTopTracks(shuffledTracks);
     }
   };
+  
 
   const handleLogout = () => {
     sessionStorage.removeItem('spotify_access_token');
@@ -102,9 +119,11 @@ const Index = ({ user, setUser }) => {
   // set topTracks when user changes
   useEffect(() => {
     if (user) {
-      setTopTracks(user.tracks);
+      const shuffledTracks = shuffleArray(user.tracks);
+      setTopTracks(shuffledTracks);
     }
   }, [user]);
+  
 
   return (
     <div>
