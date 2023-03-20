@@ -1,3 +1,5 @@
 Flask
 flask-CORS
 requests
+pymongo
+bson
