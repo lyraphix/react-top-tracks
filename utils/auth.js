@@ -11,7 +11,7 @@ export const getAuthorizeUrl = () => {
     response_type: 'code',
     redirect_uri: redirectUri,
     show_dialog: true, 
-    scope: 'user-top-read playlist-modify-private playlist-modify-public user-read-email user-top-read user-read-recently-played user-read-private',
+    scope: 'user-top-read playlist-modify-private playlist-modify-public user-read-email user-read-recently-played user-read-private',
   };
 
   const authorizeUrl = `https://accounts.spotify.com/authorize?${queryString.stringify(params)}`;
