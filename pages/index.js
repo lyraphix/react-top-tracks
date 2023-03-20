@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, useRef } from 'react';
-import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Sidebar from '../components/Sidebar';
 import TopTracks from '../components/TopTracks';
 import LogoutButton from '../components/LogoutButton';
-import { shuffleArray } from '../utils/helpers';
-import { getAuthorizeUrl } from '../utils/auth';
+import SignInComponent from '../components/SignInComponent';
+import WelcomeHeader from '../components/WelcomeHeader';
+import PlaylistForm from '../components/PlaylistForm';
+import ShuffleButton from '../components/ShuffleButton';
 
 const Index = ({ user, setUser }) => {
   const [accessToken, setAccessToken] = useState(null);
@@ -28,6 +29,29 @@ const Index = ({ user, setUser }) => {
 
   const handleNumSongsChange = (value) => {
     setNumSongs(value);
+  };
+
+  const shuffleArray = (array) => {
+    let currentIndex = array.length;
+    let temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
+  const handleShuffle = () => {
+    if (topTracks) {
+      const shuffledTracks = shuffleArray([...topTracks]);
+      setTopTracks(shuffledTracks);
+    }
   };
 
   const generateUniquePlaylistName = (defaultName) => {
@@ -85,13 +109,7 @@ const Index = ({ user, setUser }) => {
       alert('Please select at least one track.');
     }
   };
-
-  const handleShuffle = () => {
-    if (topTracks) {
-      const shuffledTracks = shuffleArray([...topTracks]);
-      setTopTracks(shuffledTracks);
-    }
-  };
+  
   
 
   const handleLogout = () => {
@@ -116,9 +134,10 @@ const Index = ({ user, setUser }) => {
     }
   }, [router.query, accessToken]);
   
+
   // set topTracks when user changes
   useEffect(() => {
-    if (user) {
+    if (user && !topTracks) {
       const shuffledTracks = shuffleArray(user.tracks);
       setTopTracks(shuffledTracks);
     }
@@ -127,53 +146,39 @@ const Index = ({ user, setUser }) => {
 
   return (
     <div>
-      <h1>Your top tracks, powered by Musaic</h1>
-      {user && <h2>Welcome, {user.username}!</h2>}
       {user ? (
-        <div>
-          {user && (
-            <Sidebar
-              friends={user.friends}
-              playlists={user.playlists}
-              onToggleTracks={onToggleTracks}
-              showTracksIndex={showTracksIndex}
-            />
+        <>
+          {user.username ? (
+            <WelcomeHeader username={user.username} />
+          ) : (
+            <div>Alternate Text</div>
           )}
-
+          <Sidebar
+            friends={user.friends}
+            playlists={user.playlists}
+            onToggleTracks={onToggleTracks}
+            showTracksIndex={showTracksIndex}
+          />
           {topTracks ? (
             <div>
-              <input
-                type="text"
-                ref={playlistNameInput}
-                value={playlistName}
-                onChange={(e) => setPlaylistName(e.target.value)}
-                placeholder="Enter playlist name"
+              <PlaylistForm
+                playlistName={playlistName}
+                playlistNameInput={playlistNameInput}
+                setPlaylistName={setPlaylistName}
+                handleCreatePlaylist={handleCreatePlaylist}
+                numSongs={numSongs}
+                handleNumSongsChange={handleNumSongsChange}
               />
-
-              <button onClick={handleCreatePlaylist}>Create Playlist</button>
-
-              <button onClick={handleShuffle}>Shuffle</button>
-
-              <div class='CHANGE STYLE LATER' style={{ width: '20ch' }}>
-                <Slider
-                  min={5}
-                  max={50}
-                  defaultValue={10}
-                  value={numSongs}
-                  onChange={handleNumSongsChange}
-                />
-
-                <div>{numSongs} in playlist (min 5)</div>
-              </div>
+              <ShuffleButton handleShuffle={handleShuffle} />
               <TopTracks topTracks={topTracks} numSongs={numSongs} />
             </div>
           ) : (
             <p>Loading your top tracks...</p>
           )}
           <LogoutButton onLogout={handleLogout} />
-        </div>
+        </>
       ) : (
-        <button onClick={() => window.location.href = getAuthorizeUrl()}>Log in with Spotify</button>
+        <SignInComponent />
       )}
     </div>
   );
