@@ -16,8 +16,11 @@
     {
       "src": "api/mongodb_helper.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "api/delete_playlist.py",
+      "use": "@vercel/python"
     }
-
   ],
   "rewrites": [
     {
@@ -27,6 +30,10 @@
     {
       "source": "/api/handle_login",
       "destination": "/api/handle_login.py"
+    },
+    {
+      "source": "/api/delete_playlist",
+      "destination": "/api/delete_playlist.py"
     }
   ]
 }

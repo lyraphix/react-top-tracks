@@ -1,6 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import DeletePlaylist from './DeletePlaylist';
 
-const Sidebar = ({ friends, playlists, showTracksIndex, onToggleTracks}) => {
+const Sidebar = ({
+  friends,
+  playlists,
+  showTracksIndex,
+  onToggleTracks,
+  handleDeletePlaylists, // Receive the function as a prop
+  accessToken,
+  user,
+  setUser,
+}) => {
 
   useEffect(() => {
     const updateSidebarData = () => {
@@ -26,27 +36,34 @@ const Sidebar = ({ friends, playlists, showTracksIndex, onToggleTracks}) => {
   return (
     <div className="sidebar">
       <h2>Your Musaic Playlists</h2>
-        {playlists.map((playlist, index) => (
-            <div key={playlist._id}>
-                <button onClick={() => onToggleTracks(index)}>
-                    {showTracksIndex === index ? 'Hide Tracks' : 'Show Tracks'}
-                </button>
-                
-                <a href={playlist.url} target="_blank" rel="noopener noreferrer">
-                    {playlist.name}
-                </a>
+      <DeletePlaylist
+        playlists={playlists}
+        accessToken={accessToken}
+        user={user}
+        setUser={setUser}
+        handleDeletePlaylists={handleDeletePlaylists}
+      />
+      {playlists.map((playlist, index) => (
+          <div key={playlist._id}>
+              <button onClick={() => onToggleTracks(index)}>
+                  {showTracksIndex === index ? 'Hide Tracks' : 'Show Tracks'}
+              </button>
+              
+              <a href={playlist.url} target="_blank" rel="noopener noreferrer">
+                  {playlist.name}
+              </a>
 
-                {showTracksIndex === index && (
-                <ul>
-                    {playlist.tracks.map((track) => (
-                        <li key={track.id}>
-                            {track.name} - {track.artist}
-                        </li>
-                    ))}
-                </ul>
-                )}
-            </div>
-            ))}
+              {showTracksIndex === index && (
+              <ul>
+                  {playlist.tracks.map((track) => (
+                      <li key={track.id}>
+                          {track.name} - {track.artist}
+                      </li>
+                  ))}
+              </ul>
+              )}
+          </div>
+          ))}
     
       <h2>Friends</h2>
       <ul>
