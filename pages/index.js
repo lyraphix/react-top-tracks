@@ -31,7 +31,12 @@ const Index = ({ Component, pageProps, user, setUser }) => {
 
   const [showTracksIndex, setShowTracksIndex] = useState(null);
 
+  const [userInput, setUserInput] = useState('');
 
+  const [gptTracks, setGPTTracks] = useState(null);
+
+
+  const textInput = useRef(null);
   const playlistNameInput = useRef(null);
 
   const router = useRouter();
@@ -51,13 +56,11 @@ const Index = ({ Component, pageProps, user, setUser }) => {
 
   };
 
-
   const handleNumSongsChange = (value) => {
 
     setNumSongs(value);
 
   };
-
 
   const shuffleArray = (array) => {
 
@@ -281,7 +284,53 @@ const Index = ({ Component, pageProps, user, setUser }) => {
 
   };
 
-  
+  //after user presses submit button, calls GPT function
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handlePlaylistFromGPT();
+  }
+
+  //user also has the option to press enter after inputting phrase, alternative to submit button
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter') {
+      handlePlaylistFromGPT()
+    }
+  }
+
+  //updates value of "user input"
+  const handleInputChange = (event) => {
+    setUserInput(event.target.value);
+  }
+
+
+  const handlePlaylistFromGPT = async () => {
+    try {
+      const response = await fetch('/api/get_GPT_tracks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({token: accessToken, input: userInput}),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const externalUrl = data.external_url;
+        const createdGPTPlaylist = data.playlist;
+        const currentUserData = JSON.parse(sessionStorage.getItem('user_data'));
+        currentUserData.playlists.push(createdGPTPlaylist);
+        sessionStorage.setItem('user_data', JSON.stringify(currentUserData));
+        setUser(currentUserData);
+
+        console.log(createdTracks)
+      } else {
+          console.error('Failed to create playlist:', response.statusText);
+      }
+
+    } catch {error} {
+        console.error('Error creating playlist:', error);
+    }
+  };
 
   const handleLogout = () => {
 
@@ -294,6 +343,8 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     setTopTracks(null);
 
     setAccessToken(null);
+
+    setGPTTracks(null);
 
     console.log('User data after logout:', sessionStorage.getItem('user_data'));
 
@@ -352,6 +403,8 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       numSongs={numSongs}
       playlistName={playlistName}
       playlistNameInput={playlistNameInput}
+      textInput={textInput}
+      userInput={userInput}
       setPlaylistName={setPlaylistName}
       onToggleTracks={onToggleTracks}
       showTracksIndex={showTracksIndex}
@@ -360,6 +413,9 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       handleNumSongsChange={handleNumSongsChange}
       handleShuffle={handleShuffle}
       handleLogout={handleLogout}
+      handleInputChange={handleInputChange}
+      handleSubmit={handleSubmit}
+      handleKeyPress={handleKeyPress}
     />
   );
 

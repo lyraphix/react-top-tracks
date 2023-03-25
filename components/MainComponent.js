@@ -6,6 +6,7 @@ import LogoutButton from './LogoutButton';
 import SignInComponent from './SignInComponent';
 import PlaylistForm from './PlaylistForm';
 import ShuffleButton from './ShuffleButton';
+import GPTinput from './GPTinput';
 
 const MainComponent = ({
   user,
@@ -15,6 +16,8 @@ const MainComponent = ({
   numSongs,
   playlistName,
   playlistNameInput,
+  textInput,
+  userInput,
   setPlaylistName,
   onToggleTracks,
   showTracksIndex,
@@ -23,6 +26,9 @@ const MainComponent = ({
   handleNumSongsChange,
   handleShuffle,
   handleLogout,
+  handleInputChange,
+  handleSubmit,
+  handleKeyPress
 }) => {
   return (
     <div>
@@ -53,13 +59,13 @@ const MainComponent = ({
                 numSongs={numSongs}
                 handleNumSongsChange={handleNumSongsChange}
               />
-
               <ShuffleButton handleShuffle={handleShuffle} />
               <TopTracks topTracks={topTracks} numSongs={numSongs} />
             </div>
           ) : (
             <p>Loading your top tracks...</p>
           )}
+          <GPTinput textInput={textInput} userInput={userInput} handleInputChange={handleInputChange} handleSubmit={handleSubmit} handleKeyPress={handleKeyPress}/>
           <LogoutButton onLogout={handleLogout} />
         </>
       ) : (
