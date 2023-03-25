@@ -22,6 +22,7 @@ class handler(BaseHTTPRequestHandler):
             formatted_track = formatted_track.to_dict()
             formatted_tracks.append(formatted_track)
         formatted_playlist = Playlist(name=user_input, id=playlist_id, tracks=formatted_tracks)
+        formatted_playlist.set_url(link)
         formatted_playlist = formatted_playlist.__dict__
         
         response_data = {"external_url": link, "playlist": formatted_playlist,}
