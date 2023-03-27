@@ -16,6 +16,8 @@ import WelcomeHeader from '../components/WelcomeHeader';
 
 import PlaylistForm from '../components/PlaylistForm';
 
+import Genres from '../components/Genres';
+
 import ShuffleButton from '../components/ShuffleButton';
 import MainComponent from '../components/MainComponent';
 
@@ -34,6 +36,8 @@ const Index = ({ Component, pageProps, user, setUser }) => {
   const [userInput, setUserInput] = useState('');
 
   const [gptTracks, setGPTTracks] = useState(null);
+
+  const [topGenres, setTopGenres] = useState(null);
 
 
   const textInput = useRef(null);
@@ -302,6 +306,29 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     setUserInput(event.target.value);
   }
 
+  const handleTopGenres = async () => {
+      try {
+        const response = await fetch('/api/handleGenres', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 'token' : accessToken
+          },
+          body: JSON.stringify({ token: accessToken }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setTopGenres(data.genres);
+          console.log(data.genres);
+          console.log('successfully fetched top genres');
+        } else {
+          console.error('Failed to fetch top genres:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching top genres:', error);
+      }
+    
+  };
 
   const handlePlaylistFromGPT = async () => {
     try {
@@ -344,6 +371,8 @@ const Index = ({ Component, pageProps, user, setUser }) => {
 
     setAccessToken(null);
 
+    setTopGenres(null);
+
     setGPTTracks(null);
 
     console.log('User data after logout:', sessionStorage.getItem('user_data'));
@@ -358,7 +387,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     const token = sessionStorage.getItem('spotify_access_token');
 
     setAccessToken(token);
-
+    
 
     const storedUserData = sessionStorage.getItem('user_data');
 
@@ -384,7 +413,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     if (user && !topTracks) {
 
       const shuffledTracks = shuffleArray(user.tracks);
-
+      handleTopGenres();
       setTopTracks(shuffledTracks);
 
     }
@@ -400,6 +429,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       setUser={setUser}
       accessToken={accessToken}
       topTracks={topTracks}
+      topGenres={topGenres}
       numSongs={numSongs}
       playlistName={playlistName}
       playlistNameInput={playlistNameInput}
