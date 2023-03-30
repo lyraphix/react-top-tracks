@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Musiac</title>
+        <title>Musaic</title>
         <link rel="icon" href="/landing/logo.png" type="image/png" />
       </Head>
       <ThemeProvider theme={theme}>
