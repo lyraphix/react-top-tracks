@@ -1,0 +1,75 @@
+.all {
+    background: linear-gradient(45deg, #5e5ce6 30%, #a463f2 90%);
+  }
+  
+  .dashboard {
+    margin-left: 20px;
+  }
+  
+  .innerbox,
+  .innerbox2 {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .landingdash {
+    font-size: 24px;
+    color: white;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .playlistDisplay {
+    background: linear-gradient(45deg, #5e5ce6 30%, #a463f2 90%);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+  }
+  
+  .trackDisplay {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .trackImageContainer {
+    width: 50px;
+    height: 50px;
+    background-image: url("/landing/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+  }
+  
+  .content {
+    padding-left: 240px; /* Width of the sidebar + 20px margin */
+  }
+  
+  .createPlaylistForm {
+    position: fixed;
+    top: 0;
+    left: 240px; /* Width of the sidebar */
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+  
+  .createPlaylistButton {
+    margin-top: 10px;
+  }
+  

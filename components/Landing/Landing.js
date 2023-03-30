@@ -3,19 +3,22 @@ import styles from '@/styles/Home.module.css'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
-import About from './_about.js'
-import People from './_people.js'
+import About from '../Miscellaneous/_about.js'
+import People from '../Miscellaneous/_people.js'
 import {
   Button,
   Drawer,
 
 } from '@mui/material/';
-import Tos from "./_tos.js";
-import Privacy from "./_privacy.js";
+import Tos from "../Miscellaneous/_tos.js";
+import Privacy from "../Miscellaneous/_privacy.js";
 
-function Landing({ setUser, setShowSignIn }) {
+function Landing({ setUser, setShowSignIn, accessToken }) {
 
-
+    const handleLetsGo = () => {
+        setShowSignIn(true);
+      };
+      
     const ellipse = "/landingdown/ellipse.svg";
     var music = "/landingdown/music.png";
     var whenever = "/landingdown/whenever.png";
@@ -117,7 +120,7 @@ function Landing({ setUser, setShowSignIn }) {
             <div className={styles.flexcontainer}></div>
 
             <div className={styles.logininstance1}>
-            <Button variant="outlined" href="./signin" fullWidth>
+            <Button variant="outlined" onClick={handleLetsGo} fullWidth>
                 Login
             </Button>
             </div>
@@ -136,12 +139,10 @@ function Landing({ setUser, setShowSignIn }) {
                     variant="text"
                     fullWidth
                     sx={{ height: 60, color: 'primary.light' }}
-                    onClick={(true)}
+                    onClick={handleLetsGo}
                     >
                     LET’S GO!
                 </Button>
-
-
                 </div>
 
             </div>

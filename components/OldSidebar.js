@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import DeletePlaylist from './DeletePlaylist';
+import DeletePlaylist from './Playlist/DeletePlaylist';
 
-const Sidebar = ({
+const OldSidebar = ({
   friends,
   playlists,
   showTracksIndex,
@@ -75,4 +75,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default OldSidebar;

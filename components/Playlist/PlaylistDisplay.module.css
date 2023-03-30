@@ -1,0 +1,47 @@
+.playlistDisplay {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.playlistDisplay:hover {
+  transform: translateY(-4px);
+}
+
+.playlistImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 1rem;
+  border-radius: 8px;
+}
+
+.playlistInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlistName {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.playlistTracks {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.playlistContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 5px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: add a subtle box-shadow */
+}

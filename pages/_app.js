@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 import Head from 'next/head';
 
-import MainComponent from '../components/MainComponent';
+import MainComponent from '../components/Main/MainComponent';
 
 function MyApp({ Component, pageProps }) {
 
