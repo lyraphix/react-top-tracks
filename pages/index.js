@@ -1,24 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, useRef } from 'react';
 import 'rc-slider/assets/index.css';
-import Sidebar from '../components/OldSidebar';
-import TopTracks from '../components/TopTracks';
-import LogoutButton from '../components/Buttons/LogoutButton';
-import SignInComponent from '../components/SignIn/SignInComponent';
-import WelcomeHeader from '../components/WelcomeHeader';
-<<<<<<< HEAD
-
-import PlaylistForm from '../components/PlaylistForm';
-
-import Genres from '../components/Genres';
-
-import ShuffleButton from '../components/ShuffleButton';
-import MainComponent from '../components/MainComponent';
-=======
-import PlaylistForm from '../components/Playlist/PlaylistForm';
-import ShuffleButton from '../components/Buttons/ShuffleButton';
 import MainComponent from '../components/Main/MainComponent';
->>>>>>> 805b68a (Commiting unknown changes)
 
 const Index = ({ Component, pageProps, user, setUser }) => {
   const [accessToken, setAccessToken] = useState(null);
@@ -26,19 +9,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
   const [playlistName, setPlaylistName] = useState('');
   const [numSongs, setNumSongs] = useState(10);
   const [showTracksIndex, setShowTracksIndex] = useState(null);
-<<<<<<< HEAD
-
-  const [userInput, setUserInput] = useState('');
-
-  const [gptTracks, setGPTTracks] = useState(null);
-
-  const [topGenres, setTopGenres] = useState(null);
-
-
-  const textInput = useRef(null);
-=======
   const [creatingPlaylist, setCreatingPlaylist] = useState(false);
->>>>>>> 805b68a (Commiting unknown changes)
   const playlistNameInput = useRef(null);
   const router = useRouter();
 
@@ -121,7 +92,6 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     // Reset the selected playlists
     setSelectedPlaylists([]);
   };
-<<<<<<< HEAD
 
 
   const handleCreatePlaylist = async () => {
@@ -268,7 +238,6 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     } catch {error} {
         console.error('Error creating playlist:', error);
     }
-=======
   
   const handleCreatePlaylist = async () => {
     if (topTracks.length > 0) {
@@ -305,7 +274,6 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       alert('Please select at least one track.');
     }
     setCreatingPlaylist(false);
->>>>>>> 805b68a (Commiting unknown changes)
   };
 
   const handleLogout = () => {
@@ -314,15 +282,12 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     setUser(null);
     setTopTracks(null);
     setAccessToken(null);
-<<<<<<< HEAD
 
     setTopGenres(null);
 
     setGPTTracks(null);
 
-=======
     setShowSignIn(false); // Add this line
->>>>>>> 805b68a (Commiting unknown changes)
     console.log('User data after logout:', sessionStorage.getItem('user_data'));
   };
   
@@ -330,11 +295,8 @@ const Index = ({ Component, pageProps, user, setUser }) => {
   useEffect(() => {
     const token = sessionStorage.getItem('spotify_access_token');
     setAccessToken(token);
-<<<<<<< HEAD
     
 
-=======
->>>>>>> 805b68a (Commiting unknown changes)
     const storedUserData = sessionStorage.getItem('user_data');
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
@@ -346,10 +308,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
   useEffect(() => {
     if (user && !topTracks) {
       const shuffledTracks = shuffleArray(user.tracks);
-<<<<<<< HEAD
       handleTopGenres();
-=======
->>>>>>> 805b68a (Commiting unknown changes)
       setTopTracks(shuffledTracks);
     }
   }, [user]);
@@ -373,16 +332,14 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       handleNumSongsChange={handleNumSongsChange}
       handleShuffle={handleShuffle}
       handleLogout={handleLogout}
-<<<<<<< HEAD
       handleInputChange={handleInputChange}
       handleSubmit={handleSubmit}
       handleKeyPress={handleKeyPress}
-=======
       creatingPlaylist={creatingPlaylist}
       setCreatingPlaylist={setCreatingPlaylist}
->>>>>>> 805b68a (Commiting unknown changes)
     />
   );
 };
+}
 
 export default Index;
