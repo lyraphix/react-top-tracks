@@ -103,18 +103,18 @@ const Index = ({ user, setUser }) => {
     console.log('User data after logout:', sessionStorage.getItem('user_data'));
   };
 
-  // handle setting token and user data
   useEffect(() => {
     const token = sessionStorage.getItem('spotify_access_token');
     setAccessToken(token);
-
+  
     const storedUserData = sessionStorage.getItem('user_data');
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
       console.log(parsedUserData);
       setUser(parsedUserData);
     }
-  }, [router.query, accessToken]);
+  }, [accessToken]);
+  
   
   // set topTracks when user changes
   useEffect(() => {
