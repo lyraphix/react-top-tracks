@@ -17,7 +17,3 @@ const MainButton = (props) => {
     );
 }
 export default MainButton;
-
-//HONESTLY THIS COULD BE ANY GENERAL BUTTON
-
-//CREATE PLALIST, LOGOUT
