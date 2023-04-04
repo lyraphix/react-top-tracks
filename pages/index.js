@@ -290,13 +290,6 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     setShowSignIn(false); // Add this line
     console.log('User data after logout:', sessionStorage.getItem('user_data'));
   };
-<<<<<<< HEAD
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('spotify_access_token');
-    setAccessToken(token);
-  
-=======
   
   // handle setting token and user data
   useEffect(() => {
@@ -304,20 +297,13 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     setAccessToken(token);
     
 
->>>>>>> refs/remotes/origin/master
     const storedUserData = sessionStorage.getItem('user_data');
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
       console.log(parsedUserData);
       setUser(parsedUserData);
     }
-<<<<<<< HEAD
-  }, [accessToken]);
-  
-  
-=======
   }, [router.query, accessToken]);
->>>>>>> refs/remotes/origin/master
   // set topTracks when user changes
   useEffect(() => {
     if (user && !topTracks) {

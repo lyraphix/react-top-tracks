@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/globals.css';
+import '../src/styles/globals.css';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Head from 'next/head';
 
