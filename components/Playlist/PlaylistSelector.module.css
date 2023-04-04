@@ -1,0 +1,15 @@
+.innerfilebox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Add space between playlist items */
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);    
+  overflow-y: auto;
+  max-height: 40vh; /* Adjust the height to your preference */
+}
+
+.title {
+  margin-bottom: 200px; /* Add 200px margin below the title */
+}

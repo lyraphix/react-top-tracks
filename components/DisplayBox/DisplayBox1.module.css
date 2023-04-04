@@ -1,0 +1,19 @@
+.displayBox {
+    width: 100%;
+    height: 30vh;
+    border: solid #7581EC 1px;
+    border-radius: 15px;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #5E3BEB 0%, #42207A 100%);
+  }
+  .image {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    background-position: center;
+    background-size: cover;
+  }
+  

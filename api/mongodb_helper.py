@@ -37,6 +37,19 @@ def update_user(user_id, updates):
     users_collection = client['musaic']['users']
     users_collection.update_one({"user_id": user_id}, updates)
 
+def remove_playlist_from_user(user_id, playlist_id):
+    users = users_collection
+
+    result = users.update_one(
+        {"user_id": user_id},
+        {"$pull": {"playlists": {"id": playlist_id}}}  # Change "playlist_id" to "id"
+    )
+
+    return result.modified_count
+
+
+
+
 
 def delete_user(user_id):
     # Delete a user from the database

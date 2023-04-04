@@ -11,7 +11,7 @@ class User:
         return {
             "user_id": str(self.user_id),  # Convert ObjectId to a string
             "username": self.username,
-            "top_tracks": self.top_tracks,
+            "tracks": self.tracks,  # Change this line
             "playlists": [playlist.to_dict() for playlist in self.playlists],
             "friends": [friend.to_dict() for friend in self.friends],
             "friend_requests": [request.to_dict() for request in self.friend_requests],

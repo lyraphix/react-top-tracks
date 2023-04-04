@@ -16,8 +16,23 @@
     {
       "src": "api/mongodb_helper.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "api/delete_playlist.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/get_GPT_tracks.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/Musaic.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/handleGenres.py",
+      "use": "@vercel/python"
     }
-
   ],
   "rewrites": [
     {
@@ -27,6 +42,22 @@
     {
       "source": "/api/handle_login",
       "destination": "/api/handle_login.py"
+    },
+    {
+      "source": "/api/delete_playlist",
+      "destination": "/api/delete_playlist.py"
+    },
+    {
+      "source": "/api/get_GPT_tracks",
+      "destination": "/api/get_GPT_tracks.py"
+    },
+    {
+      "source": "/api/Musaic",
+      "destination": "/api/Musaic.py"
+    }, 
+    {
+      "source": "/api/handleGenres",
+      "destination": "/api/handleGenres.py"
     }
   ]
 }
