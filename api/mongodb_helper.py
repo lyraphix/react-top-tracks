@@ -1,6 +1,8 @@
 import os
 from pymongo import MongoClient
 
+from api.track import Track
+from api.playlist import Playlist
 from api.user import User
 
 
@@ -12,11 +14,53 @@ client = MongoClient(connection_string)
 
 db = client['musaic']  # Use the database named 'spotify_matched'
 users_collection = db['users']  # Use the collection named 'users'
+artists_db = db['artists']
+
+def get_collection_name(artist_name):
+    first_letter = artist_name[0].upper()
+    return f"{first_letter}"
+
+def is_artist_in_database(artist_name):
+    collection_name = get_collection_name(artist_name)
+    artist = artists_db[collection_name].find_one({"name": artist_name})
+    return artist is not None
+
+def store_artist_tracks_in_database(artist_name, top_tracks, related_tracks):
+    collection_name = get_collection_name(artist_name)
+    artist_data = {
+        "name": artist_name,
+        "top_tracks": [{"id": track["id"], "name": track["name"], "artist": artist_name} for track in top_tracks],
+        "related_tracks": [{"id": track["id"], "name": track["name"], "artist": track["artists"][0]["name"]} for track in related_tracks],
+    }
+    artists_db[collection_name].insert_one(artist_data)
+
+def add_user_to_db(user: User):
+    users_collection = db["users"]
+    user_data = user.to_dict()
+    users_collection.insert_one(user_data)
+
+def add_track_to_db(track: Track):
+    tracks_collection = db["tracks"]
+    track_data = track.to_dict()
+    tracks_collection.insert_one(track_data)
+
+def add_playlist_to_db(playlist: Playlist):
+    playlists_collection = db["playlists"]
+    playlist_data = playlist.to_dict()
+    playlists_collection.insert_one(playlist_data)
 
 
-def format_user_data(user_id, username, top_tracks, playlists=None, friends=None, friend_requests=None):
-    user = User(user_id, username, top_tracks, playlists, friends, friend_requests)
-    return user.to_dict()
+def format_user_data(user_id, username, top_tracks, artists=None, playlists=None, friends=None, friend_requests=None):
+    return User(
+        user_id=user_id,
+        username=username,
+        top_tracks=top_tracks,
+        artists=artists,
+        playlists=playlists,
+        friends=friends,
+        friend_requests=friend_requests
+    ).to_dict()
+
 
 def user_exists(user_id):
     users_collection = client['musaic']['users']

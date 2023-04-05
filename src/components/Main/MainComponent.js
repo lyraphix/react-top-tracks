@@ -1,12 +1,12 @@
 import React from 'react';
-import WelcomeHeader from './WelcomeHeader';
-import Sidebar from './Sidebar';
-import TopTracks from './TopTracks';
-import LogoutButton from './LogoutButton';
-import SignInComponent from './SignInComponent';
-import PlaylistForm from './PlaylistForm';
-import ShuffleButton from './ShuffleButton';
-import GPTinput from './GPTinput';
+import WelcomeHeader from '../WelcomeHeader';
+import Sidebar from '../Sidebar/Sidebar';
+import TopTracks from '../TopTracks';
+import LogoutButton from '../Buttons/LogoutButton';
+import SignInComponent from '../signin/SignInComponent';
+import PlaylistForm from '../Playlist/PlaylistForm';
+import ShuffleButton from '../Buttons/ShuffleButton';
+import GPTinput from '../GPTinput';
 
 const MainComponent = ({
   user,

@@ -5,7 +5,7 @@ Author: Ellie Paek
 
 class Playlist:
     
-    def __init__(self, name, id, tracks=None):
+    def __init__(self, name, id, tracks=None, image_url=None):
         """
         :param name (str): Playlist name
         :param id (int): Spotify playlist id
@@ -15,6 +15,7 @@ class Playlist:
         self.id = id
         self.tracks = tracks if tracks is not None else []
         self.url = None
+        self.image_url = image_url
 
     def __str__(self):
         return f"Playlist: {self.name}"

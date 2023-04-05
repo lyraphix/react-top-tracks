@@ -10,9 +10,8 @@ from bson import ObjectId
 
 from api.mongodb_helper import create_user, format_user_data, user_exists, get_user
 
-from api.playlistMaker import playlistmaker
+from api.spotify_helper import playlistmaker
 from api.user import User
-from api.playlist import Playlist
 
 sys.path.append("..")
 
@@ -39,6 +38,11 @@ class handler(BaseHTTPRequestHandler):
         user_data_from_spotify = response.json()
         user_id = user_data_from_spotify["id"]
 
+        # Get user profile image URL
+        image_url = None
+        if user_data_from_spotify["images"]:
+            image_url = user_data_from_spotify["images"][0]["url"]
+
         if user_exists(user_id):
             # Get the user from the database
             user_data = get_user(user_id)
@@ -49,12 +53,12 @@ class handler(BaseHTTPRequestHandler):
             tracks = pm.multiple_get_tracks(50)
             track_dicts = [{"id": track.id, "name": track.name, "artist": [track.artist]} for track in tracks]
 
-            
             # Create a user object and store it in the database
             user_data = format_user_data(
                 user_id,
                 user_data_from_spotify["display_name"],
-                track_dicts
+                track_dicts,
+                image_url
             )
             create_user(user_data)
 

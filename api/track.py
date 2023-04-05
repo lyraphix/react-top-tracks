@@ -15,6 +15,7 @@ class Track:
         self.name = name
         self.id = id
         self.artist = artist
+        self.image_url = image_url
 
     def create_spotify_uri(self):
         return f"spotify:track:{self.id}"
@@ -35,5 +36,6 @@ class Track:
         return {
             "id": self.id,
             "name": self.name,
-            "artist": self.artist
+            "artist": self.artist,
+            "image_url": self.image_url
         }

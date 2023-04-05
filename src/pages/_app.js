@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Head from 'next/head';
-import Dashboard from '@/pages/dashboard';
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -90,7 +89,6 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} user={user} setUser={setUser} />
-        <Dashboard/>
       </ThemeProvider>
     </>
   );

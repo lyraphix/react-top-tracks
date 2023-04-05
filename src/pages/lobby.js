@@ -7,6 +7,7 @@ import Banner from "../components/active/_bannerandsub";
 import Lobbylist from "../components/active/_lobbyparty";
 import MainBox from "../components/active/_mainbox";
 import VibePicker from "./vibePicker";
+import useLobby from '../hooks/useLobby';
 import {
     Button,
     Drawer,
@@ -21,6 +22,8 @@ export default function Lobby(props) {
     const vibepicker = "/dashboard/vibepicker.png";
     const vector = "/dashboard/vector.png";
     const avatar = "/dashboard/Avatar.png";
+
+    const [isReady, handleReady] = useLobby();
 
     var ready = true;
 
