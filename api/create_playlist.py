@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from json import dumps, loads
 
-from api.playlistMaker import playlistmaker
+from api.spotify_helper import playlistmaker
 from api.track import Track
 from api.playlist import Playlist
 from api.mongodb_helper import update_user
