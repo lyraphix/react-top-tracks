@@ -12,7 +12,7 @@ import Banner from "@/components/active/_bannerandsub";
 import Center from "@/components/active/_center";
 import Vibecontent from "@/components/active/_vibepicker";
 import MainBox from "@/components/active/_mainbox";
-import { useVibePicker } from "@/hooks/useVibePicker";
+import useVibePicker from "@/hooks/useVibePicker";
 
 export default function VibePicker(props) {
   const untitledArtwork = "/landing/logo.png";

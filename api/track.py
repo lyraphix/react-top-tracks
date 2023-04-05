@@ -5,7 +5,7 @@ Author: Ellie Paek
 
 class Track:
 
-    def __init__(self, name, id, artist):
+    def __init__(self, name, id, artist, image_url):
         """
         :param name (str): Track name
         :param id (int): Spotify track id

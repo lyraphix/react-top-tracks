@@ -1,10 +1,9 @@
-// pages/index.js
 import { useState } from 'react';
 import Landing from '../components/Landing/Landing';
 import Dashboard from '../pages/dashboard';
 import Lobby from '../pages/lobby';
 import VibePicker from '../pages/vibePicker';
-import MainComponent from '../components/MainComponent/MainComponent';
+import MainComponent from '../components/Main/MainComponent';
 
 const Index = ({ Component, pageProps, user, setUser }) => {
   const [currentPage, setCurrentPage] = useState('landing');
