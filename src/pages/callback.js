@@ -22,6 +22,7 @@ const Callback = () => {
         if (response.ok) {
           const user_data = await response.json();
           sessionStorage.setItem('user_data', JSON.stringify(user_data));
+          localStorage.setItem('loggedIn', 'true');
           router.push('/');
         } else {
           console.error('Error handling user:', response.statusText);

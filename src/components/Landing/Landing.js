@@ -13,11 +13,13 @@ import {
 import Tos from "../Miscellaneous/_tos.js";
 import Privacy from "../Miscellaneous/_privacy.js";
 
-function Landing({ setUser, setShowSignIn, accessToken }) {
+function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
 
     const handleLetsGo = () => {
-        setShowSignIn(true);
-      };
+        console.log('handleLetsGo called');
+        navigateToSignIn();
+    };
+    
       
     const ellipse = "/landingdown/ellipse.svg";
     var music = "/landingdown/music.png";

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Checkbox } from "@mui/material";
 import { getAuthorizeUrl } from '../../utils/auth';
 
-const SignInComponent = () => {
+const SignInComponent = ({ navigateToSignIn }) => {
   const rectangle = "/signin/rectangle.svg";
   const vector = "/signin/linevector.svg";
   const logo = "/signin/logotext.png";
