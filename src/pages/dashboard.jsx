@@ -87,7 +87,7 @@ const Dashboard = (props) => {
             <div className={styles.dashboard}>
                 <div className={styles.menu}>
                     <MenuaItems source={untitledArtwork} />
-                    <MenuaItems source={home} />
+                    <MenuaItems source={home}/>
 
                     <div>
                         <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
