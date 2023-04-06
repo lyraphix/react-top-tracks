@@ -28,13 +28,13 @@ const SignInComponent = ({ navigateToSignIn }) => {
               <Checkbox/>
               <span className={styles.iagreewiththeter}>
                 I agree with the
-                <Link href="/tos">
+                <link href="/tos">
                     <a className={styles.iagreewiththeter}>Terms of Service</a>
-                </Link>
+                </link>
                 and
-                <Link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
+                <link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
                     <a className={styles.iagreewiththeter}>Privacy Policy</a>
-                </Link>
+                </link>
                 of this site
                 </span>
             </div>
@@ -54,12 +54,12 @@ const SignInComponent = ({ navigateToSignIn }) => {
         <img className={styles.vector0} src={vector2} />
         <span className={styles.num20238bitsterms}>
             <span className={styles.num20238bitstermsbtext}>@2023 8BITS</span>
-            <Link href="/tos">
+            <link href="/tos">
                 <a className={styles.num20238bitstermsbtext}>Terms of Service</a>
-            </Link>
-            <Link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
+            </link>
+            <link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
                 <a className={styles.num20238bitstermsbtext}>Privacy Policy</a>
-            </Link>
+            </link>
         </span>
 
       </div>
