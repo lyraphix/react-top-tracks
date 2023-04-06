@@ -11,6 +11,8 @@ import Lobby from "./lobby";
 import Menua from "@/components/active/_avatarmenu";
 import MainButton from "@/components/active/_generalbutton"
 import MenuaItems from "@/components/index/_menuaitems";
+import Center from "@/components/active/_center";
+import TrackList from "@/components/active/_scrolltracklist";
 
 const Dashboard = (props) => {
     const untitledArtwork = "/landing/logo.png";
@@ -20,8 +22,6 @@ const Dashboard = (props) => {
     const vector = "/dashboard/vector.png";
     const avatar = "/dashboard/Avatar.png";
     const playlistNumber = 7;
-
-    const { onCreatePlaylist } = props;
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -39,6 +39,38 @@ const Dashboard = (props) => {
     const closePlaylist = () => {
         setPlaylist(null);
     };
+    const tracks = [
+        {
+          id: 1,
+          name: "Raining Tacos",
+          avatar: "/dashboard/Avatar.png",
+          author: "Dr.Choi"
+        },
+        {
+          id: 2,
+          name: "Raining Tacos",
+          avatar: "/dashboard/Avatar.png",
+          author: "Dr.Choi"
+        },
+        {
+          id: 3,
+          name: "Raining Tacos",
+          avatar: "/dashboard/Avatar.png",
+          author: "Dr.Choi"
+        },
+        {
+          id: 4,
+          name: "Raining Tacos",
+          avatar: "/dashboard/Avatar.png",
+          author: "Dr.Choi"
+        },
+        {
+            id: 5,
+            name: "RAining Pizza",
+            avatar: "/dashboard/Avatar.png",
+            author: "Dr.Choi"
+          },
+      ];
 
     return (
         <div className={styles.all}>
@@ -54,10 +86,17 @@ const Dashboard = (props) => {
 
                 </div>
                 <div className={styles.dashboardbox}>
-                    <div className={styles.innerbox}>
-                        <div className={styles.landingdash}>Hi, Y/N</div>
-                        <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px", marginBottom: "50px" }}>You have created {playlistNumber} playlists</div>
-                        <MainButton name="Create playlist" loc={onCreatePlaylist} height="50px" width="200px" />
+                    <div className={styles.innerbox} style = {{marginTop:"15vh"}}>
+                    <div className={styles.landingdash}>Hi, Y/N</div>
+                    <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"0%"}}>
+                    <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px" }}>You have created {playlistNumber} playlists</div>
+                    <MainButton name="Create playlist" loc={openPlaylist} height="50px" width="200px" />
+                    </div>
+                        
+                        
+                        
+                        
+                        <Center object={<TrackList friends={tracks}/>} />
                         {/* <img className={styles.image} src={untitledArtwork} /> */}
 
                     </div>
