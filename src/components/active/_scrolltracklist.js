@@ -15,7 +15,7 @@ const TrackList = ({ friends }) => {
     return (
         <div className={styles.mainbox}>
             <div >
-                <h2 className={styles.mainheadtext}> Track List</h2>
+                {/* <h2 className={styles.mainheadtext}> Track List</h2> */}
                 <input className={styles.search}
                     type="text"
                     placeholder="Search Tracks"

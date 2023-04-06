@@ -1,7 +1,9 @@
 .mainbox {
-    width: 1000px;
-    background-color: #191722;
-    height: 350px;
+    width: 105vw;
+    margin-left: 48vw;
+    /* background-color: #191722; */
+    margin-top: 3vh;
+    height: 60vh;
     overflow: auto;
 }
 
@@ -12,11 +14,15 @@
     height: 60px;
 
     border-color: rgba(126, 69, 195, 0.943);;
+    border-radius: 10px;
+    padding-inline: 20vw;
     font-family: Inter, sans-serif;
     color: rgba(126, 69, 195, 0.943);
     text-shadow: 0px 4px 4px rgba(220, 145, 193, 0.25);
     background-color: #191722;
-    font-size: 2vw;
+    font-size: 1.7vw;
+    letter-spacing: 1px;
+    font-weight: 100px;
 }
 
 .image {
