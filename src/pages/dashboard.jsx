@@ -58,6 +58,7 @@ const Dashboard = (props) => {
                         <div className={styles.landingdash}>Hi, Y/N</div>
                         <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px", marginBottom: "50px" }}>You have created {playlistNumber} playlists</div>
                         <MainButton name="Create playlist" loc={onCreatePlaylist} height="50px" width="200px" />
+                        <Center object={<TrackList friends={tracks}/>} />
                         {/* <img className={styles.image} src={untitledArtwork} /> */}
 
                     </div>
