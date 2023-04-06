@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Checkbox } from "@mui/material";
 import { getAuthorizeUrl } from '../../utils/auth';
 
-const SignInComponent = ({ navigateToSignIn }) => {
+const SignInComponent = ({ navigateToLanding }) => {
   const rectangle = "/signin/rectangle.svg";
   const vector = "/signin/linevector.svg";
   const logo = "/signin/logotext.png";
@@ -28,13 +28,13 @@ const SignInComponent = ({ navigateToSignIn }) => {
               <Checkbox/>
               <span className={styles.iagreewiththeter}>
                 I agree with the
-                <link href="/tos">
-                    <a className={styles.iagreewiththeter}>Terms of Service</a>
-                </link>
+                <Link href="/tos" className={styles.iagreewiththeter}>
+                    Terms of Service
+                </Link>
                 and
-                <link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
-                    <a className={styles.iagreewiththeter}>Privacy Policy</a>
-                </link>
+                <Link className={styles.iagreewiththeter} href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
+                    Privacy Policy
+                </Link>
                 of this site
                 </span>
             </div>
@@ -54,12 +54,12 @@ const SignInComponent = ({ navigateToSignIn }) => {
         <img className={styles.vector0} src={vector2} />
         <span className={styles.num20238bitsterms}>
             <span className={styles.num20238bitstermsbtext}>@2023 8BITS</span>
-            <link href="/tos">
-                <a className={styles.num20238bitstermsbtext}>Terms of Service</a>
-            </link>
-            <link href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
-                <a className={styles.num20238bitstermsbtext}>Privacy Policy</a>
-            </link>
+            <Link href="/tos" className={styles.num20238bitstermsbtext}>
+                Terms of Service
+            </Link>
+            <Link className={styles.num20238bitstermsbtext} href="https://www.gdprprivacypolicy.net/live.php?token=RYjiEytOOHcu0QGU3fMFSlUObDcusrYS">
+                Privacy Policy
+            </Link>
         </span>
 
       </div>
