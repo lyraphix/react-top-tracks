@@ -455,7 +455,7 @@
 
 .iagreewiththeter {
   color: #c1c8ff;
-  letter-spacing: 0.2%;
+  letter-spacing: 0.01%;
   margin-left: 3%;
   margin-right: 3%;
 
@@ -487,9 +487,10 @@
 
 .whydoihavetolog {
   color: crimson;
-  font-size: .7rem;
+  font-size: 0.8rem;
   line-height: 20px;
   margin-top: 5%;
+  font-weight:100px
 
 
 }
