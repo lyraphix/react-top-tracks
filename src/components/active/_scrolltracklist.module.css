@@ -26,12 +26,15 @@
 }
 
 .image {
-    height: 8%;
-    width: 8%;
+    height: 6%;
+    width: 6%;
+    margin-right: 2%;
 }
 
 .each {
     display: flex;
+    margin-left: 2%;
+    margin-bottom: 2%;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
