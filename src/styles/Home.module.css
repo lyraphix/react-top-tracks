@@ -4,6 +4,26 @@
   height: max-content;
 }
 
+.search {
+  margin-left: 3%;
+  margin-right: 5%;
+  margin-top: 7%;
+
+  width: 80vw;
+  height: 50px;
+
+  border-color: rgba(126, 69, 195, 0.943);;
+  border-radius: 10px;
+  padding-inline: 20vw;
+  font-family: Inter, sans-serif;
+  color: rgba(126, 69, 195, 0.943);
+  text-shadow: 0px 4px 4px rgba(220, 145, 193, 0.25);
+  background-color: #191722;
+  font-size: 1.7vw;
+  letter-spacing: 1px;
+  font-weight: 100px;
+}
+
 .landing {
   color: #c1c8ff;
   width: 100%;
@@ -675,6 +695,7 @@ Landing
 }
 .innerbox{
   display: flex;
+  
   justify-content:center;
   margin-left: 5%;
   flex-direction: column;
@@ -707,6 +728,7 @@ Landing
 
 .landingdash {
   /* margin-top: 15vh; */
+  
   font-family: Inter, sans-serif;
   font-weight: 100;
   font-size: 8vh;

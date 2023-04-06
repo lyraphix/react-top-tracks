@@ -3,27 +3,11 @@
     margin-left: 48vw;
     /* background-color: #191722; */
     margin-top: 3vh;
-    height: 60vh;
+    height: 55vh;
     overflow: auto;
 }
 
-.search {
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 75%;
-    height: 60px;
 
-    border-color: rgba(126, 69, 195, 0.943);;
-    border-radius: 10px;
-    padding-inline: 20vw;
-    font-family: Inter, sans-serif;
-    color: rgba(126, 69, 195, 0.943);
-    text-shadow: 0px 4px 4px rgba(220, 145, 193, 0.25);
-    background-color: #191722;
-    font-size: 1.7vw;
-    letter-spacing: 1px;
-    font-weight: 100px;
-}
 
 .image {
     height: 6%;
@@ -58,9 +42,12 @@
 .nametext {
     font-family: Inter, sans-serif;
     font-weight: 100;
-    font-size: 2vw;
+    font-size: 1.8vw;
     line-height: 40%;
     letter-spacing: 0.01em;
+    margin-right: 1.4%;
+    margin-left: 1%;
+
     
     color: rgba(126, 69, 195, 0.943);
     text-shadow: 0px 4px 4px rgba(211, 121, 216, 0.25);

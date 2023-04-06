@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import styles from './_scrolltracklist.module.css'
 
-const TrackList = ({ friends }) => {
-    const [searchTerm, setSearchTerm] = useState("");
-
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
+const TrackList = ({ friends, searchTerm }) => {
+    
 
     const filteredFriends = friends.filter((friend) =>
         friend.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -14,15 +10,7 @@ const TrackList = ({ friends }) => {
 
     return (
         <div className={styles.mainbox}>
-            <div >
-                {/* <h2 className={styles.mainheadtext}> Track List</h2> */}
-                <input className={styles.search}
-                    type="text"
-                    placeholder="Search Tracks"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                />
-            </div>
+            
             <ul >
                 {filteredFriends.map((friend) => (
                     <div className={styles.each} key={friend.id} >
