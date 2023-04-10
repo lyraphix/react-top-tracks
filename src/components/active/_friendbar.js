@@ -15,7 +15,7 @@ const FriendListSidebar = ({ friends, searchTerm }) => {
                 {filteredFriends.map((friend) => (
                     <div key={friend.id} style = {{alignSelf:"center"}}>
                         <img src={friend.avatar} alt={friend.name}/>
-                        <div style = {{display:"flex", flexdirection:"row", justifyContent:"space-around"}}>
+                        <div style = {{display:"flex", flexdirection:"row", justifyContent:"space-around", marginBottom:"20px"}}>
                             <h3 className={styles.nametext} style = {{alignSelf:"center"}}>{friend.name}</h3>
                         </div>
                     </div>
