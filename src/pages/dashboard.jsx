@@ -77,11 +77,11 @@ const Dashboard = (props) => {
             author: "Dr.Choi"
           },
       ];
-    const [searchTerm, setSearchTerm] = useState("");
+      const [searchTerm, setSearchTerm] = useState("");
 
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-    };
+      const handleSearchChange = (event) => {
+          setSearchTerm(event.target.value);
+      };
     return (
         <div className={styles.all}>
             <div className={styles.dashboard}>

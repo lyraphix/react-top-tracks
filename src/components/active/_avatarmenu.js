@@ -1,6 +1,7 @@
 
 import React from 'react';
 import MainButton from './_generalbutton';
+import styles from './_friendbar.module.css'
 import {
     Button,
     Drawer,
@@ -62,6 +63,11 @@ function Menua(props) {
           },
       ];
 
+      const [searchTerm, setSearchTerm] = useState("");
+
+      const handleSearchChange = (event) => {
+          setSearchTerm(event.target.value);
+      };
     return (
         <Menu
             id="simple-menu"
@@ -86,7 +92,17 @@ function Menua(props) {
                 onClose={closeFriendlist}
         
             >
-                <FriendListSidebar friends={friends}/>
+                <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start", backgroundColor: "rgb(2, 12, 21)"}}>
+                <h2 className={styles.mainheadtext} style = {{alignSelf:"center"}}>FRIEND LIST</h2>
+                <input className={styles.search}
+                    type="text"
+                    placeholder="Search"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style = {{alignSelf:"center"}}
+                />
+            </div>
+                <FriendListSidebar friends={friends} searchTerm={searchTerm}/>
             </Drawer>
         </Menu>
 

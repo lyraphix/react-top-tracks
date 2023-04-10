@@ -327,7 +327,7 @@
   font-weight: 40;
   
   display: flex;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .num20238bitstermsb{
@@ -376,7 +376,7 @@
   font-weight: 40;
   
   display: flex;
-  overflow: auto;
+  /* overflow: auto; */
   height: 10%;
   width: 100%;
 
@@ -570,7 +570,7 @@ Landing
   background-color: #191722;
   color:white;
   flex-grow: 1;
-  overflow: scroll;
+  /* overflow: scroll; */
   
 }
 

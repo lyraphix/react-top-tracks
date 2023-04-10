@@ -1,7 +1,7 @@
 .mainbox {
     width: 200px;
     background-color: rgb(2, 12, 21);
-    height: 1000%;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     display:"flex",
@@ -10,8 +10,6 @@
 
 .search {
     align-self: center;
-    margin-left: 10%;
-    margin-right: 5%;
     margin-top: 2%;
     width: 75%;
     height: 40px;
@@ -19,7 +17,7 @@
     border-color: rgba(126, 69, 195, 0.943);
     border-radius: 10px;
     font-family: Inter, sans-serif;
-    color: rgba(126, 69, 195, 0.943);
+    color: #d5caff;
     text-shadow: 0px 4px 4px rgba(220, 145, 193, 0.25);
     background-color: black;
     padding-left: 5px;
@@ -38,7 +36,7 @@
     letter-spacing: 0.02em;
     margin-top: 5vh;
     
-    color: #d4cdf8;
+    color: #d5caff;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -48,6 +46,7 @@
     font-size: 1.4vw;
     line-height: 40%;
     letter-spacing: 0.01em;
+    /* align-self: center; */
     /* margin-left: 12%; */
     
     color: #b4aae5;
