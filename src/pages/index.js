@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Landing from '../components/Landing/Landing';
-import Dashboard from '../pages/dashboard';
+import Dashboard from './dashboard';
 import Lobby from '../pages/lobby';
 import VibePicker from '../pages/vibePicker';
 import MainComponent from '../components/Main/MainComponent';

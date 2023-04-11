@@ -86,6 +86,13 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Musaic</title>
         <link rel="icon" href="/landing/logo.png" type="image/png" />
+        <style>
+          {`
+            body {
+              margin: 0;
+            }
+          `}
+        </style>
       </Head>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} user={user} setUser={setUser} />
