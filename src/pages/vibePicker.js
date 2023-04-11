@@ -74,6 +74,7 @@ export default function VibePicker(props) {
             }}
           >
             {phase === 'input' && (
+              
               <>
                 <div
                   style={{
@@ -87,7 +88,9 @@ export default function VibePicker(props) {
                   <Vibecontent avatar={avatar} avatarcolor={avatorColor} />
                   <Vibecontent avatar={avatar} avatarcolor={false} />
                 </div>
-                <TextField
+                <input className={styles.vibepicker}
+                  type="text"
+                  placeholder="Pick Your Vibe"
                   disabled={ready}
                   variant="outlined"
                   label="Enter your vibe here"
@@ -103,7 +106,9 @@ export default function VibePicker(props) {
                     justifySelf: "space-around",
                     background: "primary",
                   }}
-                ></TextField>
+                />
+
+                {/* </TextField> */}
                     <Center
                     object={
                         !ready ? (
