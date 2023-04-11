@@ -7,11 +7,7 @@ import { useRouter } from 'next/router';
 import { Checkbox } from "@mui/material";
 import { getAuthorizeUrl } from '../../utils/auth';
 
-<<<<<<< HEAD
 const SignInComponent = ({ navigateToDashboard }) => {
-=======
-const SignInComponent = ({ navigateToLanding }) => {
->>>>>>> refs/remotes/origin/master
   const rectangle = "/signin/rectangle.svg";
   const vector = "/signin/linevector.svg";
   const logo = "/signin/logotext.png";
@@ -62,11 +58,7 @@ const SignInComponent = ({ navigateToLanding }) => {
             <div className={styles.rectangle1157instance}>
 
             {/* https://ui-testing-backend.vercel.app */}
-<<<<<<< HEAD
             <Button variant="outlined" onClick={navigateToDashboard()} href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
-=======
-            <Button variant="outlined" onClick={handleClick} fullWidth sx={{height:45, borderWidth:2}}>
->>>>>>> refs/remotes/origin/master
                 <img className={styles.spotifylogin} src={spotify} /> 
                 Login with Spotify
             </Button>
