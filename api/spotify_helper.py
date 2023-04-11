@@ -9,9 +9,14 @@ Updated: 2023/02/22 — HAHA COMBINING THINGS ACTUALLY WORKED
 import logging
 import json
 import requests
+import random
 
 from api.track import Track
 from api.playlist import Playlist
+
+from mongodb_helper import MongodbHelper
+
+mdb = MongodbHelper()
 
 
 
@@ -189,37 +194,23 @@ class playlistmaker:
         response_json = response.json()
         return response_json['artists']
 
-    def artist_top_tracks(self, artist_id, country='US'):
-        url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country={country}"
+    def artist_top_tracks(self, artist_id, limit=10, country='US'):
+        url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country={country}&limit={limit}"
         response = self._place_get_api_request(url, self.authorizationToken)
         response_json = response.json()
         return response_json['tracks']
+
     
     def get_artist_top_100_tracks(self, artist_name):
         # Search for the artist ID using the artist name
         results = self.search(q=f"artist:{artist_name}", type="artist")
-        print("results found")
         if results['artists']['items']:
             artist_id = results['artists']['items'][0]['id']
         else:
-            print("returning empty")
             return []
 
-        # Get the artist's top 10 tracks
-        top_tracks = self.artist_top_tracks(artist_id, country='US')
-        print("top tracks founds")
-
-        # Get the artist's albums
-        url = f"https://api.spotify.com/v1/artists/{artist_id}/albums?limit=10"
-        response = self._place_get_api_request(url, self.authorizationToken)
-        albums = response.json()
-
-        # Get the tracks from the artist's albums
-        for album in albums['items']:
-            url = f"https://api.spotify.com/v1/albums/{album['id']}/tracks"
-            response = self._place_get_api_request(url, self.authorizationToken)
-            album_tracks = response.json()['items']
-            top_tracks.extend(album_tracks)
+        # Get the artist's top 100 tracks
+        top_tracks = self.artist_top_tracks(artist_id, limit=100, country='US')
 
         # Remove duplicate tracks
         unique_tracks = {track['name']: track for track in top_tracks}.values()
@@ -227,6 +218,57 @@ class playlistmaker:
         top_100_tracks = list(unique_tracks)[:100]
 
         return top_100_tracks
+    
+    def get_tracks_from_artists(self, artist_list):
+        track_ids_set = set()
+        for artist_name in artist_list:
+            print(f"Before processing artist: {artist_name}")
+
+            if artist_name:
+                # Get the first character of the artist's name (uppercase)
+                first_char = artist_name[0].upper()
+                results = self.search(q=f"artist:{artist_name}", type="artist")
+                if results['artists']['items']:
+                    artist_id = results['artists']['items'][0]['id']
+                # Check if the artist is in the corresponding collection
+                if not mdb.is_artist_in_database(artist_name):
+                    # Get top tracks and related tracks
+                    print("artist not in DB")
+                    top_tracks = self.get_artist_top_100_tracks(artist_name)
+                    print("got top tracks")
+                    related_artists = self.artist_related_artists(artist_id)
+                    related_artist_ids = [artist['id'] for artist in related_artists[:1]]
+                    related_tracks = []
+                    for related_artist_id in related_artist_ids:
+                        related_artist_tracks = self.artist_top_tracks(related_artist_id, country='US')
+                        related_tracks.extend(related_artist_tracks[:10])
+                        print("stored songs")
+
+                    # Store the artist's top tracks and related tracks in the database
+                    mdb.store_artist_tracks_in_database(artist_name, top_tracks, related_tracks)
+                    print("stored all")
+
+                # Get 10 random tracks from the artist's collection
+                artist_tracks = list(mdb.artists_db[first_char].find_one({"name": artist_name}, {'_id': 0, 'top_tracks': 1, 'related_tracks': 1}).values())
+                top_tracks, related_tracks = artist_tracks
+                top_10 = top_tracks[:10]
+                all_tracks = top_tracks[11:100] + related_tracks[:10]
+                random.shuffle(all_tracks)
+                selected_tracks = top_10 + all_tracks[:3]
+                random.shuffle(selected_tracks)
+                for track in selected_tracks[:10]:
+                    track_id = track['id']
+                    if track_id not in track_ids_set:
+                        track_ids_set.add(track_id)
+
+                print(f"After processing artist: {artist_name}")
+
+        # Shuffle the track_ids list and return 20 random songs from it
+        track_ids = list(track_ids_set)
+        random.shuffle(track_ids)
+
+        print("returning tracks ids")
+        return track_ids[:100]
 
 
     def artist_albums(self, artist_id, limit=10):
@@ -266,4 +308,7 @@ class playlistmaker:
             }
         )
         return response
+    
+
+
     

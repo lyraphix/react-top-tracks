@@ -1,11 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from json import dumps, loads
-from api.playlist import Playlist
-from api.track import Track
 
-import mongodb_helper as mdb
-import openai_helper as oah
-import spotify_helper as sph
+import api.openai_helper as oah
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):

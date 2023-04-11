@@ -96,7 +96,11 @@ const Dashboard = (props) => {
 
                 </div>
                 <div className={styles.dashboardbox}>
-                    <div className={styles.innerbox} style = {{marginTop:"15vh"}}>
+                    <div className={styles.innerbox} style = {{
+                        marginTop:"15vh",
+                        paddingTop: "20vh",
+                        paddingBottom: "10vh"
+                    }}>
                     <div className={styles.landingdash} style={{marginLeft: "3%"}}>Hi, Y/N</div>
                     <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"3%"}}>
                     <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px" }}>You have created {playlistNumber} playlists</div>
