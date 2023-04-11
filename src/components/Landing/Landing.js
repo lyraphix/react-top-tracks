@@ -14,12 +14,17 @@ import Tos from "../Miscellaneous/_tos.js";
 import Privacy from "../Miscellaneous/_privacy.js";
 
 function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
-
-    const handleLetsGo = () => {
-        console.log('handleLetsGo called');
-        navigateToSignIn();
-    };
     
+    useEffect(() => {
+        const userData = sessionStorage.getItem('user_data');
+      
+        if (userData) {
+          setUser(JSON.parse(userData));
+          setCurrentPage('dashboard');
+        }
+      }, []);
+      
+      
       
     const ellipse = "/landingdown/ellipse.svg";
     var music = "/landingdown/music.png";
@@ -34,6 +39,10 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
     const vector = "/landing/vector1.svg";
     const vector1 = "/landing/vector.svg";
     const tri = "/landing/polygon.png";
+
+    const handleLetsGo = () => {
+        navigateToSignIn();
+    }
 
     const [anchorAbout, setAbout] = useState(null);
     const openAbout = (event) => {

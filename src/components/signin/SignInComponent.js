@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Checkbox } from "@mui/material";
 import { getAuthorizeUrl } from '../../utils/auth';
 
-const SignInComponent = ({ navigateToSignIn }) => {
+const SignInComponent = ({ navigateToDashboard }) => {
   const rectangle = "/signin/rectangle.svg";
   const vector = "/signin/linevector.svg";
   const logo = "/signin/logotext.png";
@@ -41,7 +41,7 @@ const SignInComponent = ({ navigateToSignIn }) => {
             <div className={styles.rectangle1157instance}>
 
             {/* https://ui-testing-backend.vercel.app */}
-            <Button variant="outlined" href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
+            <Button variant="outlined" onClick={navigateToDashboard()} href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
                 <img className={styles.spotifylogin} src={spotify} /> 
                 Login with Spotify
             </Button>
