@@ -41,7 +41,7 @@ export default function VibePicker(props) {
       id: index + 1,
       name: track.name,
       avatar: track.image_url,
-      author: track.artistName,
+      author: track.artist,
     }));
   };
 
