@@ -13,18 +13,7 @@ import {
 import Tos from "../Miscellaneous/_tos.js";
 import Privacy from "../Miscellaneous/_privacy.js";
 
-function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
-    
-    useEffect(() => {
-        const userData = sessionStorage.getItem('user_data');
-      
-        if (userData) {
-          setUser(JSON.parse(userData));
-          setCurrentPage('dashboard');
-        }
-      }, []);
-      
-      
+function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {      
       
     const ellipse = "/landingdown/ellipse.svg";
     var music = "/landingdown/music.png";
@@ -62,17 +51,18 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
 
     const [anchorTos, setTos] = useState(null);
     const openTos = (event) => {
-    setTos(event.currentTarget);
+        setTos(event.currentTarget);
     };
     const closeTos = () => {
-    setTos(null);
+     setTos(null);
     };
+    
     const [anchorPrivacy, setPrivacy] = useState(null);
     const openPrivacy = (event) => {
-    setPrivacy(event.currentTarget);
+        setPrivacy(event.currentTarget);
     };
     const closePrivacy = () => {
-    setPrivacy(null);
+        setPrivacy(null);
     };
 
     return (
@@ -83,7 +73,7 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
             <img className={styles.untitledartwork4} src={untitledArtwork} />
             <div className={styles.navigatepages}>
             <Button variant="text" href="/">
-                <span className={styles.buttontext}>Home</span>
+                <span className={styles.buttontext}>TEST</span>
             </Button>
             </div>
             <div className={styles.navigatepages}>

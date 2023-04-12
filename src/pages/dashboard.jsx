@@ -15,6 +15,7 @@ import Center from "@/components/active/_center";
 import TrackList from "@/components/active/_scrolltracklist";
 
 const Dashboard = (props) => {
+    
     const untitledArtwork = "/landing/logo.png";
     const home = "/dashboard/home.png";
     const friend = "/dashboard/friend.png";

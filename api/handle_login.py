@@ -8,15 +8,12 @@ from http.server import BaseHTTPRequestHandler
 from json import JSONEncoder
 from bson import ObjectId
 
-from api.mongodb_helper import create_user, format_user_data, user_exists, get_user
-
-from api.spotify_helper import playlistmaker
-from api.user import User
+from api.helpers.mongodb_helper import MongodbHelper
+from api.helpers.spotify_helper import PlaylistMaker
 
 sys.path.append("..")
 
 SPOTIFY_API_ME_ENDPOINT = "https://api.spotify.com/v1/me"
-
 
 class JSONEncoderWithObjectId(JSONEncoder):
     def default(self, obj):
@@ -26,6 +23,9 @@ class JSONEncoderWithObjectId(JSONEncoder):
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
+
+        mdb = MongodbHelper()
+
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         data = json.loads(post_data)
@@ -43,32 +43,34 @@ class handler(BaseHTTPRequestHandler):
         if user_data_from_spotify["images"]:
             image_url = user_data_from_spotify["images"][0]["url"]
 
-        if user_exists(user_id):
+        if mdb.user_exists(user_id):
             # Get the user from the database
-            user_data = get_user(user_id)
+            user_data = mdb.get_user(user_id)
         else:
             # Get tracks
-
-            pm = playlistmaker([access_token])
+            pm = PlaylistMaker([access_token])
             tracks = pm.multiple_get_tracks(50)
             track_dicts = [{"id": track.id, "name": track.name, "artist": [track.artist]} for track in tracks]
 
+            # Get top artists
+            top_artists = pm.get_artists(50, access_token)
+
             # Create a user object and store it in the database
-            user_data = format_user_data(
+            user_data = mdb.format_user_data(
                 user_id,
                 user_data_from_spotify["display_name"],
                 track_dicts,
-                image_url
+                image_url,
+                top_artists
             )
-            create_user(user_data)
+
+            mdb.create_user(user_data)
 
         # Send a response back to the client
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         self.wfile.write(JSONEncoderWithObjectId().encode(user_data).encode('utf-8'))
-
-
 
 def main():
     from http.server import HTTPServer

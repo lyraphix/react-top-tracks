@@ -81,6 +81,17 @@ function MyApp({ Component, pageProps }) {
     },
   });
 
+  React.useEffect(() => {
+    if (user) {
+      sessionStorage.setItem('user', JSON.stringify(user));
+    } else {
+      const storedUser = sessionStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, [user]);  
+
   return (
     <>
       <Head>

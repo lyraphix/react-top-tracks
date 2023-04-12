@@ -58,7 +58,7 @@ const SignInComponent = ({ navigateToDashboard }) => {
             <div className={styles.rectangle1157instance}>
 
             {/* https://ui-testing-backend.vercel.app */}
-            <Button variant="outlined" onClick={navigateToDashboard()} href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
+            <Button variant="outlined" onClick={navigateToDashboard} href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
                 <img className={styles.spotifylogin} src={spotify} /> 
                 Login with Spotify
             </Button>

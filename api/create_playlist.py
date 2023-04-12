@@ -1,10 +1,12 @@
 from http.server import BaseHTTPRequestHandler
 from json import dumps, loads
 
-from api.spotify_helper import playlistmaker
-from api.track import Track
-from api.playlist import Playlist
-from api.mongodb_helper import update_user
+from api.helpers.spotify_helper import PlaylistMaker
+from api.helpers.mongodb_helper import MongodbHelper
+
+from api.schemas.track import Track
+from api.schemas.playlist import Playlist
+
 
 class handler(BaseHTTPRequestHandler):
 
@@ -19,12 +21,10 @@ class handler(BaseHTTPRequestHandler):
         num_songs = request_body.get('numSongs')
         user_id = request_body.get('user_id')
 
-        
-
         # Convert track data to Track objects
         tracks = [Track(data["name"], data["id"], data["artist"][0]) for data in tracks_data]
 
-        pm = playlistmaker([token])
+        pm = PlaylistMaker([token])
 
         # Create the playlist with the given name
         playlist = pm.create_playlist(playlist_name)
@@ -40,11 +40,10 @@ class handler(BaseHTTPRequestHandler):
         playlist_dict = playlist.__dict__
         playlist_dict['tracks'] = serialized_tracks
 
-        update_user(user_id, {"$push": {"playlists": playlist_dict}})
-
+        mdb = MongodbHelper()
+        mdb.update_user(user_id, {"$push": {"playlists": playlist_dict}})
 
         response_data = {"external_url": link, "playlist": playlist_dict}
-
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')

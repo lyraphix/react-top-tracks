@@ -1,10 +1,10 @@
 class User:
-    def __init__(self, user_id, username, top_tracks, artists=None, playlists=None, friends=None, friend_requests=None):
+    def __init__(self, user_id, username, tracks, artists=None, playlists=None, friends=None, friend_requests=None):
         self.user_id = user_id
         self.username = username
         self.friends = friends if friends is not None else []
         self.friend_requests = friend_requests if friend_requests is not None else []
-        self.tracks = top_tracks
+        self.tracks = tracks
         self.artists = artists if artists is not None else []
         self.playlists = playlists if playlists is not None else []
 

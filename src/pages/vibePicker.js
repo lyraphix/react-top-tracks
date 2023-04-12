@@ -11,17 +11,18 @@ import Banner from "@/components/active/_bannerandsub";
 import MainBox from "@/components/active/_mainbox";
 import useVibePicker from "@/hooks/useVibePicker";
 import GPTinput from "@/components/GPTinput";
+import TrackList from "@/components/active/_scrolltracklist";
 
 export default function VibePicker(props) {
   const textInput = useRef(null);
   const [userInput, setUserInput] = useState("");
-  const { phase, playlist, fetchRecommendedTracks } = useVibePicker();
-
+  const { phase, playlist, fetchedTracks, filteredTracks, fetchRecommendedTracks, applyFilter } = useVibePicker();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorPlaylist, setPlaylist] = useState(null);
 
-  const handleTextChange = (event) => {
+  const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
 
@@ -29,15 +30,22 @@ export default function VibePicker(props) {
     fetchRecommendedTracks(userInput);
   };
 
-  const handleInputChange = (event) => {
-    setUserInput(event.target.value);
-  };
-
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleReadyClick();
     }
   };
+
+  const formatTracks = (tracks) => {
+    return tracks.map((track, index) => ({
+      id: index + 1,
+      name: track.name,
+      avatar: track.image_url,
+      author: track.artistName,
+    }));
+  };
+
+  const trackDisplayDictionary = formatTracks(filteredTracks);
 
   return (
     <div className={styles.all} style={{ backgroundColor: "#282634" }}>
@@ -70,7 +78,7 @@ export default function VibePicker(props) {
             )}
             {phase === 'playlist' && (
               <>
-                {/* Render playlist tracks and customization UI here */}
+                <TrackList friends={trackDisplayDictionary} searchTerm={searchTerm} />
               </>
             )}
           </div>

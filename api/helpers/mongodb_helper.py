@@ -1,9 +1,9 @@
 import os
 from pymongo import MongoClient
 
-from api.track import Track
-from api.playlist import Playlist
-from api.user import User
+from api.schemas.track import Track
+from api.schemas.playlist import Playlist
+from api.schemas.user import User
 
 
 class MongodbHelper:
@@ -14,7 +14,7 @@ class MongodbHelper:
         connection_string = f"mongodb+srv://{username}:{password}@spotifymatched.2u1gxhe.mongodb.net/?retryWrites=true&w=majority"
         client = MongoClient(connection_string)
 
-        self.db = client['musaic']  # Use the database named 'spotify_matched'
+        self.db = client['musaic']  # Use the database named 'musaic'
         self.users_collection = self.db['users']  # Use the collection named 'users'
         self.artists_db = self.db['artists']
 
@@ -31,8 +31,8 @@ class MongodbHelper:
         collection_name = self.get_collection_name(artist_name)
         artist_data = {
             "name": artist_name,
-            "top_tracks": [{"id": track["id"], "name": track["name"], "artist": artist_name} for track in top_tracks],
-            "related_tracks": [{"id": track["id"], "name": track["name"], "artist": track["artists"][0]["name"]} for track in related_tracks],
+            "top_tracks": [track.to_dict() for track in top_tracks],
+            "related_tracks": [track.to_dict() for track in related_tracks],
         }
         self.artists_db[collection_name].insert_one(artist_data)
 
@@ -50,16 +50,17 @@ class MongodbHelper:
         playlist_data = playlist.to_dict()
         playlists_collection.insert_one(playlist_data)
 
-    def format_user_data(self, user_id, username, top_tracks, artists=None, playlists=None, friends=None, friend_requests=None):
-        return User(
-            user_id=user_id,
-            username=username,
-            top_tracks=top_tracks,
-            artists=artists,
-            playlists=playlists,
-            friends=friends,
-            friend_requests=friend_requests
-        ).to_dict()
+    def format_user_data(self, user_id, username, tracks, image_url, top_artists, playlists=[], friends=None, friend_requests=None):
+        return {
+            "user_id": user_id,
+            "username": username,
+            "tracks": tracks,
+            "playlists": playlists,
+            "image_url": image_url,
+            "top_artists": top_artists,
+            "friends": friends,
+            "friend_requests": friend_requests
+        }
 
     def user_exists(self, user_id):
         return self.users_collection.find_one({"user_id": user_id}) is not None
