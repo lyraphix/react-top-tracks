@@ -1,6 +1,12 @@
 {
   "/_app": "pages/_app.js",
+  "/callback": "pages/callback.html",
+  "/dashboard": "pages/dashboard.html",
+  "/": "pages/index.html",
+  "/lobby": "pages/lobby.html",
+  "/posterPage": "pages/posterPage.html",
+  "/vibePicker": "pages/vibePicker.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/dashboard": "pages/dashboard.js"
+  "/404": "pages/404.html"
 }
