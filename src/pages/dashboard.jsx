@@ -23,7 +23,7 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
 
   //const avatar = user.image_url || "/landing/logo.png";
   //const name = user.username;
-  const avatar ="/landing/logo.png";
+  const avatar ="/dashboard/Avatar.png";
   const name = "go";
   const untitledArtwork = "/landing/logo.png";
   const home = "/dashboard/home.png";
@@ -114,8 +114,9 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
       <div className={styles.all}>
         <div className={styles.dashboard}>
           <div className={styles.menu}>
-            <MenuaItems source={untitledArtwork} />
-            <MenuaItems source={home} />
+            {/* <MenuaItems source={untitledArtwork} /> */}
+            <Button href="/"><img className={styles.signinlogo} src={untitledArtwork} style={{width:"30px", height:"30px"}}/></Button>
+            {/* <MenuaItems source={home} /> */}
   
             <div>
               <img
