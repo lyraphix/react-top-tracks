@@ -22,7 +22,10 @@ class handler(BaseHTTPRequestHandler):
         user_id = request_body.get('user_id')
 
         # Convert track data to Track objects
-        tracks = [Track(data["name"], data["id"], data["artist"][0]) for data in tracks_data]
+        tracks = [Track(data["name"], data["id"], data["artist"][0], data.get("image_url", "/landing/logo.png")) for data in tracks_data]
+
+
+
 
         pm = PlaylistMaker([token])
 

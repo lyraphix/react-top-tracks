@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Head from 'next/head';
 
@@ -81,16 +81,19 @@ function MyApp({ Component, pageProps }) {
     },
   });
 
-  React.useEffect(() => {
-    if (user) {
-      sessionStorage.setItem('user', JSON.stringify(user));
-    } else {
-      const storedUser = sessionStorage.getItem('user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'user_data') {
+        setUser(JSON.parse(e.newValue));
       }
-    }
-  }, [user]);  
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+ 
 
   return (
     <>

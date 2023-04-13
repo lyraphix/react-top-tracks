@@ -29,7 +29,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       case 'signIn':
         return <SignInComponent navigateToDashboard={() => setCurrentPage('dashboard')} />;
       case 'dashboard':
-        return <Dashboard onCreatePlaylist={handleCreatePlaylist} />;
+        return <Dashboard user={user} setUser={setUser} onCreatePlaylist={handleCreatePlaylist} />;
       default:
         return <Landing navigateToSignIn={() => setCurrentPage('signIn')} />;
     }

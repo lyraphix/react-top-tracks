@@ -61,7 +61,10 @@ class handler(BaseHTTPRequestHandler):
                 user_data_from_spotify["display_name"],
                 track_dicts,
                 image_url,
-                top_artists
+                top_artists,
+                playlists=[],
+                friends=None, 
+                friend_requests=None,
             )
 
             mdb.create_user(user_data)

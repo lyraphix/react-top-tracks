@@ -1,16 +1,30 @@
 import { useState } from 'react';
 
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
+
 const useVibePicker = () => {
   const [playlist, setPlaylist] = useState(null);
+  const [playlistName, setPlaylistName] = useState('');
   const [phase, setPhase] = useState('input');
   const [fetchedTracks, setFetchedTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const applyFilter = (numTracks) => {
+    shuffleArray(fetchedTracks);
+    setFilteredTracks(fetchedTracks.slice(0, numTracks));
+  };
+
   const fetchRecommendedTracks = async (userInput, page = 1) => {
     try {
       // Get the user's access token and top artists from session storage
-      const userData = JSON.parse(sessionStorage.getItem('user'));
+      const userData = JSON.parse(sessionStorage.getItem('user_data'));
       console.log('User data from sessionStorage:', userData);
 
       const accessToken = sessionStorage.getItem('spotify_access_token');
@@ -62,11 +76,6 @@ const useVibePicker = () => {
     }
   };
 
-  const applyFilter = (filterFunction) => {
-    const newFilteredTracks = fetchedTracks.filter(filterFunction);
-    setFilteredTracks(newFilteredTracks);
-  };
-
   // Other functions to handle playlist customization
 
   return {
@@ -79,7 +88,9 @@ const useVibePicker = () => {
     fetchNextPage, 
     fetchPreviousPage,  
     currentPage,
-  };
+    playlistName,
+    setPlaylistName,
+  };  
 };
 
 export default useVibePicker;
