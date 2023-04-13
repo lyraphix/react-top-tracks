@@ -61,6 +61,7 @@ export default function VibePicker(props) {
           >
             {phase === 'input' && (
               <GPTinput
+                
                 textInput={textInput}
                 userInput={userInput}
                 handleInputChange={handleInputChange}

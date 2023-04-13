@@ -86,9 +86,11 @@ const Dashboard = (props) => {
         <div className={styles.all}>
             <div className={styles.dashboard}>
                 <div className={styles.menu}>
-                    <MenuaItems source={untitledArtwork} />
-                    <MenuaItems source={home}/>
-
+                    <div style={{paddingTop:3, paddingLeft:10}}>
+                    <Button href="/"><img className={styles.signinlogo} src={untitledArtwork} /></Button>
+                    {/* <MenuaItems source={untitledArtwork} /> */}
+                    {/* <MenuaItems source={home}/> */}
+                    </div>
                     <div>
                         <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
                         <Menua function={handleClose} anchor={anchorEl} />
@@ -97,14 +99,13 @@ const Dashboard = (props) => {
                 </div>
                 <div className={styles.dashboardbox}>
                     <div className={styles.innerbox} style = {{
-                        marginTop:"15vh",
-                        paddingTop: "20vh",
+                        paddingTop: "10vh",
                         paddingBottom: "10vh"
                     }}>
                     <div className={styles.landingdash} style={{marginLeft: "3%"}}>Hi, Y/N</div>
                     <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"3%"}}>
-                    <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px" }}>You have created {playlistNumber} playlists</div>
-                    <MainButton name="Create playlist" loc={openPlaylist} height="50px" width="200px" />
+                    <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "4px", marginTop: "50px", lineHeight:"20px" }}>You have created {playlistNumber} playlists</div>
+                    <MainButton name="Create playlist" loc={openPlaylist} height="60px" width="200px" />
                     </div>
                         
                     <div >
