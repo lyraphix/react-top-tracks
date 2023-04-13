@@ -1,10 +1,6 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
-<<<<<<< HEAD
-  "/": "pages/index.js"
-=======
   "/_error": "pages/_error.js",
-  "/vibePicker": "pages/vibePicker.js"
->>>>>>> b0d8f294fad67c42c4f60216a9215f8c9dda5820
+  "/_document": "pages/_document.js",
+  "/dashboard": "pages/dashboard.js"
 }

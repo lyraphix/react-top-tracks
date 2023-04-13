@@ -65,52 +65,6 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
         numSongs,
         user_id: user.user_id,
       };
-<<<<<<< HEAD
-    return (
-        <div className={styles.all}>
-            <div className={styles.dashboard}>
-                <div className={styles.menu}>
-                    <div style={{paddingTop:3, paddingLeft:10}}>
-                    <Button href="/"><img className={styles.signinlogo} src={untitledArtwork} /></Button>
-                    {/* <MenuaItems source={untitledArtwork} /> */}
-                    {/* <MenuaItems source={home}/> */}
-                    </div>
-                    <div>
-                        <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
-                        <Menua function={handleClose} anchor={anchorEl} />
-                    </div>
-
-                </div>
-                <div className={styles.dashboardbox}>
-                    <div className={styles.innerbox} style = {{
-                        paddingTop: "10vh",
-                        paddingBottom: "10vh"
-                    }}>
-                    <div className={styles.landingdash} style={{marginLeft: "3%"}}>Hi, Y/N</div>
-                    <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"3%"}}>
-                    <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "4px", marginTop: "50px", lineHeight:"20px" }}>You have created {playlistNumber} playlists</div>
-                    <MainButton name="Create playlist" loc={openPlaylist} height="60px" width="200px" />
-                    </div>
-                        
-                    <div >
-                        {/* <h2 className={styles.mainheadtext}> Track List</h2> */}
-                        <input className={styles.search}
-                            type="text"
-                            placeholder="Search Tracks"
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
-                    </div>
-                        
-                        
-                        <Center object={<TrackList friends={tracks} searchTerm = {searchTerm}/>} />
-                        {/* <img className={styles.image} src={untitledArtwork} /> */}
-
-                    </div>
-
-                </div>
-=======
->>>>>>> b0d8f294fad67c42c4f60216a9215f8c9dda5820
 
       const createdPlaylist = await createPlaylist(requestBody);
       setSelectedPlaylist(createdPlaylist);
