@@ -105,6 +105,5 @@ class MongodbHelper:
         """
         user_data = {
             "user_id": userid,
-            "name": username,
         }
         self.lobbies_db[lobby_link].insert_one(user_data)
