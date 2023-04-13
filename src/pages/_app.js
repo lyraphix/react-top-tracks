@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Head from 'next/head';
 
@@ -80,6 +80,20 @@ function MyApp({ Component, pageProps }) {
       },
     },
   });
+
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'user_data') {
+        setUser(JSON.parse(e.newValue));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+ 
 
   return (
     <>

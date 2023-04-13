@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from json import dumps, loads
 
-from api.mongodb_helper import remove_playlist_from_user
+from api.helpers.mongodb_helper import remove_playlist_from_user
 
 class handler(BaseHTTPRequestHandler):
 
@@ -16,6 +16,7 @@ class handler(BaseHTTPRequestHandler):
         print(f"Deleting playlist: {playlist_id} for user: {user_id}")  # Add print statement
 
         remove_playlist_from_user(user_id, playlist_id)
+        # we need to add a call to spotify helper to delete here too
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')

@@ -15,7 +15,7 @@ import {
     MenuItem
 } from "@mui/material";
 
-export default function Lobby(props) {
+export default function Lobby({ handleCreatePlaylist, ...props }) {
     const untitledArtwork = "/landing/logo.png";
     const home = "/dashboard/home.png";
     const friend = "/dashboard/friend.png";
@@ -65,8 +65,8 @@ export default function Lobby(props) {
                     open={Boolean(anchorVibe)}
                     onClose={closeVibe}
                     sx={{ backgroundColor: 'background' }}
-                >
-                    < VibePicker pass={closeVibe} />
+                    >
+                    <VibePicker handleCreatePlaylist={handleCreatePlaylist} pass={closeVibe} />
                 </Drawer>
             </div>} />
 

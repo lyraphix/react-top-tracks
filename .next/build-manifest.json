@@ -29,6 +29,14 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
+<<<<<<< HEAD
+=======
+    ],
+    "/vibePicker": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/vibePicker.js"
+>>>>>>> b0d8f294fad67c42c4f60216a9215f8c9dda5820
     ]
   },
   "ampFirstPages": []
