@@ -162,7 +162,7 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
             </div>
   
             <div className={styles.action}>
-              <Drawer anchor={"right"} open={Boolean(anchorPlaylist)} >
+              <Drawer anchor={"right"} open={Boolean(anchorPlaylist)} onClose={closePlaylist}>
                 <Lobby
                   defaultPlaylistName={"New Playlist"}
                   tracks={[]}
