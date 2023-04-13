@@ -600,7 +600,8 @@ Landing
 
 .dashboard2 {
   width:fit-content;
-  height:auto;
+  height:100vh;
+  overflow: hidden;
  
 }
 .menu{
