@@ -19,6 +19,7 @@ class MongodbHelper:
         self.artists_db = self.db['artists']
 
     def get_collection_name(self, artist_name):
+        artist_name = ''.join(filter(lambda x: x.isalpha() or x.isdigit() or x.isspace(), artist_name))
         first_letter = artist_name[0].upper()
         return f"{first_letter}"
 
