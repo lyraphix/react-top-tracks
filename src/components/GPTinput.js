@@ -6,7 +6,7 @@ const GPTinput = ({textInput, userInput, handleInputChange, handleSubmit, handle
     return (
         <div style={{flexDirection:"column", justifyContent:"center",display:"flex"}}>
             <div style={{flexDirection:"column", justifyContent:"center", display:"flex"}}>
-            <h1 style={{fontSize:"3vh", fontFamily:"Inter, sans-serif", fontWeight:"100", alignSelf:"center"}}>Enter a phrase to create a playlist</h1>
+            <h1 style={{fontSize:"3vh", fontFamily:"Inter, sans-serif", fontWeight:"100", alignSelf:"center", marginTop:"40px", color:"#c1c8ff", letterSpacing:"2px", lineHeight:"30px"}}>Enter a phrase to create a playlist: </h1>
             <input
                 className={styles.search}
                 ref={textInput}
