@@ -117,7 +117,7 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
                   step={1}
                   onChange={handleSliderChange}
                   valueLabelDisplay="auto"
-                  style={{ marginBottom: "1rem" }}
+                  style={{ marginBottom: "1rem", width: "400px" }}
                 />}
                 object2={<TrackList friends={trackDisplayDictionary} searchTerm={searchTerm} style={trackListStyle} />}
                 object3={                

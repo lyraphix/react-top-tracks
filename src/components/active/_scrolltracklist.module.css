@@ -6,7 +6,9 @@
     height: 55vh;
     overflow: auto;
     border-color: rgba(126, 69, 195, 0.943);
+    align-self: center;
 }
+
 
 
 

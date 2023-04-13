@@ -5,11 +5,12 @@ const Center = (props) => {
 
     return(
         <div style = {{
-            flexDirection:"row", 
+            flexDirection:"column", 
             // width:"30vw", 
             // height: "60px", 
             // borderRadius:"30px",
             // background: "#BAC0F1",
+            justifyContent:"center",
             alignSelf:"center",
             marginBottom:"40px",
             display: "flex"}}>
