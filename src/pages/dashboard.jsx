@@ -31,6 +31,7 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
   const vibepicker = "/dashboard/vibepicker.png";
   const vector = "/dashboard/vector.png";
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -38,8 +39,7 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
+ 
   const [anchorPlaylist, setPlaylist] = useState(null);
   const openPlaylist = (event) => {
     setPlaylist(event.currentTarget);
