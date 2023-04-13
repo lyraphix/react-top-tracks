@@ -53,7 +53,7 @@ class MongodbHelper:
         playlist_data = playlist.to_dict()
         playlists_collection.insert_one(playlist_data)
 
-    def format_user_data(self, user_id, username, tracks, image_url, top_artists, playlists=[], friends=None, friend_requests=None):
+    def format_user_data(self, user_id, username, tracks, image_url, top_artists, playlists=[], friends={}, friend_requests=None):
         return {
             "user_id": user_id,
             "username": username,
