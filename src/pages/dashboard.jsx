@@ -21,10 +21,8 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const { playlists, createPlaylist, updatePlaylist } = useDashboard(user);
 
-  //const avatar = user.image_url || "/landing/logo.png";
-  //const name = user.username;
-  const avatar ="/dashboard/Avatar.png";
-  const name = "go";
+  const avatar = user.image_url || "/landing/logo.png";
+  const name = user.username;
   const untitledArtwork = "/landing/logo.png";
   const home = "/dashboard/home.png";
   const friend = "/dashboard/friend.png";
