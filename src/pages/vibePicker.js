@@ -100,13 +100,16 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
             )}
             {phase === 'playlist' && (
               <>
+              <Center 
+                object= {
                 <TextField
                   label="Playlist Name"
                   value={playlistName}
                   onChange={handlePlaylistNameChange}
                   style={{ marginBottom: "1rem" }}
-                />
-                <Slider
+                />}
+                object1={
+                  <Slider
                   value={numTracks}
                   min={1}
                   max={fetchedTracks.length}
@@ -114,16 +117,18 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
                   onChange={handleSliderChange}
                   valueLabelDisplay="auto"
                   style={{ marginBottom: "1rem" }}
-                />
-                <TrackList friends={trackDisplayDictionary} searchTerm={searchTerm} style={trackListStyle} />
-                <Button
+                />}
+                object2={<TrackList friends={trackDisplayDictionary} searchTerm={searchTerm} style={trackListStyle} />}
+                object3={                
+                  <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handleCreatePlaylist(playlistName, filteredTracks)}
                   style={{ marginTop: "1rem" }}
                 >
                   Create Playlist
-                </Button>
+                </Button>}
+              />
               </>
             )}
           </div>
