@@ -17,6 +17,8 @@ class MongodbHelper:
         self.db = client['musaic']  # Use the database named 'musaic'
         self.users_collection = self.db['users']  # Use the collection named 'users'
         self.artists_db = self.db['artists']
+        # lobby db
+        self.lobbies_db = client['lobbies']
 
     def get_collection_name(self, artist_name):
         artist_name = ''.join(filter(lambda x: x.isalpha() or x.isdigit() or x.isspace(), artist_name))
@@ -84,3 +86,25 @@ class MongodbHelper:
             {"$pull": {"playlists": {"id": playlist_id}}}
         )
         return result.modified_count
+
+    # functions for lobby
+    def is_user_in_lobby(self, lobby_link, userid):
+        """
+        check if user is in lobby
+        :param lobby_link: reference for lobby link to access db
+        :param userid: reference for unique userid
+        """
+        user = self.lobbies_db[lobby_link].find_one({"user_id": userid})
+        return user is not None
+
+    def store_user_in_lobby(self, lobby_link, userid, username):
+        """
+        if user isn't in lobby, store
+        :param lobby_link: reference for lobby link to access db
+        :param userid: reference for unique userid
+        """
+        user_data = {
+            "user_id": userid,
+            "name": username,
+        }
+        self.lobbies_db[lobby_link].insert_one(user_data)
