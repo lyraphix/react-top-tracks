@@ -183,15 +183,15 @@ const Dashboard = ({ user, setUser, onCreatePlaylist }) => {
                   onTrackClick={(track) => window.open(track.url, "_blank")}
                 />
               )}
-  
-              <MainButton
-                onClick={openPlaylist}
-                variant="contained"
-                color="primary"
-                className={styles.button}
+              <MainButton name="Create Playlist" loc={openPlaylist} />
+              {/* <MainButton
+                loc={openPlaylist}
+                // variant="contained"
+                // color="primary"
+                // className={styles.button}
               >
                 Create Playlist
-              </MainButton>
+              </MainButton> */}
             </div>
           </div>
         </div>
