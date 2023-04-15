@@ -214,7 +214,7 @@ return (
         <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
           <Lobby
             handleCreatePlaylist={handleCreatePlaylist}
-            onClose={closeLobby}
+            pass={closeLobby}
           />
         </Drawer>
     </div>
