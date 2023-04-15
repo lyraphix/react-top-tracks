@@ -18,10 +18,6 @@ const Index = ({ Component, pageProps, user, setUser }) => {
     }
   }, []);
 
-  const handleCreatePlaylist = () => {
-    setCurrentPage('lobby');
-  };
-
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'landing':
@@ -29,7 +25,7 @@ const Index = ({ Component, pageProps, user, setUser }) => {
       case 'signIn':
         return <SignInComponent navigateToDashboard={() => setCurrentPage('dashboard')} />;
       case 'dashboard':
-        return <Dashboard user={user} setUser={setUser} onCreatePlaylist={handleCreatePlaylist} />;
+        return <Dashboard user={user} setUser={setUser} />;
       default:
         return <Landing navigateToSignIn={() => setCurrentPage('signIn')} />;
     }

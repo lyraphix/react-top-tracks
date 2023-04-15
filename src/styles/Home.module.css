@@ -4,6 +4,21 @@
   height: max-content;
 }
 
+
+
+.tracksContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
 .search {
   margin-left: 3%;
   margin-right: 5%;
@@ -670,6 +685,7 @@ Landing
   margin-bottom: 100%;
   margin-top:35vh;
   margin-bottom:40%;
+  border-radius: 50%;
 
   margin-left: 20%;
 

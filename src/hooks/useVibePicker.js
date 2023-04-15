@@ -35,9 +35,9 @@ const useVibePicker = () => {
         token: accessToken,
         input: userInput,
         artist_ids: artists,
-        page,  // Add this line
+        page,  // Pagination
       };
-
+      console.log('Request body:', requestBody);
       const response = await fetch('/api/get_GPT_tracks', {
         method: 'POST',
         headers: {
@@ -47,8 +47,9 @@ const useVibePicker = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Error fetching recommended tracks');
+        throw new Error(`Error fetching recommended tracks: ${response.status} ${response.statusText}`);
       }
+
 
       const data = await response.json();
       console.log(data);

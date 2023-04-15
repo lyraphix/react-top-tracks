@@ -15,8 +15,10 @@ import TrackList from "@/components/active/_scrolltracklist";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import Center from "@/components/active/_center";
+import { formatTracks } from "@/pages/dashboard";
+import MainButton from "@/components/active/_generalbutton";
 
-export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }) {
+export default function VibePicker({ pass, handleCreatePlaylist }) {
   const textInput = useRef(null);
   const [userInput, setUserInput] = useState("");
   const { phase, playlist, fetchedTracks, filteredTracks, fetchRecommendedTracks, applyFilter } = useVibePicker();
@@ -34,6 +36,7 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
   };
   
 
+  
   const handlePlaylistNameChange = (event) => {
     setPlaylistName(event.target.value);
   };
@@ -57,14 +60,6 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
     }
   };
 
-  const formatTracks = (tracks) => {
-    return tracks.map((track, index) => ({
-      id: index + 1,
-      name: track.name,
-      avatar: track.image_url,
-      author: track.artist,
-    }));
-  };
 
   const trackDisplayDictionary = formatTracks(filteredTracks);
 
@@ -91,6 +86,7 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
           >
             {phase === 'input' && (
               <GPTinput
+                
                 textInput={textInput}
                 userInput={userInput}
                 handleInputChange={handleInputChange}
@@ -100,30 +96,32 @@ export default function VibePicker({ user, setUser, pass, handleCreatePlaylist }
             )}
             {phase === 'playlist' && (
               <>
+              <Center 
+                object= {
                 <TextField
                   label="Playlist Name"
                   value={playlistName}
                   onChange={handlePlaylistNameChange}
                   style={{ marginBottom: "1rem" }}
-                />
-                <Slider
+                />}
+                object1={
+                  <Slider
                   value={numTracks}
                   min={1}
                   max={fetchedTracks.length}
                   step={1}
                   onChange={handleSliderChange}
                   valueLabelDisplay="auto"
-                  style={{ marginBottom: "1rem" }}
+                  style={{ width: "200px" }}
+                />}
+                object2={<TrackList items={trackDisplayDictionary} />}
+                object3={                
+                  <MainButton
+                  loc={handleCreatePlaylist(playlistName, filteredTracks)}
+                  >
+                    Create Playlist
+                  </MainButton>}
                 />
-                <TrackList friends={trackDisplayDictionary} searchTerm={searchTerm} style={trackListStyle} />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleCreatePlaylist(playlistName, filteredTracks)}
-                  style={{ marginTop: "1rem" }}
-                >
-                  Create Playlist
-                </Button>
               </>
             )}
           </div>

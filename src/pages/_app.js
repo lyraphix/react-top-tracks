@@ -84,10 +84,13 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === 'user_data') {
-        setUser(JSON.parse(e.newValue));
+        const userData = JSON.parse(e.newValue);
+        userData.playlists = userData.playlists || [];
+        userData.image_url = userData.image_url || "/landing/logo.png";
+        setUser(userData);
       }
     };
-
+  
     window.addEventListener('storage', handleStorageChange);
     return () => {
       window.removeEventListener('storage', handleStorageChange);

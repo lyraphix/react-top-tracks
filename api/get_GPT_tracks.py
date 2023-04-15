@@ -64,7 +64,7 @@ class handler(BaseHTTPRequestHandler):
         random.shuffle(tracks)
         tracks = tracks[:100]
 
-        per_page = 20  # Number of tracks per page
+        per_page = 10  # Number of tracks per page
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
         paginated_tracks = tracks[start_index:end_index]
