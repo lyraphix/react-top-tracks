@@ -186,7 +186,7 @@ return (
                             </div>
                           </Grid>
                           <Grid item xs={12} md={6}>
-                            {loading ? (
+                            {loadingPlaylist ? (
                               <div>Loading...</div>
                             ) : selectedPlaylist ? (
                               <div className={styles.tracks}>
