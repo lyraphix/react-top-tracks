@@ -47,7 +47,7 @@ const Dashboard = ({ user, setUser }) => {
   const vibepicker = "/dashboard/vibepicker.png";
   const vector = "/dashboard/vector.png";
 
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,7 +55,6 @@ const Dashboard = ({ user, setUser }) => {
   const handleClose = () => {
       setAnchorEl(null);
   };
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const openPlaylist = (event) => {
     setAnchorEl(event.currentTarget);
@@ -122,74 +121,92 @@ return (
   user && (
     <div className={styles.all}>
         <div className={styles.dashboard}>
-            <div className={styles.menu}>
-                <MenuaItems source={untitledArtwork} />
-                <MenuaItems source={home}/>
-
-                <div>
-                    <img onClick={openPlaylist} className={styles.untitledartworkdash3} src={avatar} />
-                    <Menua function={closePlaylist} anchor={anchorEl} />
-                </div>
-
+          <div className={styles.menu}>
+            {/* <MenuaItems source={untitledArtwork} /> */}
+            <Button href="/"><img className={styles.signinlogo} src={untitledArtwork} style={{width:"30px", height:"30px"}}/></Button>
+            {/* <MenuaItems source={home} /> */}
+  
+            <div>
+              <img
+                onClick={handleClick}
+                className={styles.avatar}
+                src={avatar}
+                alt={name}
+              />
+              <h2 className={styles.name}>{name}</h2>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
             </div>
-            <div className={styles.dashboardbox} style = {{
-                    paddingTop: "20vh",
-                    paddingBottom: "10vh"
-                }}>
-                <div className={styles.innerbox}>
-                <div className={styles.landingdash} style={{marginLeft: "3%"}}>Hi, Y/N</div>
-                <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"3%"}}>
-                <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px" }}>You have created {playlists ? playlists.length : 0} playlists</div>
-                <MainButton name="Create playlist" loc={setPlaylist} height="50px" width="200px" />
-                </div>
-                    
-                <div >
-                    <input className={styles.search}
-                        type="text"
-                        placeholder="Search Tracks"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                    />
-                </div>
-                    
-                    
-                    <Center object={
-                      <div className={styles.tracksContainer}>
-                        {playlists && playlists.length > 0 ? (
-                          <>
-                            <div className={styles.tracks}>
-                              <TrackList
-                                items={formatPlaylists(playlists)}
-                                onSelection={setCurrentPlaylist}
-                              />
-                            </div>
-
-                            {selectedPlaylist && (
-                              <TrackList
-                                items={formatTracks(selectedPlaylist?.tracks || [])}
-                              />
-                            )}
-                          </>
-                        ) : (
-                          <span className = { styles.friendmatch }> No playlists available, why don't you make your first! </span>
-                        )}
-                      </div>
-                    } />
-                </div>
-
+  
+            <MenuaItems source={friend} />
+  
+            <TextField
+              className={styles.search}
+              id="outlined-basic"
+              label="Search"
+              variant="outlined"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
+  
+          <div className={styles.content}>
+            <Center>
+              <img src={vibepicker} alt="vibepicker" />
+              <h2>Playlists</h2>
+            </Center>
+  
+            <div className={styles.tracks}>
+              <TrackList
+                friends={formatPlaylists(playlists)}
+                onSelection={setCurrentPlaylist}
+              />
             </div>
-
+  
+            <div className={styles.action}>
+              <Drawer anchor={"right"} open={Boolean(anchorPlaylist)} onClose={closePlaylist}>
+                <Lobby
+                  defaultPlaylistName={"New Playlist"}
+                  tracks={[]}
+                  numSongs={5}
+                  onCreate={handleCreatePlaylist}
+                />
+              </Drawer>
+  
+              {selectedPlaylist && (
+                <TrackList
+                  tracks={formatTracks(selectedPlaylist?.tracks || [])}
+                  onEdit={(tracks) =>
+                    handleUpdatePlaylist(
+                      selectedPlaylist?.id,
+                      selectedPlaylist?.name,
+                      tracks
+                    )
+                  }
+                  onTrackClick={(track) => window.open(track.url, "_blank")}
+                />
+              )}
+              {/* <MainButton name="Create Playlist" loc={openPlaylist} /> */}
+              <Button
+                onClick={openPlaylist}
+                variant="contained"
+                color="primary"
+                className={styles.button}
+              >
+                Create Playlist
+              </Button>
+            </div>
+          </div>
         </div>
+      </div>
+    )
+  );
+}  
 
-        <Drawer anchor={"right"} open={Boolean(anchorPlaylist)} onClose={closePlaylist}>
-          <Lobby
-            handleCreatePlaylist={handleCreatePlaylist}
-            onClose={closePlaylist}
-          />
-        </Drawer>
-
-    </div>
-)
-)
-}
 export default Dashboard;

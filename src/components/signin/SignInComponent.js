@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { Checkbox } from "@mui/material";
 import { getAuthorizeUrl } from '../../utils/auth';
+import { FamilyRestroomRounded } from "@mui/icons-material";
 
 const SignInComponent = ({ navigateToDashboard }) => {
   const rectangle = "/signin/rectangle.svg";
@@ -22,6 +23,7 @@ const SignInComponent = ({ navigateToDashboard }) => {
   const handleClick = (event) => {
     if (state){
       setError(false);
+      navigateToDashboard();
       const url = getAuthorizeUrl();
       router.push(url);
     } else {
@@ -58,7 +60,7 @@ const SignInComponent = ({ navigateToDashboard }) => {
             <div className={styles.rectangle1157instance}>
 
             {/* https://ui-testing-backend.vercel.app */}
-            <Button variant="outlined" onClick={navigateToDashboard} href={getAuthorizeUrl()} fullWidth sx={{height:45, borderWidth:2}}>
+            <Button variant="outlined" onClick={handleClick} fullWidth sx={{height:45, borderWidth:2}}>
                 <img className={styles.spotifylogin} src={spotify} /> 
                 Login with Spotify
             </Button>

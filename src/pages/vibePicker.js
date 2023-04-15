@@ -64,7 +64,7 @@ export default function VibePicker({ pass, handleCreatePlaylist }) {
   const trackDisplayDictionary = formatTracks(filteredTracks);
 
   return (
-    <div className={styles.all} style={{ backgroundColor: "#282634" }}>
+    <div className={styles.all} style={{ backgroundColor: "#282634", overflow:"hidden", height:"100vh" }}>
       <MainBox
         object1={
           <Banner

@@ -1,0 +1,38 @@
+.vibepickersearch{
+    align-self: center;
+    margin-top: 2%;
+    width: 75%;
+    height: 40px;
+    border-radius: 5%;
+    border-color: rgba(126, 69, 195, 0.943);
+    border-radius: 10px;
+    font-family: Inter, sans-serif;
+    color: #d5caff;
+    text-shadow: 0px 4px 4px rgba(220, 145, 193, 0.25);
+    background-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 90%;
+    font-weight: 100px;
+  }
+
+  .flex {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .maintext {
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-weight: 100;
+    font-size: 160%;
+    line-height: 65%;
+    letter-spacing: 0.02em;
+    margin-top: 5vh;
+    
+    color: #d5caff;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }

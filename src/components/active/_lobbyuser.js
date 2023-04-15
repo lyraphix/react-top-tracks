@@ -15,7 +15,7 @@ const User = (props) => {
             alignSelf: "center",
             display: "flex"
         }}>
-            <img classname={styles.untitledartworkdash3} style={{ marginTop: "5px", marginBottom: "5px", marginRight: "10px", marginLeft: "5px", width: "50px", height: "auto" }} src={props.avatar} />
+            <img className={styles.untitledartworkdash3} style={{ marginTop: "5px", marginBottom: "5px", marginRight: "10px", marginLeft: "5px", width: "50px", height: "auto" }} src={props.avatar} />
             <div style={{ flexDirection: "column", fontFamily: "Inter, sans-serif", fontSize: "80%", fontWeight: "500", color: "#494362", letterSpacing: "1px", alignSelf: "center", marginLeft: "10px" }}>
                 {props.id}
             </div>

@@ -1,24 +1,27 @@
 .mainbox {
     width: 105vw;
-    margin-left: 48vw;
+    margin-left: 50vw;
     /* background-color: #191722; */
-    margin-top: 3vh;
+    margin-top: 10px;
     height: 55vh;
     overflow: auto;
+    border-color: rgba(126, 69, 195, 0.943);
+    align-self: center;
 }
 
 
 
+
 .image {
-    height: 6%;
-    width: 6%;
+    height: 50px;
+    width: 50px;
     margin-right: 2%;
 }
 
 .each {
     display: flex;
     margin-left: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 2vh;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
@@ -42,7 +45,7 @@
 .nametext {
     font-family: Inter, sans-serif;
     font-weight: 100;
-    font-size: 1.8vw;
+    font-size: 15px;
     line-height: 40%;
     letter-spacing: 0.01em;
     margin-right: 1.4%;
