@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useDashboard = () => {
-  const [anchorPlaylist, setPlaylist] = useState(null);
+  const [anchorLobby, setAnchorLobby] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
@@ -9,8 +9,8 @@ const useDashboard = () => {
   };
 
   return {
-    anchorPlaylist,
-    setPlaylist,
+    anchorLobby,
+    setAnchorLobby,
     searchTerm,
     setSearchTerm,
     handleSearchChange,

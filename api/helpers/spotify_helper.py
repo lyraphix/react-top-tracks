@@ -229,9 +229,9 @@ class PlaylistMaker:
                             name = track['name']
                             id = track['id']
                             artist = track['artists'][0]['name']
-                            image_url = track['album']['images'][0]['url']
+                            image_url = track['album']['images'][0]['url'] if track['album']['images'] else None
                             related_tracks.append(Track(name, id, artist, image_url))
-                            
+
         return related_tracks
 
 

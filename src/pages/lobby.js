@@ -15,7 +15,7 @@ import {
     MenuItem
 } from "@mui/material";
 
-export default function Lobby({ handleCreatePlaylist, ...props }) {
+export default function Lobby({ handleCreatePlaylist, onClose, ...props }) {
     const untitledArtwork = "/landing/logo.png";
     const home = "/dashboard/home.png";
     const friend = "/dashboard/friend.png";
@@ -44,6 +44,10 @@ export default function Lobby({ handleCreatePlaylist, ...props }) {
         setVibe(null);
     };
 
+    const closeLobbyAndVibe = () => {
+        closeVibe();
+        onClose();
+      };
 
     const users = [
         { id: "FRIEND1", avatar: "/dashboard/Avatar.png" },
@@ -64,9 +68,9 @@ export default function Lobby({ handleCreatePlaylist, ...props }) {
                     anchor="left"
                     open={Boolean(anchorVibe)}
                     onClose={closeVibe}
-                    sx={{ backgroundColor: 'background' }}
-                    >
-                    <VibePicker handleCreatePlaylist={handleCreatePlaylist} pass={closeVibe} />
+                    sx={{ backgroundColor: "background" }}
+                >
+                    <VibePicker handleCreatePlaylist={handleCreatePlaylist} pass={closeVibe} closeAllDrawers={closeLobbyAndVibe} />
                 </Drawer>
             </div>} />
 

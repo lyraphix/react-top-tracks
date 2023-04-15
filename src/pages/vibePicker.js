@@ -18,7 +18,7 @@ import Center from "@/components/active/_center";
 import { formatTracks } from "@/pages/dashboard";
 import MainButton from "@/components/active/_generalbutton";
 
-export default function VibePicker({ pass, handleCreatePlaylist }) {
+export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers }) {
   const textInput = useRef(null);
   const [userInput, setUserInput] = useState("");
   const { phase, playlist, fetchedTracks, filteredTracks, fetchRecommendedTracks, applyFilter } = useVibePicker();
@@ -29,6 +29,11 @@ export default function VibePicker({ pass, handleCreatePlaylist }) {
 
   const [playlistName, setPlaylistName] = useState(userInput);
   const [numTracks, setNumTracks] = useState(20);
+
+  const handleCreatePlaylistClick = () => {
+    handleCreatePlaylist(playlistName, filteredTracks);
+    closeAllDrawers();
+  };
 
   const trackListStyle = {
     width: "50%",
@@ -117,7 +122,7 @@ export default function VibePicker({ pass, handleCreatePlaylist }) {
                 object2={<TrackList items={trackDisplayDictionary} />}
                 object3={                
                   <MainButton
-                  loc={handleCreatePlaylist(playlistName, filteredTracks)}
+                  loc={() => handleCreatePlaylistClick()}
                   >
                     Create Playlist
                   </MainButton>}
