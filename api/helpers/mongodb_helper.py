@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from api.schemas.track import Track
 from api.schemas.playlist import Playlist
 from api.schemas.user import User
+from api.schemas.lobby import Lobby
 
 
 class MongodbHelper:
@@ -87,23 +88,24 @@ class MongodbHelper:
         )
         return result.modified_count
 
+
     # functions for lobby
-    def is_user_in_lobby(self, lobby_link, userid):
+
+    def is_user_in_lobby(self, lobby : Lobby, user : User):
         """
         check if user is in lobby
-        :param lobby_link: reference for lobby link to access db
-        :param userid: reference for unique userid
+        :param lobby: Lobby object, access lobby
+        :param user: User object, new user
         """
-        user = self.lobbies_db[lobby_link].find_one({"user_id": userid})
+        user = self.lobbies_db[lobby.lobbycode].find_one({"user_id": user})
         return user is not None
 
-    def store_user_in_lobby(self, lobby_link, userid, username):
+    def store_user_in_lobby(self, lobby: Lobby, userid):
         """
         if user isn't in lobby, store
-        :param lobby_link: reference for lobby link to access db
-        :param userid: reference for unique userid
+        :param lobby: Lobby object, access lobby
+        :param userid: str, user id to store in db
         """
-        user_data = {
-            "user_id": userid,
-        }
-        self.lobbies_db[lobby_link].insert_one(user_data)
+        lobby_code = lobby.lobbycode
+        data = lobby.to_dict(userid)
+        self.lobbies_db[lobby_code].insert_one(data)
