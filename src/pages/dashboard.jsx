@@ -209,17 +209,17 @@ const Dashboard = ({ user, setUser }) => {
                   onChange={handleSearchChange}
                 />
               </div>
-              <div>
-                {playlists && playlists.length > 0 ? (
+              <div className={styles.tracksContainer}>
+               {playlists && playlists.length > 0 ? (
                   <div>
-                    <div>
+                    <div className={styles.trackList}>
                       <h3>Your Playlists:</h3>
                       <TrackList
                         items={formatPlaylists(playlists)}
                         onSelection={handlePlaylistSelection}
                       />
                     </div>
-                    <div>
+                    <div className={styles.trackList}>
                       {loadingPlaylist ? (
                         <div>Loading...</div>
                       ) : selectedPlaylist ? (

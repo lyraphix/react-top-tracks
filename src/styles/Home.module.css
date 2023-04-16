@@ -10,26 +10,12 @@
   justify-content: center;
 }
 
-.tracksContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  width: 100%; /* Ensure the container takes up full width */
-  max-width: 100%;
-}
-
-.trackListsContainer {
-  display: contents;
-  max-width: 100%;
-}
-
-.trackList {
+.trackListContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
   width: 100%;
-  max-width: 100%;
 }
-
 
 .search {
   margin-left: 3%;
