@@ -35,6 +35,7 @@ const Dashboard = ({ user, setUser }) => {
   const [loadingPlaylist, setLoadingPlaylist] = useState(false);
 
   const { playlists = [], image_url = "/landing/logo.png", username } = user || {};
+  console.log("Initial playlists: ", playlists)
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const {
     searchTerm,
@@ -73,10 +74,25 @@ const Dashboard = ({ user, setUser }) => {
   
 
   const handlePlaylistSelection = (playlist) => {
+    console.log("Setting selected playlist:", playlist);
     setLoadingPlaylist(true);
     setSelectedPlaylist(playlist);
   };
+  
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log(
+        "User data from session storage:",
+        JSON.parse(sessionStorage.getItem("user_data"))
+      );
+    }
+  }, []);
+
+
+  useEffect(() => {
+    console.log("Selected playlist changed:", selectedPlaylist);
+  }, [selectedPlaylist]);
 
   useEffect(() => {
     if (selectedPlaylist) {
@@ -87,6 +103,7 @@ const Dashboard = ({ user, setUser }) => {
   const formatPlaylists = (playlists) => {
     console.log(playlists)
     return playlists.map((playlist) => ({
+      ...playlist, 
       id: playlist.id,
       name: playlist.name,
       author: "8-Bits", // SAMPLE
@@ -171,41 +188,47 @@ return (
                     />
                 </div>
                     
-                <Center object={
-                  <div className={styles.tracksContainer}>
-                    {playlists && playlists.length > 0 ? (
-                      <div className={styles.trackListsContainer}>
-                        <Grid container spacing={2} className={styles.container}>
-                          <Grid item xs={12} md={6}>
-                            <div className={styles.tracks}>
-                              <h3>Your Playlists:</h3>
-                              <TrackList
-                                items={formatPlaylists(playlists)}
-                                onSelection={handlePlaylistSelection}
-                              />
-                            </div>
-                          </Grid>
-                          <Grid item xs={12} md={6}>
-                            {loadingPlaylist ? (
-                              <div>Loading...</div>
-                            ) : selectedPlaylist ? (
+                <Center
+                  object={
+                    <div className={styles.tracksContainer}>
+                      {playlists && playlists.length > 0 ? (
+                        <div className={styles.trackListsContainer}>
+                          <Grid container spacing={2} className={styles.container}>
+                            <Grid item xs={12} md={6}>
                               <div className={styles.tracks}>
-                                <h3>{selectedPlaylist.name}</h3>
-                                <TrackList items={formatTracks(selectedPlaylist?.tracks || [])} />
+                                <h3>Your Playlists:</h3>
+                                <TrackList
+                                  items={formatPlaylists(playlists)}
+                                  onSelection={handlePlaylistSelection}
+                                />
                               </div>
-                            ) : (
-                              <span className={styles.friendmatch}>
-                                Please select a playlist to view its tracks.
-                              </span>
-                            )}
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                              {loadingPlaylist ? (
+                                <div>Loading...</div>
+                              ) : selectedPlaylist ? (
+                                <div className={styles.tracks}>
+                                  <h3>{selectedPlaylist.name}</h3>
+                                  {(() => {
+                                    const items = formatTracks(selectedPlaylist?.tracks || []);
+                                    console.log("Rendering Selected Playlist TrackList with items:", items);
+                                    return <TrackList items={items} />;
+                                  })()}
+                                </div>
+                              ) : (
+                                <span className={styles.friendmatch}>
+                                  Please select a playlist to view its tracks.
+                                </span>
+                              )}
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <span className={styles.friendmatch}>No playlists available, why don't you make your first!</span>
-                    )}
-                  </div>
-                } />
+                        </div>
+                      ) : (
+                        <span className={styles.friendmatch}>No playlists available, why don't you make your first!</span>
+                      )}
+                    </div>
+                  }
+                />
                 </div>
 
             </div>
@@ -214,9 +237,10 @@ return (
         <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
           <Lobby
             handleCreatePlaylist={handleCreatePlaylist}
-            pass={closeLobby}
+            closeLobby={closeLobby}
           />
         </Drawer>
+
     </div>
 )
 )

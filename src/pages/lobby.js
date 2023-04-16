@@ -1,80 +1,87 @@
-import * as React from "react";
-import styles from '../styles/Home.module.css'
-import { useState, useEffect } from 'react';
-import MainButton from "../components/active/_generalbutton"
-import Center from "../components/active/_center";
-import Banner from "../components/active/_bannerandsub";
-import Lobbylist from "../components/active/_lobbyparty";
-import MainBox from "../components/active/_mainbox";
+import React, { useState } from 'react';
+import styles from '@/styles/Home.module.css';
+import { Drawer } from '@mui/material';
+import MainButton from "@/components/active/_generalbutton";
+import Center from "@/components/active/_center";
+import Banner from "@/components/active/_bannerandsub";
+import Lobbylist from "@/components/active/_lobbyparty";
+import MainBox from "@/components/active/_mainbox";
 import VibePicker from "./vibePicker";
-import useLobby from '../hooks/useLobby';
-import {
-    Button,
-    Drawer,
-    Menu,
-    MenuItem
-} from "@mui/material";
+import useLobby from '@/hooks/useLobby';
 
-export default function Lobby({ handleCreatePlaylist, onClose, ...props }) {
-    const untitledArtwork = "/landing/logo.png";
-    const home = "/dashboard/home.png";
-    const friend = "/dashboard/friend.png";
-    const vibepicker = "/dashboard/vibepicker.png";
-    const vector = "/dashboard/vector.png";
-    const avatar = "/dashboard/Avatar.png";
+const Lobby = ({ handleCreatePlaylist, closeLobby, ...props }) => {
+  const untitledArtwork = "/landing/logo.png";
+  const home = "/dashboard/home.png";
+  const friend = "/dashboard/friend.png";
+  const vibepicker = "/dashboard/vibepicker.png";
+  const vector = "/dashboard/vector.png";
+  const avatar = "/dashboard/Avatar.png";
 
-    const [isReady, handleReady] = useLobby();
+  const [isReady, handleReady] = useLobby();
 
-    var ready = true;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorVibe, setVibe] = useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    const [anchorVibe, setVibe] = useState(null);
-    const openVibe = (event) => {
-        setVibe(event.currentTarget);
-    };
-    const closeVibe = () => {
-        setVibe(null);
-    };
+  const openVibe = (event) => {
+    setVibe(event.currentTarget);
+  };
 
-    const closeLobbyAndVibe = () => {
-        closeVibe();
-        onClose();
-      };
+  const closeVibe = () => {
+    setVibe(null);
+  };
 
-    const users = [
-        { id: "FRIEND1", avatar: "/dashboard/Avatar.png" },
-        { id: "FRIEND2", avatar: "/dashboard/Avatar.png" },
+  const closeLobbyAndVibe = () => {
+    closeVibe();
+    closeLobby();
+  };
 
-    ];
+  const users = [
+    { id: "FRIEND1", avatar: "/dashboard/Avatar.png" },
+    { id: "FRIEND2", avatar: "/dashboard/Avatar.png" },
+  ];
 
-    return (
+  return (
+    <MainBox
+      object1={
+        <Banner
+          main="LOBBY"
+          sub="INVITATION LINK:"
+          more="http://localhost:3000/lobby"
+          pass={closeLobby}
+        />
+      }
+      object2={
+        <div
+          className={styles.dashboardbox}
+          style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
+        >
+          <Center object={<Lobbylist users={users} />} />
+          <Center object={<MainButton name="continue" loc={openVibe} />} />
 
-        <MainBox object1={<Banner main="LOBBY" sub="INVITATION LINK:" more="http://localhost:3000/lobby" pass={onClose} />}
-            object2={<div className={styles.dashboardbox} style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}>
-                <Center object={<Lobbylist users={users} />} />
-                {/* <div>{enterRoom()}</div> */}
-                <Center object={<MainButton name="continue" loc={openVibe} />} />
+          <Drawer
+            anchor="left"
+            open={Boolean(anchorVibe)}
+            onClose={closeVibe}
+            sx={{ backgroundColor: "background" }}
+          >
+            <VibePicker
+              handleCreatePlaylist={handleCreatePlaylist}
+              pass={closeVibe}
+              closeAllDrawers={closeLobbyAndVibe}
+            />
+          </Drawer>
+        </div>
+      }
+    />
+  );
+};
 
-
-                <Drawer
-                    anchor="left"
-                    open={Boolean(anchorVibe)}
-                    onClose={closeVibe}
-                    sx={{ backgroundColor: "background" }}
-                >
-                    <VibePicker handleCreatePlaylist={handleCreatePlaylist} pass={closeVibe} closeAllDrawers={closeLobbyAndVibe} />
-                </Drawer>
-            </div>} />
-
-
-
-    )
-}
+export default Lobby;

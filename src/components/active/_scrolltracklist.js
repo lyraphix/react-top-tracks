@@ -7,7 +7,7 @@ const TrackList = ({ items, onSelection = () => {} }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemClick = (item) => {
-    console.log('handleItemClick:', item);
+    // console.log('handleItemClick:', item);
     if (onSelection) {
       onSelection(item);
       setSelectedItem(item);
@@ -15,22 +15,22 @@ const TrackList = ({ items, onSelection = () => {} }) => {
   };
 
   const handlePlaylistClick = (playlist) => {
-    console.log('handlePlaylistClick:', playlist);
+    // console.log('handlePlaylistClick:', playlist);
     window.open(playlist.url, "_blank");
   };
 
   const handleTrackClick = (track) => {
-    console.log('handleTrackClick:', track);
+    // console.log('handleTrackClick:', track);
     window.open(track.url, "_blank");
   };
 
   const handleMouseEnter = (item) => {
-    console.log('handleMouseEnter item:', item);
+  //   console.log('handleMouseEnter item:', item);
     setSelectedItem(item);
   };
   
   const handleMouseLeave = () => {
-    console.log('handleMouseLeave');
+    // console.log('handleMouseLeave');
     setSelectedItem(null);
   };
   
