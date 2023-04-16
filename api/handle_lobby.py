@@ -12,7 +12,7 @@ class handler(BaseHTTPRequestHandler):
         request_body = loads(post_data)
 
         # mock variable for getting lobby link
-        lobby_link = request_body.get('lobby-link')
+        lobby_link = request_body.get('lobby-code')
 
         user_id = request_body.get('user_id')
         page = request_body.get('page', 1)
