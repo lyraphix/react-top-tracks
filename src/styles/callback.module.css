@@ -1,0 +1,36 @@
+.mainbox {  
+    width: 100%;
+    background-color: rgb(2, 12, 21);
+    height: 1000px;
+    flex-direction: column;
+    justify-content: center;
+    display:"flex";
+}
+
+.mainheadtext {
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-weight: 100;
+    font-size: 4.0vw;
+    line-height: 65%;
+    letter-spacing: 0.02em;
+    margin-top: 5vh;
+    
+    color: #d5caff;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.nametext {
+    font-family: Inter, sans-serif;
+    font-weight: 100;
+    font-size: 1.4vw;
+    line-height: 40%;
+    letter-spacing: 0.01em;
+    /* align-self: center; */
+    /* margin-left: 12%; */
+    
+    color: #b4aae5;
+    align-self: center;
+    justify-self: center;
+    text-shadow: 0px 4px 4px rgba(211, 121, 216, 0.25);
+}

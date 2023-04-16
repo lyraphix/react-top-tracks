@@ -18,6 +18,7 @@ const Center = (props) => {
             {props.object2}
             {props.object3}
             {props.object4}
+            {props.object5}
         </div>
     );
 }

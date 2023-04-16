@@ -57,7 +57,7 @@ export default function Lobby({ handleCreatePlaylist, onClose, ...props }) {
 
     return (
 
-        <MainBox object1={<Banner main="LOBBY" sub="INVITATION LINK:" more="http://localhost:3000/lobby" pass={props.onClose} />}
+        <MainBox object1={<Banner main="LOBBY" sub="INVITATION LINK:" more="http://localhost:3000/lobby" pass={onClose} />}
             object2={<div className={styles.dashboardbox} style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}>
                 <Center object={<Lobbylist users={users} />} />
                 {/* <div>{enterRoom()}</div> */}
