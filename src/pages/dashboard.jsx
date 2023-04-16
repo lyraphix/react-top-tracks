@@ -169,7 +169,7 @@ return (
 
             </div>
             <div className={styles.dashboardbox} style = {{
-                    paddingTop: "20vh",
+                    paddingTop: "25vh",
                     paddingBottom: "10vh"
                 }}>
                 <div className={styles.innerbox}>
@@ -193,10 +193,12 @@ return (
                     <div className={styles.tracksContainer}>
                       {playlists && playlists.length > 0 ? (
                         <div className={styles.trackListsContainer}>
-                          <Grid container spacing={2} className={styles.container}>
+                        <Grid container spacing={2} className={styles.container} style={{ width: "100%", padding: "16px" }}>
                             <Grid item xs={12} md={6}>
                               <div className={styles.tracks}>
-                                <h3>Your Playlists:</h3>
+                                <div style={{ marginLeft: "16px" }}>
+                                  <h3>Your Playlists:</h3>
+                                </div>
                                 <TrackList
                                   items={formatPlaylists(playlists)}
                                   onSelection={handlePlaylistSelection}
@@ -208,7 +210,9 @@ return (
                                 <div>Loading...</div>
                               ) : selectedPlaylist ? (
                                 <div className={styles.tracks}>
-                                  <h3>{selectedPlaylist.name}</h3>
+                                  <div style={{ marginLeft: "16px" }}>
+                                    <h3>{selectedPlaylist.name}</h3>
+                                  </div>
                                   {(() => {
                                     const items = formatTracks(selectedPlaylist?.tracks || []);
                                     console.log("Rendering Selected Playlist TrackList with items:", items);

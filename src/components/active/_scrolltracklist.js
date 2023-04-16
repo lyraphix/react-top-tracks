@@ -39,9 +39,10 @@ const TrackList = ({ items, onSelection = () => {} }) => {
   const renderItem = (item) => (
     <div
       key={item.id}
-      className={`${styles.each} ${
+      className={`${styles.item} ${
         selectedItem && selectedItem.id === item.id && styles.selected
       }`}
+
       onClick={() => handleItemClick(item)}
       onMouseEnter={() => handleMouseEnter(item)}
       onMouseLeave={() => handleMouseLeave()}
