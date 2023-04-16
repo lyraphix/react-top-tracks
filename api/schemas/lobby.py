@@ -70,3 +70,10 @@ class Lobby():
         :param input: str, user input for GPT
         """
         self.users[user] = input
+
+    def to_dict(self):
+        return {
+            "lobby_code": self.lobbycode,
+            "users" : self.returnUsers(),
+            "gpt_inputs" : self.returnInputs()
+        }
