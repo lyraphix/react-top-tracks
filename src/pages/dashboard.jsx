@@ -153,90 +153,101 @@ const Dashboard = ({ user, setUser }) => {
     }
   };
 
-return (
-  user && (
-    <div className={styles.all}>
+  return (
+    user && (
+      <div className={styles.all}>
         <div className={styles.dashboard}>
-            <div className={styles.menu}>
-                <MenuaItems source={untitledArtwork} />
-                <MenuaItems source={home}/>
-
-                <div>
-                    {/* This div needs debugging */}
-                    <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
-                    <Menua function={handleClose} anchor={anchorEl} />
-                </div>
-
+          <div className={styles.menu}>
+            <MenuaItems source={untitledArtwork} />
+            <MenuaItems source={home} />
+  
+            <div>
+              {/* This div needs debugging */}
+              <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
+              <Menua function={handleClose} anchor={anchorEl} />
             </div>
-            <div className={styles.dashboardbox} style = {{
-                    paddingTop: "25vh",
-                    paddingBottom: "10vh"
-                }}>
-                <div className={styles.innerbox}>
-                <div className={styles.landingdash} style={{marginLeft: "3%"}}>Hi, {name}</div>
-                <div className={styles.innerbox} style = {{width:"80vw", flexDirection:"row", justifyContent:"space-between", marginLeft:"3%"}}>
-                <div className={styles.landingdash} style={{ fontSize: "15px", letterSpacing: "5px", marginTop: "50px" }}>You have created {playlists ? playlists.length : 0} playlists</div>
+          </div>
+          <div
+            className={styles.dashboardbox}
+            style={{
+              paddingTop: "25vh",
+              paddingBottom: "10vh",
+            }}
+          >
+            <div className={styles.innerbox}>
+              <div className={styles.landingdash} style={{ marginLeft: "3%" }}>
+                Hi, {name}
+              </div>
+              <div
+                className={styles.innerbox}
+                style={{
+                  width: "80vw",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginLeft: "3%",
+                }}
+              >
+                <div
+                  className={styles.landingdash}
+                  style={{
+                    fontSize: "15px",
+                    letterSpacing: "5px",
+                    marginTop: "50px",
+                  }}
+                >
+                  You have created {playlists ? playlists.length : 0} playlists
+                </div>
                 <MainButton name="Create playlist" loc={openLobby} height="50px" width="200px" />
-                </div>
-                    
-                <div >
-                    <input className={styles.search}
-                        type="text"
-                        placeholder="Search Tracks"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                    />
-                </div>
-                    
-                <Center
-                  object={
-                    <div className={styles.tracksContainer}>
-                      {playlists && playlists.length > 0 ? (
-                        <div className={styles.trackListsContainer}>
-                        <Grid container spacing={2} className={styles.container} style={{ width: "100%", padding: "16px" }}>
-                            <Grid item xs={12} md={6}>
-                              <div className={styles.tracks}>
-                                <div style={{ marginLeft: "16px" }}>
-                                  <h3>Your Playlists:</h3>
-                                </div>
-                                <TrackList
-                                  items={formatPlaylists(playlists)}
-                                  onSelection={handlePlaylistSelection}
-                                />
-                              </div>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                              {loadingPlaylist ? (
-                                <div>Loading...</div>
-                              ) : selectedPlaylist ? (
-                                <div className={styles.tracks}>
-                                  <div style={{ marginLeft: "16px" }}>
-                                    <h3>{selectedPlaylist.name}</h3>
-                                  </div>
-                                  {(() => {
-                                    const items = formatTracks(selectedPlaylist?.tracks || []);
-                                    console.log("Rendering Selected Playlist TrackList with items:", items);
-                                    return <TrackList items={items} />;
-                                  })()}
-                                </div>
-                              ) : (
-                                <span className={styles.friendmatch}>
-                                  Please select a playlist to view its tracks.
-                                </span>
-                              )}
-                            </Grid>
-                          </Grid>
-                        </div>
+              </div>
+  
+              <div>
+                <input
+                  className={styles.search}
+                  type="text"
+                  placeholder="Search Tracks"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
+              <div>
+                {playlists && playlists.length > 0 ? (
+                  <div>
+                    <div>
+                      <h3>Your Playlists:</h3>
+                      <TrackList
+                        items={formatPlaylists(playlists)}
+                        onSelection={handlePlaylistSelection}
+                      />
+                    </div>
+                    <div>
+                      {loadingPlaylist ? (
+                        <div>Loading...</div>
+                      ) : selectedPlaylist ? (
+                        <>
+                          <h3>{selectedPlaylist.name}</h3>
+                          {(() => {
+                            const items = formatTracks(selectedPlaylist?.tracks || []);
+                            console.log("Rendering Selected Playlist TrackList with items:", items);
+                            return <TrackList items={items} />;
+                          })()}
+                        </>
                       ) : (
-                        <span className={styles.friendmatch}>No playlists available, why don't you make your first!</span>
+                        <div style={{ width: "100%" }}>
+                          <span className={styles.friendmatch}>
+                            Please select a playlist to view its tracks.
+                          </span>
+                        </div>
                       )}
                     </div>
-                  }
-                />
-                </div>
-
+                  </div>
+                ) : (
+                  <span className={styles.friendmatch}>
+                    No playlists available, why don't you make your first!
+                  </span>
+                )}
+              </div>
             </div>
-
+          </div>
         </div>
         <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
           <Lobby
@@ -244,9 +255,9 @@ return (
             closeLobby={closeLobby}
           />
         </Drawer>
-
-    </div>
-)
-)
-}
-export default Dashboard;
+      </div>
+    )
+  );
+  }
+  export default Dashboard;
+  
