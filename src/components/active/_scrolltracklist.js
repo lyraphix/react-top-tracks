@@ -5,6 +5,7 @@ const TrackList = ({ items, onSelection = () => {} }) => {
   console.log('onSelection:', onSelection);
 
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleItemClick = (item) => {
     // console.log('handleItemClick:', item);
@@ -25,41 +26,38 @@ const TrackList = ({ items, onSelection = () => {} }) => {
   };
 
   const handleMouseEnter = (item) => {
-  //   console.log('handleMouseEnter item:', item);
+    // console.log('handleMouseEnter item:', item);
+    setIsHovering(true);
     setSelectedItem(item);
   };
   
   const handleMouseLeave = () => {
     // console.log('handleMouseLeave');
+    setIsHovering(false);
     setSelectedItem(null);
   };
   
-
-
   const renderItem = (item) => (
     <div
       key={item.id}
       className={`${styles.item} ${
         selectedItem && selectedItem.id === item.id && styles.selected
       }`}
-
       onClick={() => handleItemClick(item)}
       onMouseEnter={() => handleMouseEnter(item)}
       onMouseLeave={() => handleMouseLeave()}
     >
-      <img
-        className={styles.image}
-        src={item.avatar}
-        alt={item.name}
-      />
+      <img className={styles.image} src={item.avatar} alt={item.name} />
       <div className={styles.text}>
         <h3
           className={styles.nametext}
           onClick={() => window.open(item.url, "_blank")}
         >
-          {item.name}
+          {isHovering ? item.name : item.name.slice(0, 50)}
         </h3>
-        <h3 className={styles.authortext}>- {item.author}</h3>
+        <h3 className={styles.authortext}>
+          - {isHovering ? item.author : item.author.slice(0, 50)}
+        </h3>
       </div>
     </div>
   );
@@ -71,7 +69,6 @@ const TrackList = ({ items, onSelection = () => {} }) => {
       </ul>
     </div>
   );
-  
 };
 
 export default TrackList;
