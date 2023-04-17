@@ -54,7 +54,9 @@ const Dashboard = ({ user, setUser }) => {
   const vibepicker = "/dashboard/vibepicker.png";
   const vector = "/dashboard/vector.png";
   
-
+  const handleLetsGo = () => {
+        navigateToSignIn();
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -158,13 +160,13 @@ const Dashboard = ({ user, setUser }) => {
       <div className={styles.all}>
         <div className={styles.dashboard}>
           <div className={styles.menu}>
-            <MenuaItems source={untitledArtwork} />
-            <MenuaItems source={home} />
+            {/* <MenuaItems source={untitledArtwork} />
+            <MenuaItems source={home} /> */}
   
             <div>
               {/* This div needs debugging */}
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
-              <Menua function={handleClose} anchor={anchorEl} />
+              <Menua function={handleClose} anchor={anchorEl} logout={handleLetsGo} />
             </div>
           </div>
           <div
