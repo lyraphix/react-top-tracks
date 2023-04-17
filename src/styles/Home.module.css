@@ -734,8 +734,8 @@ Landing
 }
 .tracksContainer{
   display: flex;
-  justify-content: center;
-  
+  /* justify-content: center; */
+  flex-direction: column;
 }
 .innerbox{
   display: flex;
