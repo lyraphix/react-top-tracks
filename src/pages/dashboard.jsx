@@ -156,7 +156,7 @@ const Dashboard = ({ user, setUser }) => {
   };
 
   return (
-    // user && (
+    user && (
       <div className={styles.all}>
         <div className={styles.dashboard}>
           <div className={styles.menu}>
@@ -261,7 +261,7 @@ const Dashboard = ({ user, setUser }) => {
           />
         </Drawer>
       </div>
-    // )
+    )
   );
   }
   export default Dashboard;
