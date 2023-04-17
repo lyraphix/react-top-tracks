@@ -219,7 +219,7 @@ const Dashboard = ({ user, setUser }) => {
                {playlists && playlists.length > 0 ? (
                   <div>
                     <div className={styles.trackList}>
-                      <h3>Your Playlists:</h3>
+                      {/* <h3>Your Playlists:</h3> */}
                       <TrackList
                         items={formatPlaylists(playlists)}
                         onSelection={handlePlaylistSelection}
@@ -230,7 +230,7 @@ const Dashboard = ({ user, setUser }) => {
                         <div>Loading...</div>
                       ) : selectedPlaylist ? (
                         <>
-                          <h3>{selectedPlaylist.name}</h3>
+                          <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa"}}>{selectedPlaylist.name}</h3>
                           {(() => {
                             const items = formatTracks(selectedPlaylist?.tracks || []);
                             console.log("Rendering Selected Playlist TrackList with items:", items);
