@@ -156,13 +156,13 @@ const Dashboard = ({ user, setUser }) => {
   };
 
   return (
-    user && (
+    // user && (
       <div className={styles.all}>
         <div className={styles.dashboard}>
           <div className={styles.menu}>
             {/* <MenuaItems source={untitledArtwork} />
             <MenuaItems source={home} /> */}
-  
+              <Button href="/"><img style = {{height: "40px", width: "45px", alignSelf:"center", marginLeft:"10px", marginTop:"10px"}} src={untitledArtwork} /></Button>
             <div>
               {/* This div needs debugging */}
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
@@ -172,14 +172,10 @@ const Dashboard = ({ user, setUser }) => {
           <div
             className={styles.dashboardbox}
             style={{
-              paddingTop: "20vh",
-              paddingBottom: "10vh",
+              paddingTop: "15vh",
+              // paddingBottom: "10vh",
             }}
           >
-            <div className={styles.innerbox}>
-              <div className={styles.landingdash} style={{ marginLeft: "3%" }}>
-                Hi, {name}
-              </div>
               <div
                 className={styles.innerbox}
                 style={{
@@ -187,19 +183,27 @@ const Dashboard = ({ user, setUser }) => {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   marginLeft: "3%",
+                  marginBottom: "50px",
                 }}
               >
-                <div
-                  className={styles.landingdash}
-                  style={{
-                    fontSize: "15px",
-                    letterSpacing: "5px",
-                    marginTop: "50px",
-                  }}
-                >
-                  You have created {playlists ? playlists.length : 0} playlists
+                <div>
+                  <div className={styles.landingdash} style={{  }}>
+                    Hi, {name}
+                  </div>
+                  <div
+                    className={styles.landingdash}
+                    style={{
+                      fontSize: "15px",
+                      letterSpacing: "5px",
+                      marginTop: "50px",
+                      lineHeight:"20px"
+                    }}
+                  >
+                    
+                    You have created {playlists ? playlists.length : 0} playlists
+                  </div>
                 </div>
-                <MainButton name="Create playlist" loc={openLobby} height="50px" width="200px" />
+                <MainButton name="Create playlist" loc={openLobby} height="60px" width="200px" />
               </div>
   
                <Center object={<div>
@@ -248,7 +252,6 @@ const Dashboard = ({ user, setUser }) => {
                   </span>
                 )}
               </div>
-            </div>
           </div>
         </div>
         <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
@@ -258,7 +261,7 @@ const Dashboard = ({ user, setUser }) => {
           />
         </Drawer>
       </div>
-    )
+    // )
   );
   }
   export default Dashboard;
