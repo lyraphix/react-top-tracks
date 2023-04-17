@@ -73,7 +73,7 @@ function Menua(props) {
             onClose={props.function}
         >   
             <MenuItem>
-            <MainButton name="Log Out" loc={props.logout}>
+            <MainButton name="Log Out" loc={props.logout}/>
             </MenuItem>
             <MenuItem>
             <MainButton name="Delete User Data" loc={deleteuser}/>
