@@ -10,8 +10,7 @@ const FriendListSidebar = ({ friends, searchTerm }) => {
 
     return (
         <div className={styles.mainbox}>
-            <MainButton name="Add Friend"/>
-            <MainButton name="Delete Friend"/>
+            <Center object={<MainButton name="Add Friend" height="25px" weight="200px"/>} object2={<MainButton name="Delete Friend" height="25px" weight="200px"/>}/>
             <div style={{display:"flex", flexDirection:"column", marginTop:"5vh"}}>
                 {filteredFriends.map((friend) => (
                     <div key={friend.id} style = {{alignSelf:"center"}}>
