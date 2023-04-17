@@ -217,9 +217,9 @@ const Dashboard = ({ user, setUser }) => {
               </div>}/>
               <div className={styles.tracksContainer}>
                {playlists && playlists.length > 0 ? (
-                  <div>
+                  <div >
                     <div className={styles.trackList}>
-                      {/* <h3>Your Playlists:</h3> */}
+                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa"}}>Your Playlists:</h3>
                       <TrackList
                         items={formatPlaylists(playlists)}
                         onSelection={handlePlaylistSelection}

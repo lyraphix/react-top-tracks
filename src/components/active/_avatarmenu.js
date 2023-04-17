@@ -9,10 +9,13 @@ import {
     MenuItem,
     Alert
 } from "@mui/material";
+import { useRouter } from 'next/router';
 import FriendListSidebar from './_friendbar';
 import { useState, useEffect } from 'react';
 
 function Menua(props) {
+
+    const router = useRouter();
 
     const deleteuser = () => {
         alert("This will delete all tracklist, not integrated yet")
@@ -29,6 +32,10 @@ function Menua(props) {
         props.function();
         setFriendlist(event.currentTarget);
     }
+
+    const handleReplace = () => {
+        router.replace('/');
+      }
 
     const friends = [
         {
@@ -73,7 +80,8 @@ function Menua(props) {
             onClose={props.function}
         >   
             <MenuItem>
-            <MainButton name="Log Out" loc={props.logout}/>
+            <MainButton name="Log Out" loc={handleReplace}/>
+            {/* <Button variant="contained" href="/" sx={{color:"primary.textD"}}>Log Out</Button> */}
             </MenuItem>
             <MenuItem>
             <MainButton name="Delete User Data" loc={deleteuser}/>

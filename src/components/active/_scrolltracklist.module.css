@@ -1,6 +1,6 @@
 .mainbox {
-  width: 65vw;
-  max-width: 65vw;
+  width: 40vw;
+  max-width: 40vw;
   margin: 0px auto;
   height: 40vh;
   overflow-y: scroll;
@@ -32,7 +32,7 @@
   padding: 0;
   overflow: hidden;
   border-bottom: 2px solid rgb(16, 1, 18);
-  max-width: 30vw;
+  max-width: 50%;
 }
 
 .item:hover {

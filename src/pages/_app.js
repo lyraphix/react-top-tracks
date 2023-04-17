@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
         main: '#8791F9',
         mainPage: '#47A85A',
         light: '#cad6ff',
-        dark: '#0C233B',
+        dark: '#262152',
         text: "white"
       },
       secondary: {
