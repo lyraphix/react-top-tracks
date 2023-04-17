@@ -172,7 +172,7 @@ const Dashboard = ({ user, setUser }) => {
           <div
             className={styles.dashboardbox}
             style={{
-              paddingTop: "25vh",
+              paddingTop: "20vh",
               paddingBottom: "10vh",
             }}
           >
