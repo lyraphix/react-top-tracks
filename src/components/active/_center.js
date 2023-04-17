@@ -13,6 +13,7 @@ const Center = (props) => {
             justifyContent:"center",
             alignSelf:"center",
             marginBottom:"40px",
+            gap: "10px",
             display: "flex"}}>
             {props.object}
             {props.object2}
