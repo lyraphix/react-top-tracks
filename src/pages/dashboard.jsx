@@ -207,8 +207,8 @@ const Dashboard = ({ user, setUser }) => {
                   className={styles.search}
                   type="text"
                   placeholder="Search Tracks"
-                  value=""
-                 
+                  value={searchTerm}
+                  onChange={handleSearchChange}
                 />
               </div>}/>
               <div className={styles.tracksContainer}>
