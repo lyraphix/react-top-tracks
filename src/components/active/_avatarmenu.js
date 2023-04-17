@@ -14,10 +14,6 @@ import { useState, useEffect } from 'react';
 
 function Menua(props) {
 
-    const logout = () => {
-        alert("This will log you out, not integrated yet")
-    };
-
     const deleteuser = () => {
         alert("This will delete all tracklist, not integrated yet")
     };
@@ -77,7 +73,7 @@ function Menua(props) {
             onClose={props.function}
         >   
             <MenuItem>
-            <MainButton name="Log Out" link='../components/Landing/Landing'/>
+            <MainButton name="Log Out" loc={props.logout}>
             </MenuItem>
             <MenuItem>
             <MainButton name="Delete User Data" loc={deleteuser}/>
