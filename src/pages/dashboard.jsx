@@ -202,15 +202,15 @@ const Dashboard = ({ user, setUser }) => {
                 <MainButton name="Create playlist" loc={openLobby} height="50px" width="200px" />
               </div>
   
-              <div>
+               <Center object={<div>
                 <input
                   className={styles.search}
                   type="text"
                   placeholder="Search Tracks"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
+                  value=""
+                 
                 />
-              </div>
+              </div>}/>
               <div className={styles.tracksContainer}>
                {playlists && playlists.length > 0 ? (
                   <div>
