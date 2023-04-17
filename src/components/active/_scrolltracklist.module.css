@@ -32,6 +32,7 @@
   padding: 0;
   overflow: hidden;
   border-bottom: 1px solid #ccc;
+  max-width: 85%;
 }
 
 .item:hover {
@@ -64,8 +65,6 @@
   text-shadow: 0px 4px 4px rgba(211, 121, 216, 0.25);
   margin: 0;
   cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .nametext {
@@ -94,12 +93,9 @@
   border-radius: 8px;
   margin: 0px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-x: hidden;
 }
 
 .item {
   padding: 0.5rem 0;
   white-space: nowrap;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
 }
