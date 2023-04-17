@@ -81,7 +81,6 @@ function Menua(props) {
         >   
             <MenuItem>
             <MainButton name="Log Out" loc={handleReplace}/>
-            {/* <Button variant="contained" href="/" sx={{color:"primary.textD"}}>Log Out</Button> */}
             </MenuItem>
             <MenuItem>
             <MainButton name="Delete User Data" loc={deleteuser}/>
