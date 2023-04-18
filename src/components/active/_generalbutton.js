@@ -12,7 +12,7 @@ const MainButton = (props) => {
 
     return(
         
-            <Button variant="contained" href={props.link} onClick={props.loc} sx={{height:hsize, width:wsize,color:"primary.textD"}}>{props.name}</Button>
+            <Button variant="contained" href={props.link} onClick={props.loc} sx={{height:hsize, width:wsize,color:"primary.textD", alignSelf:"center"}}>{props.name}</Button>
         
     );
 }

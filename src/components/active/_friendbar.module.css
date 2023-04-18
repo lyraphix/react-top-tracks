@@ -3,8 +3,8 @@
     background-color: rgb(2, 12, 21);
     height: 100%;
     flex-direction: column;
-    justify-content: center;
-    display:"flex",
+    /* justify-content: center; */
+    display:flex,
 
 }
 

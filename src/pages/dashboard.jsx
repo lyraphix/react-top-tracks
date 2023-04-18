@@ -191,7 +191,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                 }}
               >
                 <div>
-                  <div className={styles.landingdash} style={{  }}>
+                  <div className={styles.landingdash} style={{ lineHeight:"50px" }}>
                     Hi, {name}
                   </div>
                   <div
@@ -210,15 +210,16 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                 <MainButton name="Create playlist" loc={openLobby} height="60px" width="200px" />
               </div>
   
-               <Center object={<div>
-                <input
-                  className={styles.search}
-                  type="text"
-                  placeholder="Search Tracks"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>}/>
+               <Center object={
+               <div>
+                  <input
+                    className={styles.search}
+                    type="text"
+                    placeholder="Search Tracks"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </div>}/>
               <div className={styles.tracksContainer}>
                {playlists && playlists.length > 0 ? (
                   <div >

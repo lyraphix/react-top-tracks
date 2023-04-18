@@ -101,16 +101,16 @@ function Menua(props) {
         
             >
                 <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start", backgroundColor: "rgb(2, 12, 21)"}}>
-                <h2 className={styles.mainheadtext} style = {{alignSelf:"center"}}>FRIEND LIST</h2>
-                <input className={styles.search}
-                    type="text"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    style = {{alignSelf:"center"}}
-                />
-            </div>
-                <FriendListSidebar friends={friends} searchTerm={searchTerm}/>
+                    <h2 className={styles.mainheadtext} style = {{alignSelf:"center"}}>FRIEND LIST</h2>
+                    <input className={styles.search}
+                        type="text"
+                        placeholder="Search"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        style = {{alignSelf:"center", marginBottom:"10px"}}
+                    />
+                    <FriendListSidebar friends={friends} searchTerm={searchTerm}/>
+                </div>
             </Drawer>
         </Menu>
 
