@@ -2,7 +2,7 @@
   width: 40vw;
   max-width: 40vw;
   margin: 0px auto;
-  height: 40vh;
+  height: 30vh;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0;
@@ -32,7 +32,11 @@
   padding: 0;
   overflow: hidden;
   border-bottom: 2px solid rgb(16, 1, 18);
+<<<<<<< HEAD
   max-width: 99%;
+=======
+  max-width: 100%;
+>>>>>>> 7de050b4aeca9340b55b9f97b13b9407d3fd2541
 }
 
 .item:hover {

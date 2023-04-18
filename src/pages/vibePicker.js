@@ -49,6 +49,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
   };
 
   const handleReadyClick = () => {
+    setPlaylistName(userInput);
     fetchRecommendedTracks(userInput);
   };
 
@@ -98,7 +99,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                 object= {
                 <TextField
                   label="Playlist Name"
-                  value={playlistName}
+                  defaultValue={playlistName}
                   onChange={handlePlaylistNameChange}
                   style={{ marginBottom: "1rem" }}
                 />}
@@ -110,14 +111,24 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                   step={1}
                   onChange={handleSliderChange}
                   valueLabelDisplay="auto"
-                  style={{ width: "200px" }}
+                  style={{ width: "200px", marginBottom:"20px" }}
                 />}
                 object2={<TrackList items={trackDisplayDictionary} />}
-                object3={                
+                object3={<div style={{height:"30px"}}></div>}
+                object4={                
                   <MainButton
                   loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
                   >
                     Create Playlist
+                  </MainButton>}
+                object5={<div style={{height:"20px"}}></div>}
+                object6={                
+                  <MainButton
+                  loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
+                  >
+                    Get Poster
                   </MainButton>}
                 />
               </>

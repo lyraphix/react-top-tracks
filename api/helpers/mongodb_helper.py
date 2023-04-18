@@ -21,6 +21,28 @@ class MongodbHelper:
         # lobby db
         self.lobbies_db = client['lobbies']
 
+    def send_friend_request(self, sender_id, receiver_id):
+        sender = self.users_collection.find_one({"user_id": sender_id})
+        if sender:
+            self.users_collection.update_one(
+                {"user_id": receiver_id},
+                {"$addToSet": {"friend_requests": sender_id}}
+            )
+
+    def accept_friend_request(self, accepter_id, requester_id):
+        accepter = self.users_collection.find_one({"user_id": accepter_id})
+        requester = self.users_collection.find_one({"user_id": requester_id})
+        if accepter and requester:
+            self.users_collection.update_one(
+                {"user_id": accepter_id},
+                {"$addToSet": {"friends": requester_id},
+                 "$pull": {"friend_requests": requester_id}}
+            )
+            self.users_collection.update_one(
+                {"user_id": requester_id},
+                {"$addToSet": {"friends": accepter_id}}
+            )
+
     def get_collection_name(self, artist_name):
         artist_name = ''.join(filter(lambda x: x.isalpha() or x.isdigit() or x.isspace(), artist_name))
         first_letter = artist_name[0].upper()

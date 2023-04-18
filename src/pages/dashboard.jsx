@@ -280,7 +280,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
   return (
     user && (
       <div className={styles.all}>
-        <div className={styles.dashboard}>
+        <div className={styles.dashboard} >
           <div className={styles.menu}>
             {/* <MenuaItems source={untitledArtwork} />
             <MenuaItems source={home} /> */}
@@ -294,7 +294,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
           <div
             className={styles.dashboardbox}
             style={{
-              paddingTop: "15vh",
+              paddingTop: "60px",
               // paddingBottom: "10vh",
             }}
           >
@@ -309,7 +309,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                 }}
               >
                 <div>
-                  <div className={styles.landingdash} style={{  }}>
+                  <div className={styles.landingdash} style={{ lineHeight:"50px" }}>
                     Hi, {name}
                   </div>
                   <div
@@ -335,20 +335,21 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                 </div>
               </div>
   
-               <Center object={<div>
-                <input
-                  className={styles.search}
-                  type="text"
-                  placeholder="Search Tracks"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>}/>
+               <Center object={
+               <div>
+                  <input
+                    className={styles.search}
+                    type="text"
+                    placeholder="Search Tracks"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </div>}/>
               <div className={styles.tracksContainer}>
                {playlists && playlists.length > 0 ? (
-                  <div >
+                  <div style={{flexDirection:"row", display:"flex", justifyContent:"center"}}>
                     <div className={styles.trackList}>
-                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa"}}>Your Playlists:</h3>
+                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa",fontSize: "15px" }}>Your Playlists:</h3>
                       <TrackList
                         items={formatPlaylists(playlists)}
                         onSelection={handlePlaylistSelection}
@@ -359,7 +360,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                         <div>Loading...</div>
                       ) : selectedPlaylist ? (
                         <>
-                          <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa"}}>{selectedPlaylist.name}</h3>
+                          <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa", fontSize: "15px"}}>{selectedPlaylist.name}</h3>
                           {(() => {
                             const items = formatTracks(selectedPlaylist?.tracks || []);
                             console.log("Rendering Selected Playlist TrackList with items:", items);

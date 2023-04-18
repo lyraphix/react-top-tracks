@@ -194,7 +194,8 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
                 backgroundColor: 'grey',
                 color: 'white',
                 flexGrow: 1,
-                width: '100%'
+                width: '100%',
+                height:"100vh"
             }
             }}
         >
@@ -210,7 +211,8 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
                 backgroundColor: 'grey',
                 color: 'white',
                 flexGrow: 1,
-                width: '100%'
+                width: '100%',
+                height:"100vh"
             }
             }}
         >

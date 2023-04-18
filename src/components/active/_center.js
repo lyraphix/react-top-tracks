@@ -6,20 +6,17 @@ const Center = (props) => {
     return(
         <div style = {{
             flexDirection:"column", 
-            // width:"30vw", 
-            // height: "60px", 
-            // borderRadius:"30px",
-            // background: "#BAC0F1",
             justifyContent:"center",
             alignSelf:"center",
-            marginBottom:"40px",
-            gap: "10px",
+            marginBottom:"20px",
             display: "flex"}}>
             {props.object}
             {props.object2}
             {props.object3}
             {props.object4}
             {props.object5}
+            {props.object6}
+
         </div>
     );
 }
