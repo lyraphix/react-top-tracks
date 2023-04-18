@@ -22,7 +22,7 @@ const People = () => {
   const tri = "/landing/polygon.png";
 
   return (
-    <div className={styles.all}>
+    <div className={styles.all}  style = {{height:"100vh"}}>
       
     
       <div className={styles.landing} style = {{marginLeft:0}}>
