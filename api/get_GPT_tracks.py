@@ -33,7 +33,7 @@ class handler(BaseHTTPRequestHandler):
         tracks = []
         for artist_name in artist_list:
             print(artist_name)
-            if artist_name:
+            if artist_name and not artist_name.startswith('$'):
                 first_char = artist_name[0].upper()
 
                 # Only looking for artists which aren't in the database
@@ -48,7 +48,7 @@ class handler(BaseHTTPRequestHandler):
                         unique_tracks = {track['name']: Track(name=track['name'], id=track['id'], artist=artist_name, image_url=track.get('album', {}).get('images', [])[0].get('url') if track.get('album', {}).get('images') else None) for track in top_tracks}.values()
 
                         related_track_ids = sp.get_tracks_from_artists([artist_name])
-                        related_tracks_objects = [Track(name=track.name, id=track.id, artist=artist_name, image_url=track.image_url) for track in related_track_ids]
+                        related_tracks_objects = [Track(name=track.name, id=track.id, artist=track.artist, image_url=track.image_url) for track in related_track_ids]
 
                         mdb.store_artist_tracks_in_database(artist_name, list(unique_tracks), related_tracks_objects)
 
