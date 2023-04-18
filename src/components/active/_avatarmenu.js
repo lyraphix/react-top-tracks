@@ -17,6 +17,11 @@ function Menua(props) {
 
     const router = useRouter();
 
+    const handleLogOut = () => {
+        props.logout();
+        sessionStorage.clear();
+    };
+
     const deleteuser = () => {
         alert("This will delete all tracklist, not integrated yet")
     };
@@ -35,7 +40,7 @@ function Menua(props) {
 
     const handleReplace = () => {
         router.replace('/');
-      }
+    }
 
     const friends = [
         {
@@ -80,7 +85,7 @@ function Menua(props) {
             onClose={props.function}
         >   
             <MenuItem>
-            <MainButton name="Log Out" loc={handleReplace}/>
+            <MainButton name="Log Out" loc={handleLogOut}/>
             </MenuItem>
             <MenuItem>
             <MainButton name="Delete User Data" loc={deleteuser}/>

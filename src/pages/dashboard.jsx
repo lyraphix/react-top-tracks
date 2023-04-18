@@ -30,7 +30,7 @@ export const formatTracks = (tracks) => {
   }));
 };
 
-const Dashboard = ({ user, setUser }) => {
+const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
 
   const [loadingPlaylist, setLoadingPlaylist] = useState(false);
 
@@ -54,6 +54,10 @@ const Dashboard = ({ user, setUser }) => {
   const vibepicker = "/dashboard/vibepicker.png";
   const vector = "/dashboard/vector.png";
   
+  const handleLanding = () => {
+    navigateToLanding();
+  };
+
   const handleLetsGo = () => {
         navigateToSignIn();
   };
@@ -166,7 +170,7 @@ const Dashboard = ({ user, setUser }) => {
             <div>
               {/* This div needs debugging */}
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
-              <Menua function={handleClose} anchor={anchorEl} logout={handleLetsGo} />
+              <Menua function={handleClose} anchor={anchorEl} logout={handleLanding} />
             </div>
           </div>
           <div
