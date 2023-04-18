@@ -129,6 +129,14 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                   >
                     Create Playlist
                   </MainButton>}
+                object5={<div style={{height:"20px"}}></div>}
+                object6={                
+                  <MainButton
+                  loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
+                  >
+                    Get Poster
+                  </MainButton>}
                 />
               </>
             )}
