@@ -56,6 +56,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
   };
 
   const handleReadyClick = () => {
+    setPlaylistName(userInput);
     fetchRecommendedTracks(userInput);
   };
 
@@ -105,7 +106,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                 object= {
                 <TextField
                   label="Playlist Name"
-                  value={playlistName}
+                  defaultValue={playlistName}
                   onChange={handlePlaylistNameChange}
                   style={{ marginBottom: "1rem" }}
                 />}
