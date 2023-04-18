@@ -16,6 +16,7 @@
         "@mui/material": "^5.11.12",
         "axios": "^0.26.1",
         "critters": "^0.0.16",
+        "firebase": "^9.20.0",
         "g": "^2.0.1",
         "isomorphic-unfetch": "^4.0.2",
         "next": "^13.2.4",
@@ -24,6 +25,8 @@
         "react": "^18.2.0",
         "react-device-detect": "^2.2.3",
         "react-dom": "^18.2.0",
+        "socket-io": "^1.0.0",
+        "socket.io": "^4.6.1",
         "vercel": "^28.18.0"
     }
 }

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Drawer,
   Menu,
   MenuItem,
@@ -9,15 +14,17 @@ import {
   Grid
 } from "@mui/material";
 import Lobby from "./lobby";
+import VibePicker from "./vibePicker";
 import Menua from "@/components/active/_avatarmenu";
 import MainButton from "@/components/active/_generalbutton";
 import MenuaItems from "@/components/index/_menuaitems";
 import Center from "@/components/active/_center";
 import TrackList from "@/components/active/_scrolltracklist";
 import useDashboard from "@/hooks/useDashboard";
+import CreateMusaicLobby from './CreateMusaicLobby';
+import JoinMusaicLobby from './JoinMusaicLobby';
 
-
-
+import { getDatabase, ref, set, push, child, update } from 'firebase/database';
 
 export const formatTracks = (tracks) => {
   console.log(tracks)
@@ -31,6 +38,50 @@ export const formatTracks = (tracks) => {
 };
 
 const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
+
+  const [vibePickerOpen, setVibePickerOpen] = useState(false);
+
+  const openVibePicker = () => {
+    setVibePickerOpen(true);
+  };
+  
+  const closeVibePicker = () => {
+    setVibePickerOpen(false);
+  };
+  
+
+  const [createMusaicDrawerOpen, setCreateMusaicDrawerOpen] = useState(false);
+  const [joinMusaicDrawerOpen, setJoinMusaicDrawerOpen] = useState(false);
+  const [lobbyIdInput, setLobbyIdInput] = useState('');
+
+  const handleLobbyIdInputChange = (event) => {
+    setLobbyIdInput(event.target.value);
+  };
+
+  const openCreateMusaicDrawer = () => {
+    setCreateMusaicDrawerOpen(true);
+  };
+
+  const closeCreateMusaicDrawer = () => {
+    setCreateMusaicDrawerOpen(false);
+  };
+
+  const openJoinMusaicDrawer = () => {
+    setJoinMusaicDrawerOpen(true);
+  };
+
+  const closeJoinMusaicDrawer = () => {
+    setJoinMusaicDrawerOpen(false);
+  };
+
+  const handleJoinLobbySubmit = () => {
+    if (lobbyIdInput.trim() !== "") {
+      joinLobby(lobbyIdInput.trim());
+    } else {
+      alert("Please enter a valid Musaic Key.");
+    }
+  };
+  
 
   const [loadingPlaylist, setLoadingPlaylist] = useState(false);
 
@@ -77,6 +128,68 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
   const closeLobby = () => {
     setAnchorLobby(null);
   };
+
+
+  const createLobby = () => {
+    const musaicKey = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates an 8-character alphanumeric Musaic Key
+  
+    const db = getDatabase();
+    const newLobbyRef = push(child(ref(db), 'lobbies'));
+    const lobbyId = newLobbyRef.key;
+    const lobbyData = {
+      id: lobbyId,
+      musaicKey, // Save the Musaic Key in the lobby data
+      users: {
+        [user.user_id]: {
+          id: user.user_id,
+          ready: false,
+          input: '',
+        },
+      },
+    };
+  
+    set(newLobbyRef, lobbyData)
+      .then(() => {
+        console.log('Lobby created:', lobbyId);
+        openCreateMusaicDrawer();
+      })
+      .catch((error) => {
+        console.error('Error creating lobby:', error);
+      });
+  };
+  
+  const joinLobby = (musaicKey) => {
+    const db = getDatabase();
+    const lobbiesRef = child(ref(db), 'lobbies');
+  
+    lobbiesRef.once('value', (snapshot) => {
+      const lobbies = snapshot.val();
+      const foundLobby = Object.values(lobbies).find((lobby) => lobby.musaicKey === musaicKey);
+  
+      if (foundLobby && !foundLobby.users[user.user_id]) {
+        const lobbyRef = child(ref(db), `lobbies/${foundLobby.id}`);
+        const userRef = child(lobbyRef, `users/${user.user_id}`);
+        const userData = {
+          id: user.user_id,
+          ready: false,
+          input: '',
+        };
+  
+        set(userRef, userData)
+          .then(() => {
+            console.log('User joined lobby:', foundLobby.id);
+            closeJoinMusaicDrawer();
+            openLobby(); // Opens the lobby drawer
+          })
+          .catch((error) => {
+            console.error('Error joining lobby:', error);
+          });
+      } else {
+        console.error('Invalid Musaic Key:', musaicKey);
+      }
+    });
+  };
+  
   
 
   const handlePlaylistSelection = (playlist) => {
@@ -116,6 +229,11 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
       avatar: playlist.image_url || "/landing/logo.png",
       url: playlist.url,
     }));
+  };
+  
+  const handleCreatePlaylistAndClose = async (playlistName, filteredTracks) => {
+    await handleCreatePlaylist(playlistName, filteredTracks);
+    closeCreateMusaicDrawer();
   };
   
 
@@ -207,7 +325,14 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                     You have created {playlists ? playlists.length : 0} playlists
                   </div>
                 </div>
-                <MainButton name="Create playlist" loc={openLobby} height="60px" width="200px" />
+                <div>
+                <Button variant="contained" color="primary" onClick={openCreateMusaicDrawer}>
+                    Create a Musaic
+                  </Button>
+                  <Button variant="contained" color="primary" onClick={openJoinMusaicDrawer}>
+                    Join a Musaic
+                  </Button>
+                </div>
               </div>
   
                <Center object={<div>
@@ -264,9 +389,37 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
             closeLobby={closeLobby}
           />
         </Drawer>
+        <Drawer
+          anchor="left"
+          open={createMusaicDrawerOpen}
+          onClose={closeCreateMusaicDrawer}
+          sx={{ backgroundColor: "background" }}
+        >
+          <CreateMusaicLobby createLobby={createLobby} openVibePicker={openVibePicker} closeLobby={closeCreateMusaicDrawer} />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={joinMusaicDrawerOpen}
+          onClose={closeJoinMusaicDrawer}
+          sx={{ backgroundColor: "background" }}
+        >
+          <JoinMusaicLobby closeLobby={closeJoinMusaicDrawer} />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={vibePickerOpen}
+          onClose={closeVibePicker}
+          sx={{ backgroundColor: "background" }}
+        >
+          <VibePicker
+            handleCreatePlaylist={handleCreatePlaylistAndClose} // This functionality should def be moved to closeALlDrawers but I'm a bad programmer send me to hell
+            pass={closeVibePicker}
+            closeAllDrawers={closeVibePicker}
+          />
+        </Drawer>
       </div>
     )
   );
-  }
-  export default Dashboard;
-  
+};
+
+export default Dashboard;

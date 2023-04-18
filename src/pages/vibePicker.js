@@ -35,13 +35,6 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
     closeAllDrawers();
   };
 
-  const trackListStyle = {
-    width: "50%",
-    margin: "0 auto",
-  };
-  
-
-  
   const handlePlaylistNameChange = (event) => {
     setPlaylistName(event.target.value);
   };
