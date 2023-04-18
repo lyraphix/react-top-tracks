@@ -15,25 +15,24 @@ class PlaylistMakerGPT:
         }
         ]
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-        artist_list_text_2 = response.choices[0].message['content'].strip()
-        artist_text_lines_2 = artist_list_text_2.split('\n')
-
-        artist_list_2 = [line.partition('. ')[-1].strip().rstrip('"') for line in artist_text_lines_2 if line]
-        artist_list_2 = [line.partition('. ')[-1].strip().replace('"', '') for line in artist_text_lines_2 if line]
-        artist_list_2 = [line.partition('. ')[-1].strip().replace('.', '') for line in artist_text_lines_2 if line]
-
-        messages = [
-        {
-            "role": "user",
-            "content": f"Your output will be a list of artists names. Based on the meaning and vibe of this phrase '{user_input}', rank the top 3 artists from this list '{top_artists}', that match the phrase the most. If an artist's name is included in the phrase, include the artist too."
-        }
-        ]
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
         artist_list_text_1 = response.choices[0].message['content'].strip()
         artist_text_lines_1 = artist_list_text_1.split('\n')
         artist_list_1 = [line.partition('. ')[-1].strip().rstrip('"') for line in artist_text_lines_1 if line]
         artist_list_1 = [line.partition('. ')[-1].strip().replace('"', '') for line in artist_text_lines_1 if line]
         artist_list_1 = [line.partition('. ')[-1].strip().replace('.', '') for line in artist_text_lines_1 if line]
+
+        messages = [
+            {
+                "role": "user",
+                "content": f"Your output will be a list of artists names. Based on the meaning and vibe of this phrase '{user_input}', rank the top 3 artists from this list '{top_artists}', that match the phrase the most. If an artist's name is included in the phrase, include the artist too."
+            }
+        ]
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        artist_list_text_2 = response.choices[0].message['content'].strip()
+        artist_text_lines_2 = artist_list_text_2.split('\n')
+        artist_list_2 = [line.partition('. ')[-1].strip().rstrip('"') for line in artist_text_lines_2 if line]
+        artist_list_2 = [line.partition('. ')[-1].strip().replace('"', '') for line in artist_text_lines_2 if line]
+        artist_list_2 = [line.partition('. ')[-1].strip().replace('.', '') for line in artist_text_lines_2 if line]
 
         artist_list = artist_list_2 + artist_list_1
 
