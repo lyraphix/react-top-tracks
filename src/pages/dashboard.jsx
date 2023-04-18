@@ -176,7 +176,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
           <div
             className={styles.dashboardbox}
             style={{
-              paddingTop: "15vh",
+              paddingTop: "60px",
               // paddingBottom: "10vh",
             }}
           >
