@@ -118,12 +118,14 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                   step={1}
                   onChange={handleSliderChange}
                   valueLabelDisplay="auto"
-                  style={{ width: "200px" }}
+                  style={{ width: "200px", marginBottom:"20px" }}
                 />}
                 object2={<TrackList items={trackDisplayDictionary} />}
-                object3={                
+                object3={<div style={{height:"30px"}}></div>}
+                object4={                
                   <MainButton
                   loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
                   >
                     Create Playlist
                   </MainButton>}
