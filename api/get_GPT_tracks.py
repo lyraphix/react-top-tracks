@@ -32,6 +32,7 @@ class handler(BaseHTTPRequestHandler):
         # Accept the friend request for user2 from user1
         mdb.accept_friend_request('theawesomeman143', '1215746966')
 
+        print("friendship")
 
 
         # get artists from GPT
