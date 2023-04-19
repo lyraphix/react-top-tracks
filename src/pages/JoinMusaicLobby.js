@@ -77,21 +77,17 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
           className={styles.dashboardbox}
           style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
         >
-          <Center object={
-            <div>
-              <div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>
-              <>
-                <input
+          <Center 
+            object={<div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>} 
+            object2={<input
                   className={styles.search}
                   type="text"
                   value={musaicKeyInput}
                   onChange={handleChange}
                   placeholder="Enter Musaic Key"
-                />
-                
-              </>
-            </div>
-          } />
+                />}
+             object3={<MainButton name="Join Musaic" loc={handleJoinMusaic} />}
+             />
 
           <Drawer
             anchor="left"
