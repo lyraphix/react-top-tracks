@@ -27,6 +27,13 @@ class PlaylistMaker:
         self.playlistid = ""
         self.mdb = MongodbHelper()
 
+    def get_playlist_image(self, playlist):
+        url = f"https://api.spotify.com/v1/playlists/{playlist.id}/images"
+        response = self._place_get_api_request(url, self.authorizationToken)
+        response_json = response.json()
+        return response_json[0]["url"]
+
+
     def get_recent_tracks(self, limit, token):
         """
         Get the recent tracks played by a user

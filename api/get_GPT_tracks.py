@@ -26,13 +26,6 @@ class handler(BaseHTTPRequestHandler):
         sp = PlaylistMaker([access_token])
         mdb = MongodbHelper()
 
-        # Send a friend request from user1 to user2
-        mdb.send_friend_request('1215746966', 'theawesomeman143')
-
-        # Accept the friend request for user2 from user1
-        mdb.accept_friend_request('theawesomeman143', '1215746966')
-
-        print("friendship")
 
 
         # get artists from GPT
