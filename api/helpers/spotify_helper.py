@@ -221,7 +221,7 @@ class PlaylistMaker:
         return response_json['tracks']
 
     
-    def get_tracks_from_artists(self, artist_list, limit=10):
+    def get_tracks_from_artists(self, artist_list, limit=5):
         related_tracks = []
         for artist_name in artist_list:
             if artist_name:

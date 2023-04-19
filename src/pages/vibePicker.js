@@ -9,20 +9,20 @@ import {
 import { useState, useEffect, useRef } from 'react';
 import Banner from "@/components/active/_bannerandsub";
 import MainBox from "@/components/active/_mainbox";
-import useVibePicker from "@/hooks/useVibePicker";
 import GPTinput from "@/components/GPTinput";
 import TrackList from "@/components/active/_scrolltracklist";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import Center from "@/components/active/_center";
-import { formatTracks } from "@/pages/dashboard";
 import MainButton from "@/components/active/_generalbutton";
+import { formatTracks } from "@/pages/dashboard";
+import useVibePicker from "@/hooks/useVibePicker";
 
 export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers }) {
-  const textInput = useRef(null);
-  const [userInput, setUserInput] = useState("");
+
   const {
     phase,
+    processingTracks,
     fetchedTracks,
     filteredTracks,
     fetchRecommendedTracks,
@@ -31,26 +31,24 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
     setPublicRatio,
     limit,
     setLimit,
-  } = useVibePicker();
+  } = useVibePicker(); 
+
+
+  const textInput = useRef(null);
+  const [userInput, setUserInput] = useState("");
 
   const handlePublicRatioSliderChange = (event, newValue) => {
     setPublicRatio(newValue);
     applyFilter();
   };
-  
+
   const handleLimitSliderChange = (event, newValue) => {
     setLimit(newValue);
     applyFilter();
   };
-  
-  
+
   const [searchTerm, setSearchTerm] = useState('');
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorPlaylist, setPlaylist] = useState(null);
-
   const [playlistName, setPlaylistName] = useState(userInput);
-  const [numTracks, setNumTracks] = useState(20);
 
   const handleCreatePlaylistClick = () => {
     handleCreatePlaylist(playlistName, filteredTracks);
@@ -62,7 +60,6 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
   };
 
   const handleSliderChange = (event, newValue) => {
-    setNumTracks(newValue);
     applyFilter(newValue);
   };
 
@@ -80,7 +77,6 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
       handleReadyClick();
     }
   };
-
 
   const trackDisplayDictionary = formatTracks(filteredTracks);
 
@@ -115,63 +111,69 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                 handleKeyPress={handleKeyPress}
               />
             )}
-            {phase === 'playlist' && (
+            {phase === 'processing' && (
               <>
-              <Center 
-                object= {
-                <TextField
-                  label="Playlist Name"
-                  defaultValue={playlistName}
-                  onChange={handlePlaylistNameChange}
-                  style={{ marginBottom: "1rem" }}
-                />}
-                object1={
-                  <div>
-                    <Slider
-                      value={publicRatio}
-                      min={0}
-                      max={100}
-                      step={1}
-                      onChange={handlePublicRatioSliderChange}
-                      valueLabelDisplay="auto"
-                      style={{ width: "200px", marginBottom: "20px" }}
-                    />
-                    <Slider
-                      value={limit}
-                      min={1}
-                      max={fetchedTracks.length}
-                      step={1}
-                      onChange={handleLimitSliderChange}
-                      valueLabelDisplay="auto"
-                      style={{ width: "200px", marginBottom: "20px" }}
-                    />
-                  </div>}
-                object2={<TrackList items={trackDisplayDictionary} />}
-                object3={<div style={{height:"30px"}}></div>}
-                object4={                
-                  <MainButton
-                  loc={() => handleCreatePlaylistClick()}
-                  height="60px" width="100px"
-                  name='Create Playlist'
-                  >
-                    Create Playlist
-                  </MainButton>}
-                object5={<div style={{height:"20px"}}></div>}
-                object6={                
-                  <MainButton
-                  loc={() => handleCreatePlaylistClick()}
-                  height="60px" width="100px"
-                  name = 'Get Poster'
-                  >
-                    Get Poster
-                  </MainButton>}
-                />
+                <h3>Building your Musaic...</h3>
+                <TrackList items={formatTracks(fetchedTracks)} />
               </>
             )}
-          </div>
-          }/>
-        }
-      />
-    </div>
-  );
-}
+            {phase === 'playlist' && (
+              <>
+                <Center 
+                  object= {
+                  <TextField
+                    label="Playlist Name"
+                    defaultValue={playlistName}
+                    onChange={handlePlaylistNameChange}
+                    style={{ marginBottom: "1rem" }}
+                  />}
+                  object1={
+                    <div>
+                      <Slider
+                        value={publicRatio}
+                        min={0}
+                        max={100}
+                        step={1}
+                        onChange={handlePublicRatioSliderChange}
+                        valueLabelDisplay="auto"
+                        style={{ width: "200px", marginBottom: "20px" }}
+                      />
+                      <Slider
+                        value={limit}
+                        min={1}
+                        max={userTracks.length + publicTracks.length} // Use the combined length of userTracks and publicTracks
+                        step={1}
+                        onChange={handleLimitSliderChange}
+                        valueLabelDisplay="auto"
+                        style={{ width: "200px", marginBottom: "20px" }}
+                      />;
+                    </div>}
+                  object2={<TrackList items={trackDisplayDictionary} />}
+                  object3={<div style={{height:"30px"}}></div>}
+                  object4={                
+                    <MainButton
+                    loc={() => handleCreatePlaylistClick()}
+                    height="60px" width="100px"
+                    name='Create Playlist'
+                    >
+                      Create Playlist
+                    </MainButton>}
+                  object5={<div style={{height:"20px"}}></div>}
+                  object6={                
+                    <MainButton
+                    loc={() => handleCreatePlaylistClick()}
+                    height="60px" width="100px"
+                    name = 'Get Poster'
+                    >
+                      Get Poster
+                    </MainButton>}
+                  />
+                </>
+              )}
+            </div>
+            }/>
+          }
+        />
+      </div>
+    );
+  }
