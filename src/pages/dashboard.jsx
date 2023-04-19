@@ -5,6 +5,7 @@ import {
   Grid,
   Menu,
   MenuItem,
+  Link,
   TextField,
 } from '@mui/material';
 import Center from '@/components/active/_center';
@@ -172,8 +173,10 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
       author: "8-Bits", // SAMPLE
       avatar: playlist.image_url || "/landing/logo.png",
       url: playlist.url,
+      openInSpotify: playlist.spotify_url, // Add this line
     }));
   };
+  
   
   const handleCreatePlaylistAndClose = async (playlistName, filteredTracks) => {
     await handleCreatePlaylist(playlistName, filteredTracks);
@@ -291,6 +294,13 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                       <TrackList
                         items={formatPlaylists(playlists)}
                         onSelection={handlePlaylistSelection}
+                        renderAdditionalActions={(item) => (
+                          <Link href={item.openInSpotify} target="_blank" rel="noopener noreferrer">
+                            <Button variant="contained" size="small" style={{ marginLeft: '10px' }}>
+                              Open in Spotify
+                            </Button>
+                          </Link>
+                        )}
                       />
                     </div>
                     <div className={styles.trackList}>
