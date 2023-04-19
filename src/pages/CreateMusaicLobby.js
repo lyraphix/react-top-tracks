@@ -23,14 +23,14 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipbo
         >
           <Center object={
             <div>
-              <div>Musaic Key: {musaicKey}</div>
+              <div className={styles.drawertextdesigns}>Musaic Key: {musaicKey}</div>
               <MainButton name="Copy Musaic Key" loc={copyToClipboard} />
-              <div>Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>
-              <br></br>
-              <div>Or, get started with your own Musaic:</div>
-              <MainButton name="Create a Solo Musaic" loc={openVibePicker} />
+              
             </div>
-          } />
+          }
+          object2={<div className={styles.drawertextdesigns} >Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>}
+          object3={<div className={styles.drawertextdesigns}>Or, get started with your own Musaic:</div>}
+          object4= {<MainButton name="Create a Solo Musaic" loc={openVibePicker} />}/>
         </div>
       }
     />
