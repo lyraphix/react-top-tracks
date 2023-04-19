@@ -1,42 +1,18 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Button, Link } from "@mui/material";
 import styles from "./_scrolltracklist.module.css";
 
-const TrackList = ({ items, onSelection = () => {} }) => {
-  console.log('onSelection:', onSelection);
-
+const TrackList = ({ items, onSelection = () => {}, renderAdditionalButton }) => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isHovering, setIsHovering] = useState(false);
 
   const handleItemClick = (item) => {
-    // console.log('handleItemClick:', item);
     if (onSelection) {
       onSelection(item);
       setSelectedItem(item);
     }
   };
 
-  const handlePlaylistClick = (playlist) => {
-    // console.log('handlePlaylistClick:', playlist);
-    window.open(playlist.url, "_blank");
-  };
-
-  const handleTrackClick = (track) => {
-    // console.log('handleTrackClick:', track);
-    window.open(track.url, "_blank");
-  };
-
-  const handleMouseEnter = (item) => {
-    // console.log('handleMouseEnter item:', item);
-    setIsHovering(true);
-    setSelectedItem(item);
-  };
-  
-  const handleMouseLeave = () => {
-    // console.log('handleMouseLeave');
-    setIsHovering(false);
-    setSelectedItem(null);
-  };
-  
   const renderItem = (item) => (
     <div
       key={item.id}
@@ -44,8 +20,6 @@ const TrackList = ({ items, onSelection = () => {} }) => {
         selectedItem && selectedItem.id === item.id && styles.selected
       }`}
       onClick={() => handleItemClick(item)}
-      onMouseEnter={() => handleMouseEnter(item)}
-      onMouseLeave={() => handleMouseLeave()}
     >
       <img className={styles.image} src={item.avatar} alt={item.name} />
       <div className={styles.text}>
@@ -53,15 +27,14 @@ const TrackList = ({ items, onSelection = () => {} }) => {
           className={styles.nametext}
           onClick={() => window.open(item.url, "_blank")}
         >
-          {isHovering ? item.name : item.name.slice(0, 50)}
+          {item.name}
         </h3>
-        <h3 className={styles.authortext}>
-          - {isHovering ? item.author : item.author.slice(0, 50)}
-        </h3>
+        <h3 className={styles.authortext}>- {item.author}</h3>
       </div>
+      {renderAdditionalButton && renderAdditionalButton(item)}
     </div>
   );
-  
+
   return (
     <div className={styles.mainbox}>
       <ul>
@@ -69,6 +42,17 @@ const TrackList = ({ items, onSelection = () => {} }) => {
       </ul>
     </div>
   );
+};
+
+TrackList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSelection: PropTypes.func,
+  renderAdditionalButton: PropTypes.func,
+};
+
+TrackList.defaultProps = {
+  onSelection: () => {},
+  renderAdditionalButton: null,
 };
 
 export default TrackList;
