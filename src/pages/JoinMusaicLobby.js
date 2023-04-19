@@ -35,18 +35,20 @@ const JoinMusaicLobby = ({ closeLobby }) => {
         >
           <Center object={
             <div>
-              <div>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>
+              <div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>
               <>
                 <input
+                  className={styles.search}
                   type="text"
                   value={musaicKeyInput}
                   onChange={handleChange}
                   placeholder="Enter Musaic Key"
                 />
-                <MainButton name="Join Musaic" loc={handleJoinMusaic} />
+                
               </>
             </div>
-          } />
+          } 
+          object2={<MainButton name="Join Musaic" loc={handleJoinMusaic} />}/>
         </div>
       }
     />
