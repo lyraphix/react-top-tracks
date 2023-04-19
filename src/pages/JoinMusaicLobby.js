@@ -43,7 +43,7 @@ const JoinMusaicLobby = ({ closeLobby }) => {
                   onChange={handleChange}
                   placeholder="Enter Musaic Key"
                 />
-                <MainButton name="Join Musaic" onClick={handleJoinMusaic} />
+                <MainButton name="Join Musaic" loc={handleJoinMusaic} />
               </>
             </div>
           } />

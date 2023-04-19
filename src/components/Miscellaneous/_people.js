@@ -35,11 +35,11 @@ const People = () => {
             <div className={styles.catabsolutecontainer} style={{marginRight:"15%"}}>
               <span className={styles.meetyour} style={{fontWeight:400, color:"#dcdffb"}}>Our Team </span>
               <span className={styles.gettheplaylistjus} style={{fontSize:15, lineHeight:1.5}}>
-                    We're team 8-bits, duh
+                    This app was built by students at Emory University for Dr. Davide Fossati's Computer Science Practicum Course.
                 </span>
 
                 <span className={styles.gettheplaylistjus} style={{marginTop:-20, fontSize:15, lineHeight:1.5}}>
-                    This tab WIP :)
+                    We hope you enjoy using our app!
               </span>
               
             </div>

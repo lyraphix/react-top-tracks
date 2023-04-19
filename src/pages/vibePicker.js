@@ -119,6 +119,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                   <MainButton
                   loc={() => handleCreatePlaylistClick()}
                   height="60px" width="100px"
+                  name='Create Playlist'
                   >
                     Create Playlist
                   </MainButton>}
@@ -127,6 +128,7 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
                   <MainButton
                   loc={() => handleCreatePlaylistClick()}
                   height="60px" width="100px"
+                  name = 'Get Poster'
                   >
                     Get Poster
                   </MainButton>}

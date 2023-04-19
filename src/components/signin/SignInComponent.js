@@ -14,6 +14,7 @@ const SignInComponent = ({ navigateToDashboard }) => {
   const logo = "/signin/logotext.png";
   const vector2 = "/signin/vector0.svg";
   const spotify = "/signin/spotify.png";
+  const spotify_yt = "/signin/spotify_yt.png";
   const [state, setState] = React.useState(false);
   const [error, setError] = React.useState(false);
   const router = useRouter();
@@ -39,9 +40,14 @@ const SignInComponent = ({ navigateToDashboard }) => {
           {/* <div className={styles.signinflexcontainer}>
           </div> */}
           <div className={styles.flexcontainer11}>
-            <div className={styles.signinlogobox}>
-            <Button href="/"><img className={styles.signinlogo} src={logo} /></Button>
-            </div>
+              <div className={styles.flexcontainer}>
+                <div className={styles.signinlogobox}>
+                  <Button href="/"><img className={styles.signinlogo} src={logo} /></Button>
+                </div>
+                <div className={styles.signinlogobox}>
+                  <Button href="https://open.spotify.com/"><img className={styles.signinlogo} src={spotify_yt} /></Button>
+                </div>
+              </div>
             <img className={styles.vvector1} src={vector} />
             <div className={styles.flexcontainer22}>
               <Checkbox onChange={handleChange}/>
