@@ -73,7 +73,7 @@ function Landing({ navigateToSignIn, setUser, setShowSignIn, accessToken }) {
             <img className={styles.untitledartwork4} src={untitledArtwork} />
             <div className={styles.navigatepages}>
             <Button variant="text" href="/">
-                <span className={styles.buttontext}>TEST</span>
+                <span className={styles.buttontext}>Home</span>
             </Button>
             </div>
             <div className={styles.navigatepages}>

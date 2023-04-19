@@ -5,7 +5,7 @@ import Banner from "@/components/active/_bannerandsub";
 import MainBox from "@/components/active/_mainbox";
 import MainButton from "@/components/active/_generalbutton";
 
-const CreateMusaicLobby = ({ closeLobby, openVibePicker, ...props }) => {
+const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipboard, ...props }) => {
   return (
     <MainBox
       object1={
@@ -23,19 +23,14 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, ...props }) => {
         >
           <Center object={
             <div>
-              <div>Musaic Key: {props.musaicKey}</div>
-              <MainButton name="Copy Musaic Key" loc={props.copyToClipboard} />
+              <div>Musaic Key: {musaicKey}</div>
+              <MainButton name="Copy Musaic Key" loc={copyToClipboard} />
               <div>Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>
               <br></br>
               <div>Or, get started with your own Musaic:</div>
-              <MainButton name="Create a Solo Musaic" loc={props.openVibe} />
+              <MainButton name="Create a Solo Musaic" loc={openVibePicker} />
             </div>
           } />
-        </div>
-      }
-      object3={
-        <div>
-          <MainButton name="Create a Solo Musaic" onClick={openVibePicker} />
         </div>
       }
     />

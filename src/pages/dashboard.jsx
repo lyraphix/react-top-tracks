@@ -39,6 +39,9 @@ export const formatTracks = (tracks) => {
 
 const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
 
+  const [musaicKey, setMusaicKey] = useState("");
+
+
   const [vibePickerOpen, setVibePickerOpen] = useState(false);
 
   const openVibePicker = () => {
@@ -131,8 +134,9 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
 
 
   const createLobby = () => {
-    const musaicKey = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates an 8-character alphanumeric Musaic Key
-  
+    const generatedMusaicKey = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates an 8-character alphanumeric Musaic Key
+    setMusaicKey(generatedMusaicKey);
+    
     const db = getDatabase();
     const newLobbyRef = push(child(ref(db), 'lobbies'));
     const lobbyId = newLobbyRef.key;
@@ -158,6 +162,17 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
       });
   };
   
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(musaicKey)
+      .then(() => {
+        console.log('Musaic Key copied to clipboard:', musaicKey);
+      })
+      .catch((error) => {
+        console.error('Error copying Musaic Key to clipboard:', error);
+      });
+  };
+  
+
   const joinLobby = (musaicKey) => {
     const db = getDatabase();
     const lobbiesRef = child(ref(db), 'lobbies');
@@ -326,12 +341,8 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                   </div>
                 </div>
                 <div>
-                <Button variant="contained" color="primary" onClick={openCreateMusaicDrawer}>
-                    Create a Musaic
-                  </Button>
-                  <Button variant="contained" color="primary" onClick={openJoinMusaicDrawer}>
-                    Join a Musaic
-                  </Button>
+                  <MainButton loc={openCreateMusaicDrawer} name='Create a Musaic'/>
+                  <MainButton loc={openJoinMusaicDrawer} name='Join a Musaic'/>
                 </div>
               </div>
   
@@ -396,7 +407,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
           onClose={closeCreateMusaicDrawer}
           sx={{ backgroundColor: "background" }}
         >
-          <CreateMusaicLobby createLobby={createLobby} openVibePicker={openVibePicker} closeLobby={closeCreateMusaicDrawer} />
+          <CreateMusaicLobby createLobby={createLobby} openVibePicker={openVibePicker} closeLobby={closeCreateMusaicDrawer} musaicKey={musaicKey} copyToClipboard={copyToClipboard} />
         </Drawer>
         <Drawer
           anchor="left"

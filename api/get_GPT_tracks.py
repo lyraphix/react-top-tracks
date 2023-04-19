@@ -18,14 +18,11 @@ class handler(BaseHTTPRequestHandler):
         user_input = request_body.get('input')
         top_artists = request_body.get('artist_ids')
         page = request_body.get('page', 1)
-        print("Top Artists:")
-        print(top_artists)
 
         api_key = os.environ.get("api_key")
         oah = PlaylistMakerGPT(api_key)
         sp = PlaylistMaker([access_token])
         mdb = MongodbHelper()
-
 
 
         # get artists from GPT
