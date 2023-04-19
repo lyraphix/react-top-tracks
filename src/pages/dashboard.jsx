@@ -5,7 +5,6 @@ import {
   Grid,
   Menu,
   MenuItem,
-  Link,
   TextField,
 } from '@mui/material';
 import Center from '@/components/active/_center';
@@ -173,10 +172,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
       author: "8-Bits", // SAMPLE
       avatar: playlist.image_url || "/landing/logo.png",
       url: playlist.url,
-      openInSpotify: playlist.spotify_url, // Add this line
     }));
   };
-  
   
   const handleCreatePlaylistAndClose = async (playlistName, filteredTracks) => {
     await handleCreatePlaylist(playlistName, filteredTracks);
@@ -292,15 +289,9 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     <div className={styles.trackList}>
                       <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa",fontSize: "15px" }}>Your Playlists:</h3>
                       <TrackList
-                      items={formatPlaylists(playlists)}
-                      onSelection={handlePlaylistSelection}
-                      renderAdditionalButton={(item) => (
-                        <Link href={item.url} target="_blank" rel="noopener noreferrer" underline="none">
-                          <Button size="small" variant="contained">Open in Spotify</Button>
-                        </Link>
-                      )}
-                    />
-
+                        items={formatPlaylists(playlists)}
+                        onSelection={handlePlaylistSelection}
+                      />
                     </div>
                     <div className={styles.trackList}>
                       {loadingPlaylist ? (
@@ -332,21 +323,6 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
           </div>
         </div>
         {renderDrawers()}
-        <Link
-          href={selectedPlaylist ? selectedPlaylist.url : "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          underline="none"
-        >
-          <Button
-            className={styles.openInSpotifyButton}
-            variant="contained"
-            disabled={!selectedPlaylist}
-          >
-            Open in Spotify
-          </Button>
-        </Link>
-        
       </div>
     )
   );
