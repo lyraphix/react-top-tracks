@@ -37,11 +37,13 @@ class handler(BaseHTTPRequestHandler):
 
         # Get the link to the playlist
         link = pm.get_playlist_link(playlist)
+        image = pm.get_playlist_image(playlist)
         
         # MongoDB needs us to format tracks in a serializable format
         serialized_tracks = [track.to_dict() for track in playlist.tracks]
         playlist_dict = playlist.__dict__
         playlist_dict['tracks'] = serialized_tracks
+        playlist_dict['image_url'] = image
 
         mdb = MongodbHelper()
         mdb.update_user(user_id, {"$push": {"playlists": playlist_dict}})

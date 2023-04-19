@@ -268,7 +268,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                   </div>
                 </div>
                 <div>
-                  <MainButton loc={openCreateMusaicDrawer} name='Create a Musaic'/>
+                  <MainButton mrr="10px" loc={openCreateMusaicDrawer} name='Create a Musaic'/>
                   <MainButton loc={openJoinMusaicDrawer} name='Join a Musaic'/>
                 </div>
               </div>
