@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css';
 import { Drawer } from '@mui/material';
 import MainButton from "@/components/active/_generalbutton";
@@ -8,8 +8,9 @@ import Lobbylist from "@/components/active/_lobbyparty";
 import MainBox from "@/components/active/_mainbox";
 import VibePicker from "./vibePicker";
 import useLobby from '@/hooks/useLobby';
+import useLobbyData from '@/hooks/useLobbyData';
 
-const Lobby = ({ handleCreatePlaylist, closeLobby, ...props }) => {
+const Lobby = ({ musaicKey, handleCreatePlaylist, closeLobby, ...props }) => {
   const untitledArtwork = "/landing/logo.png";
   const home = "/dashboard/home.png";
   const friend = "/dashboard/friend.png";
@@ -42,11 +43,21 @@ const Lobby = ({ handleCreatePlaylist, closeLobby, ...props }) => {
     closeVibe();
     closeLobby();
   };
+  
+  const [lobbyData] = useLobbyData(musaicKey);
 
-  const users = [
-    { id: "FRIEND1", avatar: "/dashboard/Avatar.png" },
-    { id: "FRIEND2", avatar: "/dashboard/Avatar.png" },
-  ];
+  useEffect(() => {
+    if (lobbyData) {
+      console.log('Lobby data:', lobbyData);
+    }
+  }, [lobbyData]);
+
+  const users = lobbyData
+  ? Object.values(lobbyData.users).map((user) => ({
+      id: user.id,
+      avatar: user?.image_url || "/landing/logo.png"
+    }))
+  : [];
 
   return (
     <MainBox

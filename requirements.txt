@@ -6,3 +6,5 @@ bson
 spotipy
 openai
 python-dotenv
+asyncio
+openai_async

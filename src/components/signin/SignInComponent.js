@@ -45,7 +45,7 @@ const SignInComponent = ({ navigateToDashboard }) => {
                   <Button href="/"><img className={styles.signinlogo} src={logo} /></Button>
                 </div>
                 <div className={styles.signinlogobox}>
-                  <Button href="https://open.spotify.com/"><img className={styles.signinlogo} src={spotify_yt} /></Button>
+                  <Button href="https://open.spotify.com/"><img className={styles.signinspotify_yt} src={spotify_yt} /></Button>
                 </div>
               </div>
             <img className={styles.vvector1} src={vector} />

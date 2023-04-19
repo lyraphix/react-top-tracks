@@ -482,13 +482,23 @@
 
 }
 
+.signinlogobox {
+  margin-top: 20%;
+  margin-right: 26%;
+  margin-bottom: -15%;
+
+}
+
 .signinlogo {
   width: 53px;
   height: 53px;
 }
 
 
-
+.signinspotify_yt {
+  width: 145px;
+  height: 45px;
+}
 
 .vvector1 {
   height: 0.1%;

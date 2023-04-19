@@ -2,6 +2,7 @@ from http.server import BaseHTTPRequestHandler
 from json import dumps, loads
 import os
 import random
+import asyncio
 
 from api.helpers.openai_helper import PlaylistMakerGPT
 from api.helpers.spotify_helper import PlaylistMaker
@@ -9,7 +10,7 @@ from api.schemas.track import Track
 from api.helpers.mongodb_helper import MongodbHelper
 
 class handler(BaseHTTPRequestHandler):
-    def do_POST(self):
+    async def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         request_body = loads(post_data)
@@ -24,25 +25,41 @@ class handler(BaseHTTPRequestHandler):
         sp = PlaylistMaker([access_token])
         mdb = MongodbHelper()
 
-
         # get artists from GPT
-        artist_list = oah.get_artists_from_input(user_input, top_artists)
+        [user_tracks, public_tracks] = oah.get_artists_from_input(user_input, top_artists)
 
         # get tracks from artists
-        tracks = []
-        for artist_name in artist_list:
-            print(artist_name)
+        async def get_tracks(artist_list):
+            tracks = []
+            tasks = []
+
+            # Add tasks to the list
+            for artist_name in artist_list:
+                tasks.append(asyncio.ensure_future(process_artist(artist_name)))
+
+            # Wait for all tasks to complete
+            tracks = await asyncio.gather(*tasks)
+
+            # Flatten the tracks list and shuffle it
+            tracks = [item for sublist in tracks for item in sublist]
+            random.shuffle(tracks)
+
+            return tracks
+
+        # Asynchronous function to process an artist
+        async def process_artist(artist_name):
+            nonlocal sp, mdb
+            tracks = []
+
             if artist_name and not artist_name.startswith('$'):
                 first_char = artist_name[0].upper()
-
-                # Only looking for artists which aren't in the database
                 if not mdb.is_artist_in_database(artist_name):
                     # Search for the artist ID using the artist name
                     results = sp.search(query=f"artist:{artist_name}", search_type="artist")
                     if results['artists']['items']:
                         artist_id = results['artists']['items'][0]['id']
-                        # Get the artist's top 100 tracks
-                        top_tracks = sp.artist_top_tracks(artist_id, limit=100, country='US')
+                        # Get the artist's top 15 tracks
+                        top_tracks = sp.artist_top_tracks(artist_id, limit=15, country='US')
                         # Remove duplicate tracks
                         unique_tracks = {track['name']: Track(name=track['name'], id=track['id'], artist=artist_name, image_url=track.get('album', {}).get('images', [])[0].get('url') if track.get('album', {}).get('images') else None) for track in top_tracks}.values()
 
@@ -59,22 +76,17 @@ class handler(BaseHTTPRequestHandler):
 
                     tracks.extend(top_tracks + related_tracks)
 
-        # Shuffling
-        random.shuffle(tracks)
-        tracks = tracks[:100]
+            return tracks
 
-        per_page = 10  # Number of tracks per page
-        start_index = (page - 1) * per_page
-        end_index = start_index + per_page
-        paginated_tracks = tracks[start_index:end_index]
+        # Our new dicts!
+        tracks = await get_tracks(public_tracks + user_tracks)
+        public_tracks = [track if isinstance(track, dict) else track.to_dict() for track in tracks[:len(public_tracks)]]
+        user_tracks = [track if isinstance(track, dict) else track.to_dict() for track in tracks[len(public_tracks):]]
 
-        response_data = {"tracks": [track if isinstance(track, dict) else track.to_dict() for track in paginated_tracks]}
-
+        response_data = {"public_tracks": public_tracks, "user_tracks": user_tracks}
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(dumps(response_data).encode())
-
-        return

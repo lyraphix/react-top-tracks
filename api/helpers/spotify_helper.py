@@ -250,7 +250,6 @@ class PlaylistMaker:
     # API requests for Spotify
 
     def _place_get_api_request(self, url, auth):
-        print(f"Access token before request: {auth}")
         response = requests.get(
             url,
             headers={
@@ -258,7 +257,6 @@ class PlaylistMaker:
                 "Authorization": f"Bearer {auth}"
             }
         )
-        print(f"Response status code: {response.status_code}")
         return response
 
 

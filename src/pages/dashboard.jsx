@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import styles from '@/styles/Home.module.css'
 import {
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Drawer,
+  Grid,
   Menu,
   MenuItem,
   TextField,
-  Grid
-} from "@mui/material";
-import Lobby from "./lobby";
-import VibePicker from "./vibePicker";
-import Menua from "@/components/active/_avatarmenu";
-import MainButton from "@/components/active/_generalbutton";
-import MenuaItems from "@/components/index/_menuaitems";
-import Center from "@/components/active/_center";
-import TrackList from "@/components/active/_scrolltracklist";
-import useDashboard from "@/hooks/useDashboard";
+} from '@mui/material';
+import Center from '@/components/active/_center';
 import CreateMusaicLobby from './CreateMusaicLobby';
 import JoinMusaicLobby from './JoinMusaicLobby';
+import Lobby from './lobby';
+import MainButton from '@/components/active/_generalbutton';
+import Menua from '@/components/active/_avatarmenu';
+import styles from '@/styles/Home.module.css';
+import TrackList from '@/components/active/_scrolltracklist';
+import VibePicker from './vibePicker';
+import useDashboard from '@/hooks/useDashboard';
 
 import { getDatabase, ref, set, push, child, update } from 'firebase/database';
+
+
 
 export const formatTracks = (tracks) => {
   console.log(tracks)
@@ -37,28 +33,24 @@ export const formatTracks = (tracks) => {
   }));
 };
 
-const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
-
-  const [musaicKey, setMusaicKey] = useState("");
+const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
 
 
   const [vibePickerOpen, setVibePickerOpen] = useState(false);
-
-  const openVibePicker = () => {
-    setVibePickerOpen(true);
-  };
-  
-  const closeVibePicker = () => {
-    setVibePickerOpen(false);
-  };
-  
-
   const [createMusaicDrawerOpen, setCreateMusaicDrawerOpen] = useState(false);
   const [joinMusaicDrawerOpen, setJoinMusaicDrawerOpen] = useState(false);
   const [lobbyIdInput, setLobbyIdInput] = useState('');
 
   const handleLobbyIdInputChange = (event) => {
     setLobbyIdInput(event.target.value);
+  };
+
+  const openVibePicker = () => {
+    setVibePickerOpen(true);
+  };
+
+  const closeVibePicker = () => {
+    setVibePickerOpen(false);
   };
 
   const openCreateMusaicDrawer = () => {
@@ -81,26 +73,33 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
     if (lobbyIdInput.trim() !== "") {
       joinLobby(lobbyIdInput.trim());
     } else {
-      alert("Please enter a valid Musaic Key.");
+      // Replace alert() with Material-UI Snackbar
     }
   };
-  
+
 
   const [loadingPlaylist, setLoadingPlaylist] = useState(false);
-
   const { playlists = [], image_url = "/landing/logo.png", username } = user || {};
-  console.log("Initial playlists: ", playlists)
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+
+
   const {
+    createLobby,
+    joinLobby,
+    handleCreatePlaylist,
     searchTerm,
     setSearchTerm,
     handleSearchChange,
     anchorLobby,
     setAnchorLobby,
-  } = useDashboard();
+    copyToClipboard,
+    musaicKey,
+    setMusaicKey
+  } = useDashboard(user, setSelectedPlaylist, setUser, closeJoinMusaicDrawer);
 
   const avatar = user?.image_url || "/landing/logo.png";
-  const name = user?.username;
+  const name = user?.username || "Guest";
+
   
   const untitledArtwork = "/landing/logo.png";
   const home = "/dashboard/home.png";
@@ -132,80 +131,10 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
     setAnchorLobby(null);
   };
 
+  const [lobbyOpen, setLobbyOpen] = useState(false);
 
-  const createLobby = () => {
-    const generatedMusaicKey = Math.random().toString(36).substr(2, 8).toUpperCase(); // Generates an 8-character alphanumeric Musaic Key
-    setMusaicKey(generatedMusaicKey);
-    
-    const db = getDatabase();
-    const newLobbyRef = push(child(ref(db), 'lobbies'));
-    const lobbyId = newLobbyRef.key;
-    const lobbyData = {
-      id: lobbyId,
-      musaicKey, // Save the Musaic Key in the lobby data
-      users: {
-        [user.user_id]: {
-          id: user.user_id,
-          ready: false,
-          input: '',
-        },
-      },
-    };
-  
-    set(newLobbyRef, lobbyData)
-      .then(() => {
-        console.log('Lobby created:', lobbyId);
-        openCreateMusaicDrawer();
-      })
-      .catch((error) => {
-        console.error('Error creating lobby:', error);
-      });
-  };
-  
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(musaicKey)
-      .then(() => {
-        console.log('Musaic Key copied to clipboard:', musaicKey);
-      })
-      .catch((error) => {
-        console.error('Error copying Musaic Key to clipboard:', error);
-      });
-  };
-  
 
-  const joinLobby = (musaicKey) => {
-    const db = getDatabase();
-    const lobbiesRef = child(ref(db), 'lobbies');
-  
-    lobbiesRef.once('value', (snapshot) => {
-      const lobbies = snapshot.val();
-      const foundLobby = Object.values(lobbies).find((lobby) => lobby.musaicKey === musaicKey);
-  
-      if (foundLobby && !foundLobby.users[user.user_id]) {
-        const lobbyRef = child(ref(db), `lobbies/${foundLobby.id}`);
-        const userRef = child(lobbyRef, `users/${user.user_id}`);
-        const userData = {
-          id: user.user_id,
-          ready: false,
-          input: '',
-        };
-  
-        set(userRef, userData)
-          .then(() => {
-            console.log('User joined lobby:', foundLobby.id);
-            closeJoinMusaicDrawer();
-            openLobby(); // Opens the lobby drawer
-          })
-          .catch((error) => {
-            console.error('Error joining lobby:', error);
-          });
-      } else {
-        console.error('Invalid Musaic Key:', musaicKey);
-      }
-    });
-  };
-  
-  
+
 
   const handlePlaylistSelection = (playlist) => {
     console.log("Setting selected playlist:", playlist);
@@ -250,58 +179,57 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
     await handleCreatePlaylist(playlistName, filteredTracks);
     closeCreateMusaicDrawer();
   };
-  
 
-  const handleCreatePlaylist = async (playlistName, filteredTracks) => {
-    const accessToken = sessionStorage.getItem('spotify_access_token');
-    if (filteredTracks.length > 0) {
-      const selectedTracks = filteredTracks;
-      const finalPlaylistName = playlistName;
-      const userId = user.user_id;
 
-      try {
-        const response = await fetch('/api/create_playlist', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ token: accessToken, name: finalPlaylistName, tracks: selectedTracks, user_id: userId }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const externalUrl = data.external_url;
-          const createdPlaylist = data.playlist;
-
-          // Add the created playlist to the user's playlists in session storage
-          const currentUserData = JSON.parse(sessionStorage.getItem('user_data'));
-          currentUserData.playlists.push(createdPlaylist);
-          sessionStorage.setItem('user_data', JSON.stringify(currentUserData));
-
-          // Update user state to trigger a re-render of the sidebar
-          setSelectedPlaylist(createdPlaylist)
-          setUser(currentUserData);
-        } else {
-          console.error('Failed to create playlist:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error creating playlist:', error);
-      }
-    } else {
-      alert('Please select at least one track.');
-    }
+  const renderDrawers = () => {
+    return (
+      <>
+        <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
+          <Lobby
+            handleCreatePlaylist={handleCreatePlaylist}
+            closeLobby={closeLobby}
+          />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={createMusaicDrawerOpen}
+          onClose={closeCreateMusaicDrawer}
+          sx={{ backgroundColor: "background" }}
+        >
+          <CreateMusaicLobby createLobby={createLobby} openVibePicker={openVibePicker} closeLobby={closeCreateMusaicDrawer} musaicKey={musaicKey} copyToClipboard={copyToClipboard} />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={joinMusaicDrawerOpen}
+          onClose={closeJoinMusaicDrawer}
+          sx={{ backgroundColor: "background" }}
+        >
+          <JoinMusaicLobby user={user} joinLobby={joinLobby} closeLobby={closeJoinMusaicDrawer} />
+        </Drawer>
+        <Drawer
+          anchor="left"
+          open={vibePickerOpen}
+          onClose={closeVibePicker}
+          sx={{ backgroundColor: "background" }}
+        >
+          <VibePicker
+            handleCreatePlaylist={handleCreatePlaylistAndClose}
+            pass={closeVibePicker}
+            closeAllDrawers={closeVibePicker}
+          />
+        </Drawer>
+      </>
+    );
   };
+  
 
   return (
     user && (
       <div className={styles.all}>
         <div className={styles.dashboard} >
           <div className={styles.menu}>
-            {/* <MenuaItems source={untitledArtwork} />
-            <MenuaItems source={home} /> */}
               <Button href="/"><img style = {{height: "40px", width: "45px", alignSelf:"center", marginLeft:"10px", marginTop:"10px"}} src={untitledArtwork} /></Button>
             <div>
-              {/* This div needs debugging */}
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
               <Menua function={handleClose} anchor={anchorEl} logout={handleLanding} />
             </div>
@@ -310,7 +238,6 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
             className={styles.dashboardbox}
             style={{
               paddingTop: "60px",
-              // paddingBottom: "10vh",
             }}
           >
               <div
@@ -368,7 +295,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
                     </div>
                     <div className={styles.trackList}>
                       {loadingPlaylist ? (
-                        <div>Loading...</div>
+                        <div></div>
                       ) : selectedPlaylist ? (
                         <>
                           <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa", fontSize: "15px"}}>{selectedPlaylist.name}</h3>
@@ -395,40 +322,7 @@ const Dashboard = ({navigateToSignIn, navigateToLanding, user, setUser }) => {
               </div>
           </div>
         </div>
-        <Drawer anchor={"right"} open={Boolean(anchorLobby)} onClose={closeLobby}>
-          <Lobby
-            handleCreatePlaylist={handleCreatePlaylist}
-            closeLobby={closeLobby}
-          />
-        </Drawer>
-        <Drawer
-          anchor="left"
-          open={createMusaicDrawerOpen}
-          onClose={closeCreateMusaicDrawer}
-          sx={{ backgroundColor: "background" }}
-        >
-          <CreateMusaicLobby createLobby={createLobby} openVibePicker={openVibePicker} closeLobby={closeCreateMusaicDrawer} musaicKey={musaicKey} copyToClipboard={copyToClipboard} />
-        </Drawer>
-        <Drawer
-          anchor="left"
-          open={joinMusaicDrawerOpen}
-          onClose={closeJoinMusaicDrawer}
-          sx={{ backgroundColor: "background" }}
-        >
-          <JoinMusaicLobby closeLobby={closeJoinMusaicDrawer} />
-        </Drawer>
-        <Drawer
-          anchor="left"
-          open={vibePickerOpen}
-          onClose={closeVibePicker}
-          sx={{ backgroundColor: "background" }}
-        >
-          <VibePicker
-            handleCreatePlaylist={handleCreatePlaylistAndClose} // This functionality should def be moved to closeALlDrawers but I'm a bad programmer send me to hell
-            pass={closeVibePicker}
-            closeAllDrawers={closeVibePicker}
-          />
-        </Drawer>
+        {renderDrawers()}
       </div>
     )
   );

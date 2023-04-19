@@ -9,19 +9,35 @@ const shuffleArray = (array) => {
 };
 
 const useVibePicker = () => {
-  const [playlist, setPlaylist] = useState(null);
   const [playlistName, setPlaylistName] = useState('');
   const [phase, setPhase] = useState('input');
-  const [fetchedTracks, setFetchedTracks] = useState([]);
-  const [filteredTracks, setFilteredTracks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [publicRatio, setPublicRatio] = useState(50); // Percentage of public tracks
+  const [limit, setLimit] = useState(20); // The number of tracks to display in the filtered list
 
-  const applyFilter = (numTracks) => {
-    shuffleArray(fetchedTracks);
-    setFilteredTracks(fetchedTracks.slice(0, numTracks));
+  const [publicTracks, setPublicTracks] = useState([]);
+  const [userTracks, setUserTracks] = useState([]);
+  const [filteredTracks, setFilteredTracks] = useState([]);
+
+  const applyFilter = () => {
+    // Calculate the number of public and user tracks based on the ratio and limit
+    const numPublicTracks = Math.round((publicRatio / 100) * limit);
+    const numUserTracks = limit - numPublicTracks;
+
+    // Shuffle both lists and slice the required number of tracks
+    shuffleArray(publicTracks);
+    shuffleArray(userTracks);
+    const selectedPublicTracks = publicTracks.slice(0, numPublicTracks);
+    const selectedUserTracks = userTracks.slice(0, numUserTracks);
+
+    // Combine the selected tracks and shuffle the resulting list
+    const combinedTracks = [...selectedPublicTracks, ...selectedUserTracks];
+    shuffleArray(combinedTracks);
+    setFilteredTracks(combinedTracks);
   };
 
-  const fetchRecommendedTracks = async (userInput, page = 1) => {
+
+
+  const fetchRecommendedTracks = async (userInput) => {
     try {
       // Get the user's access token and top artists from session storage
       const userData = JSON.parse(sessionStorage.getItem('user_data'));
@@ -35,7 +51,6 @@ const useVibePicker = () => {
         token: accessToken,
         input: userInput,
         artist_ids: artists,
-        page,  // Pagination
       };
       console.log('Request body:', requestBody);
       const response = await fetch('/api/get_GPT_tracks', {
@@ -53,9 +68,9 @@ const useVibePicker = () => {
 
       const data = await response.json();
       console.log(data);
-      setFetchedTracks((prevTracks) => [...prevTracks, ...data.tracks]);
-      setFilteredTracks((prevTracks) => [...prevTracks, ...data.tracks]);
-  
+      setPublicTracks((prevTracks) => [...prevTracks, ...data.public_tracks]);
+      setUserTracks((prevTracks) => [...prevTracks, ...data.user_tracks]);
+    
       setPhase('playlist');
     } catch (error) {
       console.error(error);
@@ -63,34 +78,20 @@ const useVibePicker = () => {
   };
   
 
-  const fetchNextPage = async () => {
-    const nextPage = currentPage + 1;
-    await fetchRecommendedTracks('', nextPage);
-    setCurrentPage(nextPage);
-  };
-
-  const fetchPreviousPage = async () => {
-    if (currentPage > 1) {
-      const previousPage = currentPage - 1;
-      await fetchRecommendedTracks('', previousPage);
-      setCurrentPage(previousPage);
-    }
-  };
 
   // Other functions to handle playlist customization
 
   return {
     phase,
-    playlist,
-    fetchedTracks,
     filteredTracks,
     fetchRecommendedTracks,
     applyFilter,
-    fetchNextPage, 
-    fetchPreviousPage,  
-    currentPage,
     playlistName,
     setPlaylistName,
+    publicRatio,
+    setPublicRatio,
+    limit,
+    setLimit,
   };  
 };
 
