@@ -8,6 +8,7 @@ import {
   Link,
   TextField,
 } from '@mui/material';
+import MenuaItems from "@/components/index/_menuaitems";
 import Center from '@/components/active/_center';
 import CreateMusaicLobby from './CreateMusaicLobby';
 import JoinMusaicLobby from './JoinMusaicLobby';
@@ -41,7 +42,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   const [createMusaicDrawerOpen, setCreateMusaicDrawerOpen] = useState(false);
   const [joinMusaicDrawerOpen, setJoinMusaicDrawerOpen] = useState(false);
   const [lobbyIdInput, setLobbyIdInput] = useState('');
-
+  const spotify_yt = "/signin/spotify_yt.png";
   const handleLobbyIdInputChange = (event) => {
     setLobbyIdInput(event.target.value);
   };
@@ -232,6 +233,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
         <div className={styles.dashboard} >
           <div className={styles.menu}>
               <Button href="/"><img style = {{height: "40px", width: "45px", alignSelf:"center", marginLeft:"10px", marginTop:"10px"}} src={untitledArtwork} /></Button>
+              <MenuaItems source={spotify_yt} />
             <div>
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
               <Menua function={handleClose} anchor={anchorEl} logout={handleLanding} user={user}/>
