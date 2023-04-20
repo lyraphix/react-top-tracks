@@ -36,6 +36,10 @@
     {
       "src": "api/handleGenres.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "api/delete_userdata.py",
+      "use": "@vercel/python"
     }
   ],
   "rewrites": [
@@ -66,6 +70,10 @@
     {
       "source": "/api/handleGenres",
       "destination": "/api/handleGenres.py"
+    }, 
+    {
+      "source": "/api/delete_userdata",
+      "destination": "/api/delete_userdata.py"
     }
   ]
 }

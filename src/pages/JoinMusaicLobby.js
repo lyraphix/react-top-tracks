@@ -59,7 +59,7 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
     }
   };
 
-
+  
 
   
   return (
@@ -67,8 +67,8 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
       object1={
         <Banner
           main="JOIN A MUSAIC"
-          sub="ENTER MUSAIC KEY:"
-          more="Enter the Musaic Key provided by your friend"
+          sub="Enter the Musaic Key and press -Join- to join your friend's Musaic."
+          more=""
           pass={closeLobby}
         />
       }
@@ -78,15 +78,15 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
           style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
         >
           <Center 
-            object={<div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>} 
-            object2={<input
+          {/*object={<div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>} */}
+            object={<input
                   className={styles.search}
                   type="text"
                   value={musaicKeyInput}
                   onChange={handleChange}
                   placeholder="Enter Musaic Key"
                 />}
-             object3={<MainButton mtt="20px" name="Join Musaic" loc={handleJoinMusaic} />}
+             object2={<MainButton mtt="20px" name="Join Musaic" loc={handleJoinMusaic} />}
              />
 
           <Drawer

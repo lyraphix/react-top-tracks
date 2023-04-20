@@ -103,6 +103,9 @@ class MongodbHelper:
         # Update a user's information
         self.users_collection.update_one({"user_id": user_id}, updates)
 
+    def delete_user(self, user_id):
+        self.users_collection.delete_one({"user_id": user_id})
+
     def remove_playlist_from_user(self, user_id, playlist_id):
         result = self.users_collection.update_one(
             {"user_id": user_id},

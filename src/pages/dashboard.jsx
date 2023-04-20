@@ -234,7 +234,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
               <Button href="/"><img style = {{height: "40px", width: "45px", alignSelf:"center", marginLeft:"10px", marginTop:"10px"}} src={untitledArtwork} /></Button>
             <div>
               <img onClick={handleClick} className={styles.untitledartworkdash3} src={avatar} />
-              <Menua function={handleClose} anchor={anchorEl} logout={handleLanding} />
+              <Menua function={handleClose} anchor={anchorEl} logout={handleLanding} user={user}/>
             </div>
           </div>
           <div
