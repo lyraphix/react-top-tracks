@@ -23,28 +23,32 @@ function Menua(props) {
     };
 
     const handleDeleteUser = async () => {
-        const requestBody = {
-            user_id: props.user.user_id
-        };
-        try {
-            const response = await fetch('/api/delete_userdata', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-              });
-
-            if (response.ok) {
-                console.log('user data successfully deleted');
-                handleLogOut();
-            } else {
-                console.error('Request failed', response.statusText);
-            }
-
-        } catch (error) {
-            console.error('Error deleting user:', error);
-          }
+        const confirmed = window.confirm('This will delete all of your data stored on Musaic. Are you sure you want to proceed?');
+        if (confirmed) {
+            const requestBody = {
+                user_id: props.user.user_id
+            };
+            try {
+                const response = await fetch('/api/delete_userdata', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                  });
+    
+                if (response.ok) {
+                    console.log('user data successfully deleted');
+                    handleLogOut();
+                } else {
+                    console.error('Request failed', response.statusText);
+                }
+    
+            } catch (error) {
+                console.error('Error deleting user:', error);
+              }
+        }
+        
     };
 
     const [anchorFriendlist, setFriendlist] = useState(null);
