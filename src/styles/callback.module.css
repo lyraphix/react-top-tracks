@@ -11,7 +11,7 @@
     text-align: center;
     font-family: Inter, sans-serif;
     font-weight: 100;
-    font-size: 4.0vw;
+    font-size: 8.0vw;
     line-height: 65%;
     letter-spacing: 0.02em;
     margin-top: 5vh;
@@ -23,7 +23,7 @@
 .nametext {
     font-family: Inter, sans-serif;
     font-weight: 100;
-    font-size: 1.4vw;
+    font-size: 6.4vw;
     line-height: 40%;
     letter-spacing: 0.01em;
     /* align-self: center; */
