@@ -19,7 +19,7 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipbo
         <Banner
           main="CREATE A MUSAIC"
           sub="MUSAIC KEY:"
-          more="Your Musaic Key will appear here"
+          more={musaicKey}
           pass={closeLobby}
         />
       }
@@ -29,11 +29,11 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipbo
           style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
         >
           <Center 
-          object={<div className={styles.drawertextdesigns}>Musaic Key: {musaicKey}</div>}
-          object2={ <MainButton mbb="20px" name="Copy Musaic Key" loc={copyToClipboard} />}
-          object3={<div className={styles.drawertextdesigns} >Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>}
-          object4={<div className={styles.drawertextdesigns}>Or, get started with your own Musaic:</div>}
-          object5= {<MainButton name="Create a Solo Musaic" loc={openVibePicker} />}/>
+//           object={<div className={styles.drawertextdesigns}>Musaic Key: {musaicKey}</div>}
+          object={ <MainButton mbb="20px" name="Copy Musaic Key" loc={copyToClipboard} />}
+          object2={<div className={styles.drawertextdesigns} >Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>}
+          object3={<div className={styles.drawertextdesigns}>Or, get started with your own Musaic:</div>}
+          object4= {<MainButton name="Create a Solo Musaic" loc={openVibePicker} />}/>
         </div>
       }
     />
