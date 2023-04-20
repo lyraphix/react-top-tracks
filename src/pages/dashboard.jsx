@@ -180,8 +180,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   };
   
   
-  const handleCreatePlaylistAndClose = async (playlistName, filteredTracks) => {
-    await handleCreatePlaylist(playlistName, filteredTracks);
+  const handleCreatePlaylistAndClose = async (playlistName, filteredTracks, description) => {
+    await handleCreatePlaylist(playlistName, filteredTracks, description);
     closeCreateMusaicDrawer();
   };
 

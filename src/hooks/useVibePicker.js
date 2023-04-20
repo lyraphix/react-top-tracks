@@ -93,16 +93,11 @@ const useVibePicker = () => {
         let tracks = [];
       
         for (const artist of artists) {
-          if (tracks.length >= 60) {
-            break;
-          }
-      
           const requestBody = {
             token: accessToken,
             artist: artist,
           };
-          console.log("2. fetch");
-          console.log(requestBody);
+
           const response = await fetch("/api/get_GPT_tracks", {
             method: "POST",
             headers: {
@@ -117,20 +112,12 @@ const useVibePicker = () => {
       
           const data = await response.json();
           const fetchedTracks = data.tracks;
-          console.log("3");
-          console.log(isPublic)
-          console.log(fetchedTracks);
       
           if (fetchedTracks && fetchedTracks.length > 0) {
-            console.log("Adding Tracks, here is tracksToAdd and tracks before")
             const tracksToAdd = fetchedTracks.slice(0, 60 - tracks.length);
-            console.log(tracksToAdd)
-            console.log(tracks)
-            tracks = [...tracks, ...tracksToAdd];
-            console.log("And here is tracks after: ")
-            console.log(tracks)
-          }
 
+            tracks = [...tracks, ...tracksToAdd];
+          }
           else {
             console.log("fetchedTracks is not defined yet or has a length of 0")
           }
@@ -152,15 +139,6 @@ const useVibePicker = () => {
 
       setPublicTracks(publicFetchedTracks);
       setUserTracks(userFetchedTracks);
-      
-
-      
-      console.log("6. After fetching tracks");
-      console.log("Public tracks:", publicTracks);
-      console.log("User tracks:", userTracks);
-      console.log("Final Filtered tracks:", filteredTracks);
-
-      setPhase("playlist");
 
     } catch (error) {
       console.error('Error fetching recommended tracks:', error.message);

@@ -106,12 +106,13 @@ const useDashboard = (user, setSelectedPlaylist, setUser, closeJoinMusaicDrawer)
   
   
 
-  const handleCreatePlaylist = async (playlistName, filteredTracks) => {
+  const handleCreatePlaylist = async (playlistName, filteredTracks, description) => {
     const accessToken = sessionStorage.getItem('spotify_access_token');
     if (filteredTracks.length > 0) {
       const selectedTracks = filteredTracks;
       const finalPlaylistName = playlistName;
       const userId = user.user_id;
+      const finalDescription = description
 
       try {
         const response = await fetch('/api/create_playlist', {
@@ -119,7 +120,7 @@ const useDashboard = (user, setSelectedPlaylist, setUser, closeJoinMusaicDrawer)
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ token: accessToken, name: finalPlaylistName, tracks: selectedTracks, user_id: userId }),
+          body: JSON.stringify({ token: accessToken, name: finalPlaylistName, tracks: selectedTracks, user_id: userId, description: finalDescription }),
         });
 
         if (response.ok) {

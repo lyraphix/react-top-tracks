@@ -148,7 +148,7 @@ class PlaylistMaker:
         return False
 
     # functions for creating a playlist
-    def create_playlist(self, name):
+    def create_playlist(self, name, description=""):
         """
         :param name (str): New playlist name
         :return playlist (Playlist): Newly created playlist
@@ -156,7 +156,7 @@ class PlaylistMaker:
         userid = self.get_user_id()
         data = json.dumps({
             "name": name,
-            "description": "Your freshly created Musaic c:",
+            "description": f"Your freshly created Musaic, based off the phrase '{description}'",
             "collaborative": True,
             "public": False
         })

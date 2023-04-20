@@ -15,7 +15,7 @@ import Spinner from "@/components/_loadingscreen";
 import Center from "@/components/active/_center";
 import { formatTracks } from "./dashboard";
 
-export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass }) {
+export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
 
   const {
     phase,
@@ -29,9 +29,18 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
 
   const [limitedTracks, setLimitedTracks] = useState([]);
 
+  const [trackDisplayList, setTrackDisplayList] = useState([]);
+
+
   const [userInput, setUserInput] = useState("");
   const [playlistName, setPlaylistName] = useState(userInput);
 
+
+  useEffect(() => {
+    const updatedTrackDisplayList = formatTracks(limitedTracks);
+    setTrackDisplayList(updatedTrackDisplayList);
+  }, [publicRatio, limitedTracks, limit]);
+  
   const handlePublicRatioSliderChange = (event, newValue) => {
     setPublicRatio(newValue);
   };
@@ -41,7 +50,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
   };
 
   const handleCreatePlaylistClick = () => {
-    handleCreatePlaylist(playlistName, limitedTracks);
+    handleCreatePlaylist(playlistName, limitedTracks, userInput);
     closeAllDrawers();
   };
 
@@ -69,7 +78,8 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
     setLimitedTracks(filteredTracks.slice(0, limit));
   }, [filteredTracks, limit]);
   
-  const trackDisplayDictionary = formatTracks(limitedTracks);
+  const trackDisplayDictionary = trackDisplayList;
+
 
   return (
     <div className={styles.all} style={{ backgroundColor: "#282634", overflow:"hidden", height:"100vh" }}>
@@ -79,7 +89,6 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
             main="VIBE PICKER"
             sub="CREATE YOUR MUSIC:"
             more="TRY IT TODAY"
-            pass={pass}
           />
         }
         object2={
@@ -131,8 +140,8 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
                     <label className={styles.slidertext}># of tracks</label>
                     <Slider
                       value={limit}
-                      min={1}
-                      max={Math.min(filteredTracks.length, 60)} // Use the minimum of the filteredTracks.length and 100
+                      min={5}
+                      max={Math.min(filteredTracks.length, 60)}  // Use the length of the filteredTracks array
                       step={1}
                       onChange={handleLimitSliderChange}
                       valueLabelDisplay="auto"
