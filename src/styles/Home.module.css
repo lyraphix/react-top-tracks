@@ -920,7 +920,8 @@ Lobby stuff
 
 .spotifylogoo {
   width: 30%;
-  height: 25%;
+  height: 50%;
+  margin-top: 2%;
   background-position: center;
   background-size: cover;
 }
