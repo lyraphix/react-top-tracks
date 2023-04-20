@@ -54,6 +54,7 @@ const Tos = () => {
               9. Governing Law and Dispute Resolution
               <br /> These Terms of Service and any dispute arising out of or related to them will be governed by and construed in accordance with the laws of the state where Musaic is headquartered, without regard to its conflict of laws principles. Any dispute arising out of or related to these Terms of Service will be resolved exclusively through arbitration in accordance with the rules of the American Arbitration Association.
               <br /> 
+              <br /> 
               By using Musaic, you agree to these terms and conditions.
               </span>
 
