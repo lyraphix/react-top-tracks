@@ -78,7 +78,7 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
           style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
         >
           <Center 
-          {/*object={<div className={styles.drawertextdesigns}>Enter the Musaic Key and press "Join" to join your friend's Musaic.</div>} */}
+
             object={<input
                   className={styles.search}
                   type="text"
