@@ -271,6 +271,9 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     
                     You have created {playlists ? playlists.length : 0} playlists
                   </div>
+                  <div>
+                  <MainButton mtt="10px" name='Delete Playlists'/>
+                  </div>
                 </div>
                 <div>
                   <MainButton mrr="10px" loc={openCreateMusaicDrawer} name='Create a Musaic'/>
@@ -333,22 +336,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
               </div>
           </div>
         </div>
-        {renderDrawers()}
-        <Link
-          href={selectedPlaylist ? selectedPlaylist.url : "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          underline="none"
-        >
-          <Button
-            className={styles.openInSpotifyButton}
-            variant="contained"
-            disabled={!selectedPlaylist}
-          >
-            Listen on Spotify
-          </Button>
-        </Link>
-        
+        {renderDrawers()} 
       </div>
     )
   );
