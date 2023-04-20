@@ -21,47 +21,40 @@ const Tos = () => {
             <div className={styles.catabsolutecontainer} style={{ marginRight: "15%" }}>
               <span className={styles.meetyour} style={{ fontWeight: 400, color: "#dcdffb" }}>Terms and Conditions</span>
               <span className={styles.gettheplaylistjus} style={{ fontSize: 15, lineHeight: 1.5 }}>
-                Musaic provides our services to our customers with the utmost care and attention to detail. However, there are certain risks associated with using our product/service, and we cannot guarantee the outcome or results of your use.
-
-                Therefore, we hereby disclaim any and all liability for any damages, losses, or injuries arising from the use of our product/service. By using our product/service, you agree to hold Musaic harmless from any and all claims, damages, or other liabilities that may arise as a result of your use.
-
-                Furthermore, our liability for any claims arising from the use of our product/service shall be limited to the cost of the product/service. In no event shall we be liable for any consequential, incidental, or punitive damages arising from the use of our product/service.
-
-                By using our product/service, you acknowledge that you have read and understood this disclaimer and that you agree to be bound by its terms.
+              Welcome to Musaic, a web application that allows you to create custom Spotify playlists using a unique phrase that filters your songs with the OpenAI API.
+              
+              By using our application, you agree to the following terms and conditions:
               </span>
 
               <span className={styles.gettheplaylistjus} style={{ marginTop: -20, fontSize: 15, lineHeight: 1.5 }}>
-                These terms and conditions ("Terms") govern your use of the application ("App") that handles Spotify data. By using the App, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use the App.
-
-                Use of the App
-                The App is intended solely for your personal, non-commercial use. You may use the App only for the purpose of handling your Spotify data, and you may not use the App for any other purpose. You are solely responsible for any use of the App, and you agree to use the App in accordance with these Terms.
-
-                User Account
-                In order to use the App, you must have a valid Spotify account. You must provide accurate and complete information when creating your account. You are responsible for maintaining the confidentiality of your account information, and you agree to notify us immediately if you become aware of any unauthorized use of your account.
-
-                Data Privacy
-                The App may collect and use certain data related to your use of Spotify, including but not limited to your listening history, playlists, and other data related to your account. By using the App, you agree that we may collect and use this data in accordance with our privacy policy.
-
-                Intellectual Property
-                The App and its content, including but not limited to text, graphics, images, and software, are the property of the App developer or its licensors, and are protected by copyright and other intellectual property laws. You may not use the App or its content for any commercial purpose without the prior written consent of the App developer.
-
-                Limitation of Liability
-                The App developer will not be liable for any damages arising from your use of the App or your inability to use the App, including but not limited to direct, indirect, incidental, consequential, or punitive damages.
-
-                Indemnification
-                You agree to indemnify and hold the App developer harmless from any claims, damages, or other liabilities arising from your use of the App or your violation of these Terms.
-
-                Termination
-                The App developer may terminate your use of the App at any time for any reason. Upon termination, you must cease all use of the App and delete any copies of the App that you have downloaded.
-
-                Changes to these Terms
-                The App developer may update these Terms from time to time. If we make any material changes to these Terms, we will notify you by email or by posting a notice on our website. Your continued use of the App after such changes constitutes your acceptance of the new Terms.
-
-                Governing Law
-                These Terms are governed by the laws of the state in which the App developer is located, without regard to its conflict of law provisions. Any dispute arising under these Terms will be resolved in the state or federal courts located in that state.
-
-                Entire Agreement
-                These Terms constitute the entire agreement between you and the App developer regarding your use of the App, and supersede all prior agreements or understandings, whether written or oral. If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions will remain in full force and effect.
+              1. Acceptance of Terms
+              <br /> By accessing or using Musaic, you agree to these Terms of Service and all applicable laws and regulations. If you do not agree to these terms, please do not use the application.
+              <br /> 
+              2. Use of Application
+              <br /> Musaic is intended solely for your personal, non-commercial use. You may use Musaic only for the purpose of handling your Spotify data, and you may not use the it for any other purpose.
+              <br /> 
+              3. User Account
+              <br /> In order to use Musaic, you must have a valid Spotify account. You must provide accurate and complete information when creating your account. You are responsible for maintaining the confidentiality of your account information, and you agree to notify us immediately if you become aware of any unauthorized use of your account.
+              <br /> 
+              4. Data Privacy
+              <br /> Musaic may collect and use certain data related to your use of Spotify, including but not limited to your listening history, playlists, and other data related to your account. We respect your privacy and are committed to protecting your personal information. Our Privacy Policy governs the collection and use of your personal information through the application .By using Musaic, you agree that we may collect and use this data in accordance with our privacy policy.
+              <br /> 
+              5. Intellectual Property
+              <br /> Musaic and all of its contents, including but not limited to text, graphics, logos, and software, are the property of Musaic and its licensors and are protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, display, sell, or otherwise exploit any of the application's content without our prior written consent.
+              <br /> 
+              6. Disclaimer of Warranties
+              <br /> Musaic is provided on an "as is" and "as available" basis, without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not guarantee that the application will meet your requirements, be error-free, or operate without interruption.
+              <br /> 
+              7. Limitation of Liability
+              <br /> Musaic, Team 8-Bits, and its affiliates will not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages, including but not limited to damages for loss of profits, goodwill, use, data, or other intangible losses, resulting from your use of the application or inability to use the application.
+              <br /> 
+              8. Changes to Terms of Service
+              <br /> We reserve the right to modify or revise these Terms of Service at any time, and your continued use of the application following any changes constitutes your acceptance of the modified terms.
+              <br /> 
+              9. Governing Law and Dispute Resolution
+              <br /> These Terms of Service and any dispute arising out of or related to them will be governed by and construed in accordance with the laws of the state where Musaic is headquartered, without regard to its conflict of laws principles. Any dispute arising out of or related to these Terms of Service will be resolved exclusively through arbitration in accordance with the rules of the American Arbitration Association.
+              <br /> 
+              By using Musaic, you agree to these terms and conditions.
               </span>
 
             </div>
@@ -69,7 +62,9 @@ const Tos = () => {
         </div>
 
       </div>
-    
+      <span className={styles.num20238bitsterms}>
+        <span className={styles.num20238bitstermsbtext}>@2023 8BITS</span>
+      </span>
 
     </div>
   );
