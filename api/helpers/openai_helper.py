@@ -17,19 +17,30 @@ class PlaylistMakerGPT:
         messages = [
         {
             "role": "user",
-            "content": f"Based on the meaning and vibe of this phrase '{user_input}', output a list of 8 artists on Spotify who you think best evoke the feeling expressed in the phrase. If an artist's name is included in the phrase, include that artist too."
+            "content": f"Based on the following input phrase, provide a list of 8 artists on Spotify who you think best evoke the feeling expressed in the phrase. If the phrase is too vague, use your best judgment and general knowledge to suggest artists that might fit. If an artist's name is included in the phrase, include that artist too. Input phrase: '{user_input}'"
         }
         ]
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            temperature=0.5,
+            max_tokens=100
+        )
+
         artist_list_1 = process_artist_list(response.choices[0].message['content'])
 
         messages = [
             {
                 "role": "user",
-                "content": f"Given a list of artists and an input phrase, return the 8 artists who most closely match the vibe, energy, and feeling of the phrase. Here is the phrase: '{user_input}', and here is the list of artists: '{', '.join(top_artists)}'"
+                "content": f"Given a list of artists and an input phrase, return the 8 artists who most closely match the vibe, energy, and feeling of the phrase. If the phrase is too vague, use your best judgment and general knowledge to suggest artists that might fit. Here is the input phrase: '{user_input}', and here is the list of artists: '{', '.join(top_artists)}'"
             }
         ]
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            temperature=0.5,
+            max_tokens=100
+        )
         artist_list_2 = process_artist_list(response.choices[0].message['content'])
 
         return [artist_list_2, artist_list_1]
