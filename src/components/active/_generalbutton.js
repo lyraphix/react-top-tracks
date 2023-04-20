@@ -13,10 +13,11 @@ const MainButton = (props) => {
     const marginr = props.mrr;
     const margint = props.mtt;
     const marginb = props.mbb;
+    const colori= props.coloringg? || "primary.textD";
 
     return(
         
-            <Button variant="contained" href={props.link} onClick={props.loc} sx={{height:hsize, width:wsize,color:"primary.textD", alignSelf:"center", ml: marginl, mt: margint, mb: marginb, mr: marginr}}>{props.name}</Button>
+            <Button variant="contained" href={props.link} onClick={props.loc} sx={{height:hsize, width:wsize, color:colori, alignSelf:"center", ml: marginl, mt: margint, mb: marginb, mr: marginr}}>{props.name}</Button>
         
     );
 }
