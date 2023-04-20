@@ -148,7 +148,7 @@ class PlaylistMaker:
         return False
 
     # functions for creating a playlist
-    def create_playlist(self, name):
+    def create_playlist(self, name, description=""):
         """
         :param name (str): New playlist name
         :return playlist (Playlist): Newly created playlist
@@ -156,7 +156,7 @@ class PlaylistMaker:
         userid = self.get_user_id()
         data = json.dumps({
             "name": name,
-            "description": "Recommended songs by Spotify Matched c:",
+            "description": f"Your freshly created Musaic, based off the phrase '{description}'",
             "collaborative": True,
             "public": False
         })
@@ -169,7 +169,7 @@ class PlaylistMaker:
 
         playlist = Playlist(name, playlist_id)
         return playlist
-
+    
     def populate_playlist(self, playlist, track_dict):
         """Add tracks to a playlist.
         :param playlist (Playlist): Playlist to which to add tracks
@@ -188,7 +188,14 @@ class PlaylistMaker:
 
 
         return response_json
+    
+    def delete_playlist(self, playlist_id):
+        url = f"https://api.spotify.com/v1/playlists/{playlist_id}/followers"
+        response = self._place_delete_api_request(url, self.authorizationToken)
+        return response
+    
 
+    
     def get_playlist_link(self, playlist):
         """Gets playlist link.
         :param playlist (Playlist): Playlist to which to get URL of
@@ -278,6 +285,18 @@ class PlaylistMaker:
         )
         return response
     
+    def _place_delete_api_request(self, url, auth):
+        """
+        :param url (str): The URL for the DELETE request
+        :param auth (str): The authentication token
+        :return response (requests.Response): The response from the DELETE request
+        """
+        response = requests.delete(
+        url,
+        headers={
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {auth}"
+        }
+        )
+        return response
 
-
-    

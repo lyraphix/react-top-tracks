@@ -43,6 +43,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   const [createMusaicDrawerOpen, setCreateMusaicDrawerOpen] = useState(false);
   const [joinMusaicDrawerOpen, setJoinMusaicDrawerOpen] = useState(false);
   const [lobbyIdInput, setLobbyIdInput] = useState('');
+  const [deleteClicked, setDeleteClicked] = useState(false)
+  const [selectedDeletePlaylists, setSelectedDeletePlaylists] = useState([])
   const spotify_yt = "/signin/spotify_yt.png";
   const handleLobbyIdInputChange = (event) => {
     setLobbyIdInput(event.target.value);
@@ -137,7 +139,55 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   const [lobbyOpen, setLobbyOpen] = useState(false);
 
 
+  const handleDeletePlaylistsClick = () => {
+    setDeleteClicked(!deleteClicked);
+  };
 
+  const handlePlaylistCheck = (event, isChecked, playlistID) => {
+    if (isChecked) {
+      setSelectedDeletePlaylists([...selectedDeletePlaylists, playlistID]);
+    } else {
+      setSelectedDeletePlaylists(selectedDeletePlaylists.filter(id => id !== playlistID));
+    }
+  };
+
+  const handleDeletePlaylists = async () => {
+    setDeleteClicked(!deleteClicked);
+    const accessToken = sessionStorage.getItem('spotify_access_token');
+    if (selectedDeletePlaylists.length > 0) {
+      try {
+        const requestBody = {
+          user_id: user.user_id,
+          playlist_ids: selectedDeletePlaylists,
+          token: accessToken,
+        };
+        const response = await fetch('/api/delete_playlist', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+          });
+  
+        if (response.ok) {
+          const currentUserData = JSON.parse(sessionStorage.getItem('user_data'));
+          currentUserData.playlists = currentUserData.playlists.filter(
+            (playlist) => !selectedDeletePlaylists.includes(playlist.id)
+          );
+          sessionStorage.setItem('user_data', JSON.stringify(currentUserData));
+          setUser(currentUserData);
+          console.log('playlists successfully deleted');
+        } else {
+            console.error('Request failed', response.statusText);
+        }
+  
+      } catch (error) {
+        console.error('Error deleting playlists:', error);
+      }
+    }
+    
+  }
+    
 
   const handlePlaylistSelection = (playlist) => {
     console.log("Setting selected playlist:", playlist);
@@ -274,8 +324,15 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                   </div>
                   <div>
                   {playlists.length > 0 && (
-                      <MainButton coloringg="red" mtt="10px" name='Delete Playlists'/>
+                      <MainButton coloringg="red" mtt="10px" name='Delete Playlists' loc={handleDeletePlaylistsClick}/>
                     )}
+                  {deleteClicked && (
+                      <div>
+                      <MainButton mtt="10px" coloringg="gray" name='Cancel' loc={handleDeletePlaylistsClick}/>
+                      <MainButton mtt="10px" coloringg="red" name ='Delete' loc={handleDeletePlaylists}/>
+                      </div>
+                    )}
+                  
                   </div>
                 </div>
                 <div>
@@ -303,9 +360,14 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                       items={formatPlaylists(playlists)}
                       onSelection={handlePlaylistSelection}
                       renderAdditionalButton={(item) => (
+                        <div>
                         <Link href={item.url} target="_blank" rel="noopener noreferrer" underline="none">
                           <Button size="small" variant="contained">Open in Spotify</Button>
                         </Link>
+                        {deleteClicked && (
+                          <Checkbox onChange={(event, isChecked) => handlePlaylistCheck(event, isChecked, item.id)}/>
+                        )}
+                        </div>
                       )}
                       
                     />
