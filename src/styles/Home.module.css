@@ -907,12 +907,10 @@ Lobby stuff
 
 .drawertextdesigns {
     font-family: Inter, sans-serif;
-    font-weight: 100;
-    font-size: 1.4vw;
+    font-weight: 300;
+    font-size: 1.8vw;
     line-height: 40%;
     letter-spacing: 0.01em;
-    /* align-self: center; */
-    /* margin-left: 12%; */
     margin-bottom: 2%;
     color: #b4aae5;
     align-self: center;
