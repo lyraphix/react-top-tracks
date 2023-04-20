@@ -22,8 +22,29 @@ function Menua(props) {
         sessionStorage.clear();
     };
 
-    const deleteuser = () => {
-        alert("This will delete all tracklist, not integrated yet")
+    const handleDeleteUser = async () => {
+        const requestBody = {
+            user_id: props.user.user_id
+        };
+        try {
+            const response = await fetch('/api/delete_userdata', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+              });
+
+            if (response.ok) {
+                console.log('user data successfully deleted');
+                handleLogOut();
+            } else {
+                console.error('Request failed', response.statusText);
+            }
+
+        } catch (error) {
+            console.error('Error deleting user:', error);
+          }
     };
 
     const [anchorFriendlist, setFriendlist] = useState(null);
@@ -88,7 +109,7 @@ function Menua(props) {
             <MainButton name="Log Out" loc={handleLogOut}/>
             </MenuItem>
             <MenuItem>
-            <MainButton name="Delete User Data" loc={deleteuser}/>
+            <MainButton name="Delete User Data" loc={handleDeleteUser}/>
             </MenuItem>
             <MenuItem>
             <MainButton name="Friends" loc={openAndclose}/>
