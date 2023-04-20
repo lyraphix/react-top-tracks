@@ -272,7 +272,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     You have created {playlists ? playlists.length : 0} playlists
                   </div>
                   <div>
-                  <MainButton mtt="10px" name='Delete Playlists'/>
+                  <MainButton coloringg="red" mtt="10px" name='Delete Playlists'/>
                   </div>
                 </div>
                 <div>
