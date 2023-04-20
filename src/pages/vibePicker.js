@@ -132,7 +132,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass
                     <Slider
                       value={limit}
                       min={1}
-                      max={filteredTracks.length} // Use the length of the filteredTracks array
+                      max={Math.min(filteredTracks.length, 60)} // Use the minimum of the filteredTracks.length and 100
                       step={1}
                       onChange={handleLimitSliderChange}
                       valueLabelDisplay="auto"
