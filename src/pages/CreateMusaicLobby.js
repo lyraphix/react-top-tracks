@@ -19,7 +19,7 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipbo
         <Banner
           main="CREATE A MUSAIC"
           sub="MUSAIC KEY:"
-          more="Your Musaic Key will appear here"
+          more={musaicKey}
           pass={closeLobby}
         />
       }
