@@ -92,11 +92,7 @@ const useVibePicker = () => {
         console.log("1. beginning");
         let tracks = [];
       
-        for (const artist of artists) {
-          if (tracks.length >= 30) {
-            break;
-          }
-      
+        for (const artist of artists) {      
           const requestBody = {
             token: accessToken,
             artist: artist,
