@@ -79,9 +79,17 @@ const useVibePicker = () => {
       }
   
       const gptData = await gptResponse.json();
+      console.log('GPT artists:', gptData);
       const { public_artists, user_artists } = gptData;
   
+      console.log('1. Before filtering artists');
+      // Filter out empty artist names
+      const filteredPublicArtists = public_artists.filter(artist => artist !== '');
+      const filteredUserArtists = user_artists.filter(artist => artist !== '');
+  
+      console.log('2. After filtering artists');
       setPhase('processing');
+  
   
       // Function to fetch tracks in batches
       const fetchTracks = async (artists, isPublic) => {
@@ -111,39 +119,48 @@ const useVibePicker = () => {
   
           const data = await response.json();
           const fetchedTracks = data.tracks;
+          console.log('3. Inside fetchTracks loop:', artist, fetchedTracks);
+  
   
           if (fetchedTracks && fetchedTracks.length > 0) {
             const tracksToAdd = fetchedTracks.slice(0, 30 - tracks.length);
             tracks = [...tracks, ...tracksToAdd];
-
+  
             // Update publicTracks or userTracks
             if (isPublic) {
               setPublicTracks((prevState) => [...prevState, ...tracksToAdd]);
             } else {
               setUserTracks((prevState) => [...prevState, ...tracksToAdd]);
             }
-
+  
             // Update processingTracks immediately
             setProcessingTracks((prevState) => [...prevState, ...tracksToAdd]);
           }
         }
-
+        console.log('4. End of fetchTracks loop');
         return tracks;
       };
+      
   
-      // Fetch tracks from public_artists and user_artists
-      const publicTracks = await fetchTracks(public_artists, true);
-      const userTracks = await fetchTracks(user_artists, false);
+      console.log('5. Before fetching tracks');
+      // Fetch tracks from filteredPublicArtists and filteredUserArtists
+      const publicTracks = await fetchTracks(filteredPublicArtists, true);
+      const userTracks = await fetchTracks(filteredUserArtists, false);
+    
   
+      console.log('6. After fetching tracks');
+      console.log('Public tracks:', publicTracks);
+      console.log('User tracks:', userTracks);
       setPublicTracks(publicTracks);
       setUserTracks(userTracks);
   
       setPhase('playlist');
       setProcessingTracks([]);
-  } catch (error) {
-    console.error('Error fetching recommended tracks:', error.message);
-  }
-};
+    } catch (error) {
+      console.error('Error fetching recommended tracks:', error.message);
+    }
+  };
+  
   
   
   // Other functions to handle playlist customization

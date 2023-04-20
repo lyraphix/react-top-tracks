@@ -51,6 +51,8 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
   const [playlistName, setPlaylistName] = useState(userInput);
 
   const handleCreatePlaylistClick = () => {
+    console.log('Playlist name:', playlistName); // Add log to check playlist name
+    console.log('Filtered tracks:', filteredTracks); // Add log to check filtered tracks
     handleCreatePlaylist(playlistName, filteredTracks);
     closeAllDrawers();
   };
@@ -68,9 +70,11 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
   };
 
   const handleReadyClick = () => {
+    console.log('User input:', userInput); // Add log to check user input
     setPlaylistName(userInput);
     fetchRecommendedTracks(userInput);
   };
+  
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
