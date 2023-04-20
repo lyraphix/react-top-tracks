@@ -776,7 +776,7 @@ Landing
   min-width: 300px;
   
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 1000px) {
   .innerboxd{
     display: flex;
     align-self: center;
@@ -791,7 +791,7 @@ Landing
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 500px) {
   .innerboxd{
     display: flex;
     align-self: center;
