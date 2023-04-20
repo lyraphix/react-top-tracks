@@ -918,3 +918,16 @@ Lobby stuff
     text-shadow: 0px 4px 4px rgba(211, 121, 216, 0.25);
 }
 
+.spotifylogoo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 100%;
+  margin-top:5vh;
+
+  margin-left: 5vw;
+
+  margin-right: 2%;
+}
