@@ -86,7 +86,7 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
                   onChange={handleChange}
                   placeholder="Enter Musaic Key"
                 />}
-             object3={<MainButton name="Join Musaic" loc={handleJoinMusaic} />}
+             object3={<MainButton mtt="20px" name="Join Musaic" loc={handleJoinMusaic} />}
              />
 
           <Drawer
