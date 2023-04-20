@@ -30,7 +30,6 @@ const CreateMusaicLobby = ({ closeLobby, openVibePicker, musaicKey, copyToClipbo
           style={{ flexDirection: "column", marginTop: "30px", justifyContent: "space-between" }}
         >
           <Center 
-//           object={<div className={styles.drawertextdesigns}>Musaic Key: {musaicKey}</div>}
           object={ <MainButton mbb="20px" name="Copy Musaic Key" loc={copyToClipboard} />}
           object2={<div style = {{height:"50px"}}></div>}
           object3={<div className={styles.drawertextdesigns} >Share the Musaic Key with your friends to invite them to your Musaic. Once they join, this page will automatically refresh.</div>}
