@@ -299,7 +299,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                           onSelection={handlePlaylistSelection}
                           renderAdditionalButton={(item) => (
                             <Link href={item.url} target='_blank' rel='noopener noreferrer' underline='none'>
-                              <Button size='small' variant='contained'>
+                              <Button size='small' variant='contained' sx = {{marginLeft:"10px"}}>
                                 Open in Spotify
                               </Button>
                             </Link>
