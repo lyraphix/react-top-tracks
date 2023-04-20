@@ -266,11 +266,12 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     
                     You've made {playlists ? playlists.length : 0} Musaics
                   </div>
-                  <div>
+                  {/*<div>
                   {playlists.length > 0 && (
                       <MainButton coloringg="red" mtt="10px" name='Delete Playlists'/>
                     )}
                   </div>
+                  */}
                 </div>
                 <div>
                   <MainButton mrr="10px" loc={openCreateMusaicDrawer} name='Create a Musaic'/>
