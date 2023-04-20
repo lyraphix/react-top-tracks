@@ -41,10 +41,10 @@ const SignInComponent = ({ navigateToDashboard }) => {
           </div> */}
           <div className={styles.flexcontainer11}>
               <div className={styles.flexcontainer}>
-                <div className={styles.signinlogobox}>
+                <div className={styles.signinlogobox} >
                   <Button href="/"><img className={styles.signinlogo} src={logo} /></Button>
                 </div>
-                <div className={styles.signinlogobox}>
+                <div className={styles.signinlogobox} style={{marginLeft:"10px"}}>
                   <Button href="https://open.spotify.com/"><img className={styles.signinspotify_yt} src={spotify_yt} /></Button>
                 </div>
               </div>
