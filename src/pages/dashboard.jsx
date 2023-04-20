@@ -270,7 +270,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     }}
                   >
                     
-                    You have created {playlists ? playlists.length : 0} playlists
+                    You've made {playlists ? playlists.length : 0} Musaics
                   </div>
                   <div>
                   {playlists.length > 0 && (
@@ -298,7 +298,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                {playlists && playlists.length > 0 ? (
                   <div style={{flexDirection:"row", display:"flex", justifyContent:"center"}}>
                     <div className={styles.trackList}>
-                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa",fontSize: "15px" }}>Your Playlists:</h3>
+                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa",fontSize: "15px" }}>Your Musaics:</h3>
                       <TrackList
                       items={formatPlaylists(playlists)}
                       onSelection={handlePlaylistSelection}
@@ -326,7 +326,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                       ) : (
                         <div style={{ width: "100%" }}>
                           <span className={styles.friendmatch}>
-                            Please select a playlist to view its tracks.
+                            Please select a Musaic to view its tracks.
                           </span>
                         </div>
                       )}
@@ -334,7 +334,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                   </div>
                 ) : (
                   <span className={styles.friendmatch}>
-                    No playlists available, why don't you make your first!
+                    No Musaics available, why don't you make your first!
                   </span>
                 )}
               </div>
