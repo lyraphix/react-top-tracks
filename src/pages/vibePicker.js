@@ -15,7 +15,7 @@ import Spinner from "@/components/_loadingscreen";
 import Center from "@/components/active/_center";
 import { formatTracks } from "./dashboard";
 
-export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
+export default function VibePicker({ handleCreatePlaylist, closeAllDrawers, pass }) {
 
   const {
     phase,
@@ -79,6 +79,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
             main="VIBE PICKER"
             sub="CREATE YOUR MUSIC:"
             more="TRY IT TODAY"
+            pass={pass}
           />
         }
         object2={
