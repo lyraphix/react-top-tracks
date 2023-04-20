@@ -63,9 +63,7 @@ const Tos = () => {
         </div>
 
       </div>
-      <span className={styles.num20238bitsterms}>
-        <span className={styles.num20238bitstermsbtext}>@2023 8BITS</span>
-      </span>
+  
 
     </div>
   );
