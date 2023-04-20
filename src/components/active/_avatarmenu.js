@@ -111,9 +111,9 @@ function Menua(props) {
             <MenuItem>
             <MainButton name="Delete User Data" loc={handleDeleteUser}/>
             </MenuItem>
-            <MenuItem>
-            <MainButton name="Friends" loc={openAndclose}/>
-            </MenuItem>
+             {/*<MenuItem>
+             <MainButton name="Friends" loc={openAndclose}/>
+             </MenuItem>*/}
             
             <Drawer
                 anchor="left"
