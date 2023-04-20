@@ -67,7 +67,7 @@ const JoinMusaicLobby = ({ user, joinLobby, closeLobby }) => {
       object1={
         <Banner
           main="JOIN A MUSAIC"
-          sub='Enter the Musaic Key and press "Join" to join your friend\'s Musaic.'
+          sub="Enter the Musaic Key and press -Join- to join your friend's Musaic."
           more=""
           pass={closeLobby}
         />
