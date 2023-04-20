@@ -156,7 +156,7 @@ class PlaylistMaker:
         userid = self.get_user_id()
         data = json.dumps({
             "name": name,
-            "description": "Your freshly created Musaic! c:",
+            "description": "Your freshly created Musaic c:",
             "collaborative": True,
             "public": False
         })
