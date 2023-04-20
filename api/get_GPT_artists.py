@@ -19,6 +19,8 @@ class handler(BaseHTTPRequestHandler):
         oah = PlaylistMakerGPT(api_key)
 
         [user_artists, public_artists] = oah.get_artists_from_input(user_input, top_artists[:20])
+        print(user_artists)
+        print(public_artists)
 
         response_data = {"public_artists": public_artists, "user_artists": user_artists}
 

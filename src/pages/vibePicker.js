@@ -1,58 +1,44 @@
 import * as React from "react";
 import styles from '@/styles/Home.module.css';
 import {
-  Drawer,
-  Menu,
-  MenuItem,
   TextField,
 } from "@mui/material";
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Banner from "@/components/active/_bannerandsub";
 import MainBox from "@/components/active/_mainbox";
 import GPTinput from "@/components/GPTinput";
-import TrackList from "@/components/active/_scrolltracklist";
+import TrackList from "@/components/active/_scrolltracklistlong";
 import Slider from "@mui/material/Slider";
-import Button from "@mui/material/Button";
-import Center from "@/components/active/_center";
 import MainButton from "@/components/active/_generalbutton";
-import { formatTracks } from "@/pages/dashboard";
 import useVibePicker from "@/hooks/useVibePicker";
+import Spinner from "@/components/_loadingscreen";
+import Center from "@/components/active/_center";
+import { formatTracks } from "./dashboard";
 
-export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers }) {
+export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
 
   const {
     phase,
-    processingTracks,
-    fetchedTracks,
     filteredTracks,
     fetchRecommendedTracks,
-    applyFilter,
     publicRatio,
     setPublicRatio,
     limit,
     setLimit,
   } = useVibePicker(); 
 
-
-  const textInput = useRef(null);
   const [userInput, setUserInput] = useState("");
+  const [playlistName, setPlaylistName] = useState(userInput);
 
   const handlePublicRatioSliderChange = (event, newValue) => {
     setPublicRatio(newValue);
-    applyFilter();
   };
 
   const handleLimitSliderChange = (event, newValue) => {
     setLimit(newValue);
-    applyFilter();
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [playlistName, setPlaylistName] = useState(userInput);
-
   const handleCreatePlaylistClick = () => {
-    console.log('Playlist name:', playlistName); // Add log to check playlist name
-    console.log('Filtered tracks:', filteredTracks); // Add log to check filtered tracks
     handleCreatePlaylist(playlistName, filteredTracks);
     closeAllDrawers();
   };
@@ -61,20 +47,14 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
     setPlaylistName(event.target.value);
   };
 
-  const handleSliderChange = (event, newValue) => {
-    applyFilter(newValue);
-  };
-
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
 
   const handleReadyClick = () => {
-    console.log('User input:', userInput); // Add log to check user input
     setPlaylistName(userInput);
     fetchRecommendedTracks(userInput);
   };
-  
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -92,7 +72,6 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
             main="VIBE PICKER"
             sub="CREATE YOUR MUSIC:"
             more="TRY IT TODAY"
-            pass={pass}
           />
         }
         object2={
@@ -107,8 +86,6 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
           >
             {phase === 'input' && (
               <GPTinput
-                
-                textInput={textInput}
                 userInput={userInput}
                 handleInputChange={handleInputChange}
                 handleSubmit={handleReadyClick}
@@ -118,66 +95,58 @@ export default function VibePicker({ pass, handleCreatePlaylist, closeAllDrawers
             {phase === 'processing' && (
               <>
                 <h3>Building your Musaic...</h3>
-                <TrackList items={formatTracks(fetchedTracks)} />
+                <Spinner/>
               </>
             )}
             {phase === 'playlist' && (
               <>
-                <Center 
-                  object= {
-                  <TextField
-                    label="Playlist Name"
-                    defaultValue={playlistName}
-                    onChange={handlePlaylistNameChange}
-                    style={{ marginBottom: "1rem" }}
-                  />}
-                  object1={
-                    <div>
-                      <Slider
-                        value={publicRatio}
-                        min={0}
-                        max={100}
-                        step={1}
-                        onChange={handlePublicRatioSliderChange}
-                        valueLabelDisplay="auto"
-                        style={{ width: "200px", marginBottom: "20px" }}
-                      />
-                      <Slider
-                        value={limit}
-                        min={1}
-                        max={filteredTracks} // Use the combined length of userTracks and publicTracks
-                        step={1}
-                        onChange={handleLimitSliderChange}
-                        valueLabelDisplay="auto"
-                        style={{ width: "200px", marginBottom: "20px" }}
-                      />;
-                    </div>}
-                  object2={<TrackList items={trackDisplayDictionary} />}
-                  object3={<div style={{height:"30px"}}></div>}
-                  object4={                
-                    <MainButton
-                    loc={() => handleCreatePlaylistClick()}
-                    height="60px" width="100px"
-                    name='Create Playlist'
-                    >
-                      Create Playlist
-                    </MainButton>}
-                  object5={<div style={{height:"20px"}}></div>}
-                  object6={                
-                    <MainButton
-                    loc={() => handleCreatePlaylistClick()}
-                    height="60px" width="100px"
-                    name = 'Get Poster'
-                    >
-                      Get Poster
-                    </MainButton>}
-                  />
-                </>
-              )}
-            </div>
-            }/>
-          }
-        />
-      </div>
-    );
-  }
+                <TextField
+                  label="Playlist Name"
+                  defaultValue={playlistName}
+                  onChange={handlePlaylistNameChange}
+                  style={{ marginBottom: "1rem" }}
+                />
+                <Slider
+                  value={publicRatio}
+                  min={0}
+                  max={100}
+                  step={1}
+                  onChange={handlePublicRatioSliderChange}
+                  valueLabelDisplay="auto"
+                  style={{ width: "200px", marginBottom: "20px" }}
+                />
+                <Slider
+                  value={limit}
+                  min={1}
+                  max={filteredTracks.length} // Use the length of the filteredTracks array
+                  step={1}
+                  onChange={handleLimitSliderChange}
+                  valueLabelDisplay="auto"
+                  style={{ width: "200px", marginBottom: "20px" }}
+                />
+                <TrackList items={trackDisplayDictionary} />
+                <div style={{height:"30px"}}></div>
+                <MainButton
+                  loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
+                  name='Create Playlist'
+                >
+                  Create Playlist
+                </MainButton>
+                <div style={{height:"20px"}}></div>
+                <MainButton
+                  loc={() => handleCreatePlaylistClick()}
+                  height="60px" width="100px"
+                  name = 'Get Poster'
+                >
+                  Get Poster
+                </MainButton>
+              </>
+            )}
+          </div>
+        }/>
+      }
+      />
+    </div>
+  );
+}
