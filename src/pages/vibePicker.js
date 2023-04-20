@@ -115,7 +115,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
                 />
                 <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <label className={styles.slidertext}>AI Influence</label>
+                    <label className={styles.slidertext}>User Influence</label>
                     <Slider
                       value={publicRatio}
                       min={0}
