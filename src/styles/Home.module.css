@@ -787,7 +787,7 @@ Landing
   min-width: 300px;
   
 }
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 500px) {
   .innerboxd{
     display: flex;
     align-self: center;

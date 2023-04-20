@@ -229,7 +229,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   
 
   return (
-    // user && (
+    user && (
       <div className={styles.all}>
         <div className={styles.dashboard} >
           <div className={styles.menu}>
@@ -322,7 +322,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
         </div>
         {renderDrawers()} 
       </div>
-    // )
+    )
   );
 };
 
