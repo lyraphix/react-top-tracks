@@ -21,6 +21,7 @@ class handler(BaseHTTPRequestHandler):
 
         def process_artist(artist_name, sp, mdb):
             tracks = []
+            print(artist_name)
             if artist_name and not artist_name.startswith('$'):
                 first_char = artist_name[0].upper()
                 if not mdb.is_artist_in_database(artist_name):

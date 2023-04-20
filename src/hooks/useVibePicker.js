@@ -93,6 +93,7 @@ const useVibePicker = () => {
   
       // Function to fetch tracks in batches
       const fetchTracks = async (artists, isPublic) => {
+        console.log("1. beginning")
         let tracks = [];
   
         for (const artist of artists) {
@@ -104,7 +105,7 @@ const useVibePicker = () => {
             token: accessToken,
             artist: artist,
           };
-  
+          console.log("2. fetch", requestBody)
           const response = await fetch('/api/get_GPT_tracks', {
             method: 'POST',
             headers: {
@@ -119,7 +120,7 @@ const useVibePicker = () => {
   
           const data = await response.json();
           const fetchedTracks = data.tracks;
-          console.log('3. Inside fetchTracks loop:', artist, fetchedTracks);
+          console.log('3. Inside fetchTracks loop:', fetchedTracks);
   
   
           if (fetchedTracks && fetchedTracks.length > 0) {
