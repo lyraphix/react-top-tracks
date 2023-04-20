@@ -229,7 +229,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   
 
   return (
-    user && (
+    // user && (
       <div className={styles.all}>
         <div className={styles.dashboard} >
           <div className={styles.menu}>
@@ -247,14 +247,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
             }}
           >
               <div
-                className={styles.innerbox}
-                style={{
-                  width: "80vw",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginLeft: "3%",
-                  marginBottom: "50px",
-                }}
+                className={styles.innerboxd}
               >
                 <div>
                   <div className={styles.landingdash} style={{ lineHeight:"50px" }}>
@@ -265,7 +258,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     style={{
                       fontSize: "15px",
                       letterSpacing: "5px",
-                      marginTop: "50px",
+                      marginTop: "20px",
+                      marginBottom: "20px",
                       lineHeight:"20px"
                     }}
                   >
@@ -328,7 +322,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
         </div>
         {renderDrawers()} 
       </div>
-    )
+    // )
   );
 };
 

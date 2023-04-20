@@ -106,7 +106,7 @@
   width: 100%;
   flex-direction: row;
   flex-basis: 92%;
-  justify-content: space-between;
+  justify-content: center;
   height: max-content;
   align-items: stretch;
   
@@ -476,28 +476,22 @@
 
 .signinlogobox {
   margin-top: 20%;
-  margin-right: 26%;
+  /* margin-right: 26%; */
   margin-bottom: -15%;
 
-
-}
-
-.signinlogobox {
-  margin-top: 20%;
-  margin-right: 26%;
-  margin-bottom: -15%;
 
 }
 
 .signinlogo {
-  width: 53px;
-  height: 53px;
+  width: 100px;
+  height: 80px;
 }
 
 
 .signinspotify_yt {
-  width: 145px;
-  height: 45px;
+  width: 138px;
+  height: 40px;
+  margin-top: 20px;
 }
 
 .vvector1 {
@@ -782,6 +776,36 @@ Landing
   min-width: 300px;
   
 }
+@media screen and (max-width: 400px) {
+  .innerboxd{
+    display: flex;
+    align-self: center;
+    align-content:flex-start;
+    flex-direction: row;
+    min-width: 300px;
+    width: 80vw;
+    justify-content:space-between;
+    margin-left: 3%;
+    margin-bottom: 50px
+    
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .innerboxd{
+    display: flex;
+    align-self: center;
+    align-content:flex-start;
+    flex-direction: column;
+    min-width: 300px;
+    width: 80vw;
+    justify-content:space-between;
+    margin-left: 3%;
+    margin-bottom: 50px
+    
+  }
+}
+
 .innerbox2{
   display: flex;
   justify-content: flex-start;
@@ -808,7 +832,7 @@ Landing
   font-family: Inter, sans-serif;
   font-weight: 100;
   font-size: 8vh;
-  line-height: 6%;
+  line-height: 8%;
   letter-spacing: 0.08em;
   /* align-self: center; */
 
