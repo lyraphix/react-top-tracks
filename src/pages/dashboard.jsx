@@ -19,6 +19,7 @@ import styles from '@/styles/Home.module.css';
 import TrackList from '@/components/active/_scrolltracklist';
 import VibePicker from './vibePicker';
 import useDashboard from '@/hooks/useDashboard';
+import { Checkbox } from "@mui/material";
 
 import { getDatabase, ref, set, push, child, update } from 'firebase/database';
 
@@ -272,7 +273,9 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     You've made {playlists ? playlists.length : 0} Musaics
                   </div>
                   <div>
-                  <MainButton coloringg="red" mtt="10px" name='Delete Playlists'/>
+                  {playlists.length > 0 && (
+                      <MainButton coloringg="red" mtt="10px" name='Delete Playlists'/>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -304,6 +307,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                           <Button size="small" variant="contained">Open in Spotify</Button>
                         </Link>
                       )}
+                      
                     />
 
                     </div>
