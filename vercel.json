@@ -26,6 +26,10 @@
       "use": "@vercel/python"
     },
     {
+      "src": "api/get_posters.py",
+      "use": "@vercel/python"
+    },
+    {
       "src": "api/get_GPT_artists.py",
       "use": "@vercel/python"
     },
@@ -58,6 +62,10 @@
     {
       "source": "/api/get_GPT_tracks",
       "destination": "/api/get_GPT_tracks.py"
+    },
+    {
+      "source": "/api/get_posters",
+      "destination": "/api/get_posters.py"
     },
     {
       "source": "/api/get_GPT_artists",
