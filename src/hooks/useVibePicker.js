@@ -10,12 +10,39 @@ const useVibePicker = () => {
   const [userTracks, setUserTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
 
+  
   useEffect(() => {
     if (publicTracks.length > 0 && userTracks.length > 0) {
-      setFilteredTracks([...publicTracks, ...userTracks]);
+      const userTracksPercentage = publicRatio / 100;
+      const publicTracksPercentage = 1 - userTracksPercentage;
+
+      const maxPossibleUserTracks = Math.min(
+        Math.round(publicTracks.length * userTracksPercentage / publicTracksPercentage),
+        userTracks.length
+      );
+      const maxPossiblePublicTracks = Math.min(
+        Math.round(userTracks.length * publicTracksPercentage / userTracksPercentage),
+        publicTracks.length
+      );
+
+      const selectedUserTracks = userTracks.slice(0, maxPossibleUserTracks);
+      const selectedPublicTracks = publicTracks.slice(0, maxPossiblePublicTracks);
+
+      // Combine and shuffle the selected tracks
+      const selectedTracks = shuffleArray([...selectedPublicTracks, ...selectedUserTracks]);
+  
+      setFilteredTracks(selectedTracks);
       setPhase("playlist");
     }
-  }, [publicTracks, userTracks]);
+  }, [publicTracks, userTracks, publicRatio, limit]);
+  
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   const fetchRecommendedTracks = async (userInput) => {
     try {
@@ -66,16 +93,11 @@ const useVibePicker = () => {
         let tracks = [];
       
         for (const artist of artists) {
-          if (tracks.length >= 30) {
-            break;
-          }
-      
           const requestBody = {
             token: accessToken,
             artist: artist,
           };
-          console.log("2. fetch");
-          console.log(requestBody);
+
           const response = await fetch("/api/get_GPT_tracks", {
             method: "POST",
             headers: {
@@ -90,20 +112,12 @@ const useVibePicker = () => {
       
           const data = await response.json();
           const fetchedTracks = data.tracks;
-          console.log("3");
-          console.log(isPublic)
-          console.log(fetchedTracks);
       
           if (fetchedTracks && fetchedTracks.length > 0) {
-            console.log("Adding Tracks, here is tracksToAdd and tracks before")
-            const tracksToAdd = fetchedTracks.slice(0, 30 - tracks.length);
-            console.log(tracksToAdd)
-            console.log(tracks)
-            tracks = [...tracks, ...tracksToAdd];
-            console.log("And here is tracks after: ")
-            console.log(tracks)
-          }
+            const tracksToAdd = fetchedTracks.slice(0, 60 - tracks.length);
 
+            tracks = [...tracks, ...tracksToAdd];
+          }
           else {
             console.log("fetchedTracks is not defined yet or has a length of 0")
           }
@@ -125,15 +139,6 @@ const useVibePicker = () => {
 
       setPublicTracks(publicFetchedTracks);
       setUserTracks(userFetchedTracks);
-      
-
-      
-      console.log("6. After fetching tracks");
-      console.log("Public tracks:", publicTracks);
-      console.log("User tracks:", userTracks);
-      console.log("Final Filtered tracks:", filteredTracks);
-
-      setPhase("playlist");
 
     } catch (error) {
       console.error('Error fetching recommended tracks:', error.message);

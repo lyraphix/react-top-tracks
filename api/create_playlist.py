@@ -20,6 +20,7 @@ class handler(BaseHTTPRequestHandler):
         tracks_data = request_body.get('tracks')
         num_songs = request_body.get('numSongs')
         user_id = request_body.get('user_id')
+        description = request_body.get('description')
 
         # Convert track data to Track objects
         tracks = [Track(data["name"], data["id"], data["artist"], data.get("image_url", "/landing/logo.png")) for data in tracks_data]
@@ -30,7 +31,7 @@ class handler(BaseHTTPRequestHandler):
         pm = PlaylistMaker([token])
 
         # Create the playlist with the given name
-        playlist = pm.create_playlist(playlist_name)
+        playlist = pm.create_playlist(playlist_name, description)
 
         # Populate the playlist with the selected tracks, limited to num_songs
         pm.populate_playlist(playlist, tracks[:num_songs])
