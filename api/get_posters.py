@@ -24,10 +24,10 @@ class handler(BaseHTTPRequestHandler):
         mdb = MongodbHelper()
         user_data = mdb.get_new_db(user_id)
         
-        top_artists = user_data["top_artists"][:5]
-        top_image = user_data["top_image"][:5]
-        top_musics = user_data["top_musics"][:5]
-        top_genres = user_data["top_genres"][:5]
+        #top_artists = user_data["top_artists"][:5]
+        #top_image = user_data["top_image"][:5]
+        #top_musics = user_data["top_musics"][:5]
+        #top_genres = user_data["top_genres"][:5]
         #access_token2 = request_body.get('token')
         #top_artists, top_musics, top_genres = wrapped(access_token1)
         #user_info = mdb.get_user(user_id)
@@ -37,8 +37,45 @@ class handler(BaseHTTPRequestHandler):
         #mdb = MongodbHelper()
         #mdb.add_poster_to_db(self, user_id, images_list)
         #"top_artists": top_artists, "top_musics": top_musics,
-        response_data = {"top_artists": top_artists, "top_image": top_image, "top_musics": top_musics,"top_genres": top_genres}
+        #response_data = {"id": [1,2,3,4,5],  "top_artists": top_artists, "top_image": top_image, "top_musics": top_musics,"top_genres": top_genres}
         #print(response_data)
+        response_data = [
+        {
+            "id": 1,
+            "top_image": user_data["top_image"][0],
+            "top_musics": user_data["top_musics"][0],
+            "top_artists":user_data["top_artists"][0],
+            "top_genres": user_data["top_genres"][0]
+        },
+        {
+            "id": 2,
+            "top_image": user_data["top_image"][1],
+            "top_musics": user_data["top_musics"][1],
+            "top_artists": user_data["top_artists"][1],
+            "top_genres": user_data["top_genres"][1]
+        },
+        {
+            "id": 3,
+            "top_image": user_data["top_image"][2],
+            "top_musics": user_data["top_musics"][2],
+            "top_artists": user_data["top_artists"][2],
+            "top_genres": user_data["top_genres"][2]
+        },
+        {
+            "id": 4,
+            "top_image": user_data["top_image"][3],
+            "top_musics": user_data["top_musics"][3],
+            "top_artists": user_data["top_artists"][3],
+            "top_genres": user_data["top_genres"][3]
+        },
+        {
+            "id": 5,
+            "top_image": user_data["top_image"][4],
+            "top_musics": user_data["top_musics"][4],
+            "top_artists": user_data["top_artists"][4],
+            "top_genres": user_data["top_genres"][4]
+        }
+        ]
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
