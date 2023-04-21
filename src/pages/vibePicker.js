@@ -2,6 +2,9 @@ import * as React from "react";
 import { useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css';
 import {
+  Drawer,
+  Menu,
+  MenuItem,
   TextField,
 } from "@mui/material";
 import Banner from "@/components/active/_bannerandsub";
@@ -14,11 +17,13 @@ import useVibePicker from "@/hooks/useVibePicker";
 import Spinner from "@/components/_loadingscreen";
 import Center from "@/components/active/_center";
 import { formatTracks } from "./dashboard";
+import Poster from "@/components/_poster";
 
 export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
 
   const {
     phase,
+    userTopData,
     filteredTracks,
     fetchRecommendedTracks,
     publicRatio,
@@ -34,6 +39,8 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
 
   const [userInput, setUserInput] = useState("");
   const [playlistName, setPlaylistName] = useState(userInput);
+  const [anchorPoster, setAnchorPoster] = useState(null);
+
 
 
   useEffect(() => {
@@ -71,6 +78,13 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
     if (event.key === "Enter") {
       handleReadyClick();
     }
+  };
+  const openPoster = (event) => {
+    setAnchorPoster(event.currentTarget);
+  };
+
+  const closePoster = () => {
+    setAnchorPoster(null);
   };
 
 
@@ -160,7 +174,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
                 </MainButton>
                 <div style={{height:"20px"}}></div>
                 <MainButton
-                  loc={() => handleCreatePlaylistClick()}
+                  loc={openPoster}
                   height="60px" width="100px"
                   name = 'Get Poster'
                 >
@@ -172,6 +186,13 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
         }/>
       }
       />
+      <Drawer
+          anchor="left"
+          
+          sx={{ backgroundColor: "background" }}
+        >
+          <Poster items={userTopData} pass={closePoster}/>
+        </Drawer>
     </div>
   );
 }
