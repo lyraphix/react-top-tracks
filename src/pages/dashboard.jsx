@@ -38,13 +38,12 @@ export const formatTracks = (tracks) => {
 
 const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
 
-
+  const [deleteClicked, setDeleteClicked] = useState(false)
+  const [selectedDeletePlaylists, setSelectedDeletePlaylists] = useState([])
   const [vibePickerOpen, setVibePickerOpen] = useState(false);
   const [createMusaicDrawerOpen, setCreateMusaicDrawerOpen] = useState(false);
   const [joinMusaicDrawerOpen, setJoinMusaicDrawerOpen] = useState(false);
   const [lobbyIdInput, setLobbyIdInput] = useState('');
-  const [deleteClicked, setDeleteClicked] = useState(false)
-  const [selectedDeletePlaylists, setSelectedDeletePlaylists] = useState([])
   const spotify_yt = "/signin/spotify_yt.png";
   const handleLobbyIdInputChange = (event) => {
     setLobbyIdInput(event.target.value);
@@ -139,6 +138,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   const [lobbyOpen, setLobbyOpen] = useState(false);
 
 
+
   const handleDeletePlaylistsClick = () => {
     setDeleteClicked(!deleteClicked);
   };
@@ -187,8 +187,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
     }
     
   }
-    
-
+  
   const handlePlaylistSelection = (playlist) => {
     console.log("Setting selected playlist:", playlist);
     setLoadingPlaylist(true);
@@ -230,8 +229,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
   };
   
   
-  const handleCreatePlaylistAndClose = async (playlistName, filteredTracks) => {
-    await handleCreatePlaylist(playlistName, filteredTracks);
+  const handleCreatePlaylistAndClose = async (playlistName, filteredTracks, description) => {
+    await handleCreatePlaylist(playlistName, filteredTracks, description);
     closeCreateMusaicDrawer();
   };
 
@@ -297,14 +296,7 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
             }}
           >
               <div
-                className={styles.innerbox}
-                style={{
-                  width: "80vw",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginLeft: "3%",
-                  marginBottom: "50px",
-                }}
+                className={styles.innerboxd}
               >
                 <div>
                   <div className={styles.landingdash} style={{ lineHeight:"50px" }}>
@@ -315,7 +307,8 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     style={{
                       fontSize: "15px",
                       letterSpacing: "5px",
-                      marginTop: "50px",
+                      marginTop: "20px",
+                      marginBottom: "20px",
                       lineHeight:"20px"
                     }}
                   >
@@ -326,14 +319,14 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                   {playlists.length > 0 && (
                       <MainButton coloringg="red" mtt="10px" name='Delete Playlists' loc={handleDeletePlaylistsClick}/>
                     )}
-                  {deleteClicked && (
+                   {deleteClicked && (
                       <div>
                       <MainButton mtt="10px" coloringg="gray" name='Cancel' loc={handleDeletePlaylistsClick}/>
                       <MainButton mtt="10px" coloringg="red" name ='Delete' loc={handleDeletePlaylists}/>
                       </div>
                     )}
-                  
                   </div>
+                  
                 </div>
                 <div>
                   <MainButton mrr="10px" loc={openCreateMusaicDrawer} name='Create a Musaic'/>
@@ -351,55 +344,41 @@ const Dashboard = ({ navigateToSignIn, navigateToLanding, user, setUser }) => {
                     onChange={handleSearchChange}
                   />
                 </div>}/>
-              <div className={styles.tracksContainer}>
-               {playlists && playlists.length > 0 ? (
-                  <div style={{flexDirection:"row", display:"flex", justifyContent:"center"}}>
+                <div className={styles.tracksContainer}>
+                  <div style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
+                    {/* Your Musaics section */}
                     <div className={styles.trackList}>
-                      <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa",fontSize: "15px" }}>Your Musaics:</h3>
-                      <TrackList
-                      items={formatPlaylists(playlists)}
-                      onSelection={handlePlaylistSelection}
-                      renderAdditionalButton={(item) => (
-                        <div>
-                        <Link href={item.url} target="_blank" rel="noopener noreferrer" underline="none">
-                          <Button size="small" variant="contained">Open in Spotify</Button>
-                        </Link>
-                        {deleteClicked && (
-                          <Checkbox onChange={(event, isChecked) => handlePlaylistCheck(event, isChecked, item.id)}/>
-                        )}
-                        </div>
-                      )}
-                      
-                    />
-
-                    </div>
-                    <div className={styles.trackList}>
-                      {loadingPlaylist ? (
-                        <div></div>
-                      ) : selectedPlaylist ? (
-                        <>
-                          <h3 style = {{fontWeight:"100", fontFamily:"Inter, sans-serif", letterSpacing:"1px", color:"#ced3fa", fontSize: "15px"}}>{selectedPlaylist.name}</h3>
-                          {(() => {
-                            const items = formatTracks(selectedPlaylist?.tracks || []);
-                            console.log("Rendering Selected Playlist TrackList with items:", items);
-                            return <TrackList items={items} />;
-                          })()}
-                        </>
+                      <h3 style={{ fontWeight: '100', fontFamily: 'Inter, sans-serif', letterSpacing: '1px', color: '#ced3fa', fontSize: '15px' }}>Your Musaics:</h3>
+                      {playlists && playlists.length > 0 ? (
+                        <TrackList
+                          items={formatPlaylists(playlists)}
+                          onSelection={handlePlaylistSelection}
+                          renderAdditionalButton={(item) => (
+                            <div>
+                            <Link href={item.url} target='_blank' rel='noopener noreferrer' underline='none'>
+                              <Button size='small' variant='contained' sx = {{marginLeft:"10px"}}>
+                                Open in Spotify
+                              </Button>
+                            </Link>
+                            {deleteClicked && (
+                              <Checkbox onChange={(event, isChecked) => handlePlaylistCheck(event, isChecked, item.id)}/>
+                            )}
+                            </div>
+                          )}
+                        />
                       ) : (
-                        <div style={{ width: "100%" }}>
-                          <span className={styles.friendmatch}>
-                            Please select a Musaic to view its tracks.
-                          </span>
-                        </div>
+                        <p>No Musaics available, why don't you make your first!</p>
                       )}
+                    </div>
+                    {/* Selected Playlist section */}
+                    <div className={styles.trackList}>
+                      <h3 style={{ fontWeight: '100', fontFamily: 'Inter, sans-serif', letterSpacing: '1px', color: '#ced3fa', fontSize: '15px' }}>
+                        {selectedPlaylist ? selectedPlaylist.name : 'Please select a Musaic'}
+                      </h3>
+                      {selectedPlaylist && <TrackList items={formatTracks(selectedPlaylist.tracks || [])} />}
                     </div>
                   </div>
-                ) : (
-                  <span className={styles.friendmatch}>
-                    No Musaics available, why don't you make your first!
-                  </span>
-                )}
-              </div>
+                </div>
           </div>
         </div>
         {renderDrawers()} 
