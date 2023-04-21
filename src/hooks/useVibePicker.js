@@ -9,7 +9,7 @@ const useVibePicker = () => {
   const [publicTracks, setPublicTracks] = useState([]);
   const [userTracks, setUserTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
-
+  const [userTopData, setUserTopData] = useState([]);
   
   useEffect(() => {
     if (publicTracks.length > 0 && userTracks.length > 0) {
@@ -51,6 +51,7 @@ const useVibePicker = () => {
       const userData = JSON.parse(sessionStorage.getItem('user_data'));
       const accessToken = sessionStorage.getItem('spotify_access_token');
       const { top_artists: artists } = userData;
+      const { user_id : user_id } = userData;
 
       console.log('User data:', userData);
       console.log('Spotify access token:', accessToken);
@@ -59,6 +60,7 @@ const useVibePicker = () => {
       const requestBody = {
         input: userInput,
         artist_ids: artists,
+        user_id: user_id
       };
   
       // Fetch GPT artists
@@ -85,7 +87,19 @@ const useVibePicker = () => {
   
       console.log('2. After filtering artists');
 
-  
+      const response2 = await fetch('/api/get_posters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      console.log('response2:', response2);
+
+      const data2 = await response2.json();
+      console.log('data2:', data2);
+
   
       // Function to fetch tracks in batches
       const fetchTracks = async (artists, isPublic) => {
@@ -123,11 +137,12 @@ const useVibePicker = () => {
           }
         }
         console.log("4. End of fetchTracks loop");
+
+
         console.log(isPublic)
         console.log(tracks)
         return tracks;
       };
-      
       
   
       console.log('5. Before fetching tracks');
@@ -136,9 +151,11 @@ const useVibePicker = () => {
       console.log('5.5, before fetching user tracks')
       const userFetchedTracks = await fetchTracks(filteredUserArtists, false);
       
+      
 
       setPublicTracks(publicFetchedTracks);
       setUserTracks(userFetchedTracks);
+      setUserTopData(data2);
 
     } catch (error) {
       console.error('Error fetching recommended tracks:', error.message);
@@ -151,6 +168,7 @@ const useVibePicker = () => {
 
   return {
     phase,
+    userTopData,
     filteredTracks,
     fetchRecommendedTracks,
     publicRatio,
