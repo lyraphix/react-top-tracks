@@ -79,6 +79,8 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
       handleReadyClick();
     }
   };
+
+ 
   const openPoster = (event) => {
     setAnchorPoster(event.currentTarget);
   };
@@ -177,9 +179,8 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
                   loc={openPoster}
                   height="60px" width="100px"
                   name = 'Get Poster'
-                >
-                  Get Poster
-                </MainButton>
+                />
+ 
               </>
             )}
           </div>
@@ -188,7 +189,7 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
       />
       <Drawer
           anchor="left"
-          
+          open={Boolean(anchorPoster)}
           sx={{ backgroundColor: "background" }}
         >
           <Poster items={userTopData} pass={closePoster}/>
