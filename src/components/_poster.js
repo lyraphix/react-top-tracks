@@ -4,6 +4,7 @@ import { Button, Link } from "@mui/material";
 import styles from "@/components/_poster.module.css";
 import MainBox from "@/components/active/_mainbox";
 import MainButton from "./active/_generalbutton";
+import Center from "./active/_center";
 
 const Poster = ({ items, onSelection = () => { }, renderAdditionalButton, pass }) => {
   console.log('onSelection:', onSelection);
@@ -44,7 +45,7 @@ const Poster = ({ items, onSelection = () => { }, renderAdditionalButton, pass }
       <div className={styles.text}>
         <h3
           className={styles.nametext}
-          onClick={() => window.open(item.url, "_blank")}
+          onClick={() => window.open(item.top_image, "_blank")}
         >
           {isHovering ? item.top_musics : item.top_musics.slice(0, 40)}
         </h3>
@@ -61,7 +62,7 @@ const Poster = ({ items, onSelection = () => { }, renderAdditionalButton, pass }
       <>
         <div className={styles.mainbox2}>
           <h3 className={styles.maintext}>Daily Wraps!</h3>
-          <MainButton loc={pass}/>
+          
         </div>
 
         <div className={styles.mainbox}>
@@ -69,7 +70,8 @@ const Poster = ({ items, onSelection = () => { }, renderAdditionalButton, pass }
           <div className={styles.indent}>
             <ul>
               {items.map((item) => renderItem(item))}
-            </ul>
+            </ul> 
+            <Center object={<MainButton name='Go Back' loc={pass}/>} />
           </div>
         </div>
       </>
