@@ -1,0 +1,127 @@
+.mainbox {
+    width: 80%;
+    max-width: 40%;
+    margin: 0px auto;
+    height: 40%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .mainbox2 {
+    width: 80%;
+    max-width: 40%;
+    margin: 0px auto;
+    height: 20%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+  }
+
+  .maintext {
+    font-size: 30px;
+    color: rgba(218, 198, 241, 0.943);
+    margin-top: 4%;
+    margin-bottom: 4%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .indent {
+    margin-left: 4%;
+  }
+
+  .each {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+    padding: 0;
+    margin-bottom: 2vh;
+  }
+  
+  .image {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: 2px solid rgb(16, 1, 18);
+    max-width: 100%;
+  }
+  
+  .item:hover {
+    background-color: rgba(66, 57, 92, 0.1);
+  }
+  
+  .item a:hover {
+    color: #1a688f;
+  }
+  
+  .item:last-child {
+    border-bottom: none;
+  }
+  
+  .selected {
+    background-color: rgba(66, 57, 92, 0.2);
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nametext,
+  .authortext {
+    font-family: Inter, sans-serif;
+    font-weight: 100;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    text-shadow: 0px 4px 4px rgba(211, 121, 216, 0.25);
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .nametext {
+    font-size: 12px;
+    color: rgba(218, 198, 241, 0.943);
+  }
+  
+  .authortext {
+    font-size: 1vw;
+    color: rgba(183, 146, 229, 0.943);
+  }
+  
+  .tracksContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-direction: row;
+  }
+  
+  
+  .tracks {
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin: 0px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .item {
+    padding: 0.5rem 0;
+    white-space: nowrap;
+  }
