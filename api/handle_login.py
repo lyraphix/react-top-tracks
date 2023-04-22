@@ -8,6 +8,8 @@ from http.server import BaseHTTPRequestHandler
 from json import JSONEncoder
 from bson import ObjectId
 
+from api.helpers.sp_helper import wrapped
+
 from api.helpers.mongodb_helper import MongodbHelper
 from api.helpers.spotify_helper import PlaylistMaker
 
@@ -68,6 +70,9 @@ class handler(BaseHTTPRequestHandler):
             )
 
             mdb.create_user(user_data)
+        top_artists, top_image, top_musics, top_genres = wrapped(access_token)
+        
+        mdb.update_new_db(user_id, top_artists, top_image, top_musics, top_genres)
 
         # Send a response back to the client
         self.send_response(200)
