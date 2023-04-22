@@ -20,6 +20,37 @@ class MongodbHelper:
         self.artists_db = self.db['artists']
         # lobby db
         self.lobbies_db = client['lobbies']
+        #poster
+        self.new_db = client['top_music']
+        self.new_collection = self.new_db['users']
+
+    def update_new_db(self, user_id, top_artists, top_image, top_musics, top_genres):
+        find = self.new_collection.find_one({"user_id": user_id})
+        if not find:
+            # If there are no posters for the user, insert them
+            self.new_collection.insert_one({
+                "user_id": user_id,
+                "top_artists": top_artists,
+                "top_image": top_image,
+                "top_musics": top_musics,
+                "top_genres": top_genres
+            })
+        else:
+            # If there are already posters for the user, update them 
+            self.new_collection.update_one(
+                {"user_id": user_id},
+                {"$addToSet": {
+                    "top_artists": top_artists,
+                    "top_image": top_image,
+                    "top_musics": top_musics,
+                    "top_genres": top_genres
+                }}
+            )
+
+    def get_new_db(self, user_id):
+        if self.new_collection.find_one({"user_id": user_id}) == None:
+            return user_id
+        return self.new_collection.find_one({"user_id": user_id})
 
     def send_friend_request(self, sender_id, receiver_id):
         sender = self.users_collection.find_one({"user_id": sender_id})
