@@ -175,11 +175,6 @@ export default function VibePicker({ handleCreatePlaylist, closeAllDrawers }) {
                   Create Playlist
                 </MainButton>
                 <div style={{height:"20px"}}></div>
-                <MainButton
-                  loc={openPoster}
-                  height="60px" width="100px"
-                  name = 'Get Poster'
-                />
  
               </>
             )}
